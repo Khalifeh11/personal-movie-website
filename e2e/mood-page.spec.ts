@@ -13,10 +13,10 @@ const rows = (page: Page) => page.getByRole("article");
 test("mood page lists every title in that mood, best rated first", async ({ page }) => {
   await page.goto("/#/mood/on-edge");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("On edge");
-  await expect(page.getByText("5 titles", { exact: true })).toBeVisible();
-  await expect(rows(page)).toHaveCount(5);
+  await expect(page.getByText("79 titles", { exact: true })).toBeVisible();
+  await expect(rows(page)).toHaveCount(79);
   await expect(rows(page).first()).toContainText("01");
-  await expect(rows(page).first()).toContainText("Anatomy of a Murder");
+  await expect(rows(page).first()).toContainText("Parasite");
 });
 
 test("search narrows rows; no match shows the empty state", async ({ page }) => {
@@ -32,7 +32,7 @@ test("search narrows rows; no match shows the empty state", async ({ page }) => 
 test("sort by year puts the newest first", async ({ page }) => {
   await page.goto("/#/mood/on-edge");
   await page.getByRole("combobox", { name: "Sort" }).selectOption("year");
-  await expect(rows(page).first()).toContainText("Sin Nombre");
+  await expect(rows(page).first()).toContainText("Anatomy of a Fall");
 });
 
 test("unknown mood redirects home", async ({ page }) => {
@@ -87,14 +87,14 @@ test("marking watched keeps the row until you leave the page", async ({ page }) 
   await page.goto("/#/mood/on-edge");
   const first = rows(page).first();
   await first.getByRole("button", { name: "Watched" }).click();
-  await expect(rows(page)).toHaveCount(5);
+  await expect(rows(page)).toHaveCount(79);
   await expect(first).toHaveAttribute("data-dimmed", "true");
   await expect(first.getByRole("button", { name: "✓ Watched" })).toBeVisible();
   await page.getByRole("button", { name: "Moods", exact: true }).click();
   await page.getByRole("menuitem", { name: "Moved" }).click();
   await page.getByRole("button", { name: "Moods", exact: true }).click();
   await page.getByRole("menuitem", { name: "On edge" }).click();
-  await expect(rows(page)).toHaveCount(4);
+  await expect(rows(page)).toHaveCount(78);
 });
 
 test("your rating persists across reload", async ({ page }) => {

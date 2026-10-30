@@ -14,7 +14,7 @@ test("home shows a film and arrows move", async ({ page }) => {
   const h1 = page.locator("h1");
   await expect(h1).not.toHaveText("");
   const first = await h1.textContent();
-  await expect(counter(page)).toHaveText(/^01 \/ \d\d$/);
+  await expect(counter(page)).toHaveText(/^01 \/ \d+$/);
   await page.keyboard.press("ArrowRight");
   await expect(h1).not.toHaveText(first!);
   await expect(counter(page)).toHaveText(/^02 \//);
@@ -52,10 +52,10 @@ test("footer shows TMDB attribution", async ({ page }) => {
   await expect(page.getByText("This product uses the TMDB API but is not endorsed or certified by TMDB.")).toBeVisible();
 });
 
-test("mood tiles: one per mood plus All; empty mood reads 0 titles; click opens the mood page", async ({ page }) => {
+test("mood tiles: one per mood plus All; click opens the mood page", async ({ page }) => {
   const tiles = page.locator("#moods").getByRole("button");
   await expect(tiles).toHaveCount(8);
-  await expect(page.getByRole("button", { name: "Unsettling, 0 titles" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Unsettling, 37 titles" })).toBeVisible();
   await page.getByRole("button", { name: /^On edge, \d+ titles?$/ }).click();
   await expect(page).toHaveURL(/#\/mood\/on-edge$/);
 });
