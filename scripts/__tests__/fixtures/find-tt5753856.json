@@ -1,0 +1,33 @@
+{
+  "movie_results": [],
+  "person_results": [],
+  "tv_results": [
+    {
+      "adult": false,
+      "backdrop_path": "/3jDXL4Xvj3AzDOF6UH1xeyHW8MH.jpg",
+      "id": 70523,
+      "name": "Dark",
+      "original_name": "Dark",
+      "overview": "A missing child sets four families on a frantic hunt for answers as they unearth a mind-bending mystery that spans three generations.",
+      "poster_path": "/wiiyc3m6HKaQhFBYeuM7ySCNQsG.jpg",
+      "media_type": "tv",
+      "original_language": "de",
+      "genre_ids": [
+        80,
+        18,
+        10765,
+        9648
+      ],
+      "popularity": 46.4923,
+      "first_air_date": "2017-12-01",
+      "softcore": false,
+      "vote_average": 8.428,
+      "vote_count": 7953,
+      "origin_country": [
+        "DE"
+      ]
+    }
+  ],
+  "tv_episode_results": [],
+  "tv_season_results": []
+}

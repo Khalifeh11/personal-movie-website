@@ -1,0 +1,30 @@
+{
+  "movie_results": [
+    {
+      "adult": false,
+      "backdrop_path": "/r8fEOeDjlbtvaxYZ3QDh21gzpKh.jpg",
+      "id": 1093,
+      "title": "Elevator to the Gallows",
+      "original_title": "Ascenseur pour l'échafaud",
+      "overview": "A self-assured businessman murders his employer, husband of his mistress, which unintentionally provokes an ill-fated chain of events.",
+      "poster_path": "/jgeZS97po2luaeElfUh07VAbVfV.jpg",
+      "media_type": "movie",
+      "original_language": "fr",
+      "genre_ids": [
+        80,
+        18,
+        53
+      ],
+      "popularity": 4.6977,
+      "release_date": "1958-01-29",
+      "softcore": false,
+      "video": false,
+      "vote_average": 7.61,
+      "vote_count": 742
+    }
+  ],
+  "person_results": [],
+  "tv_results": [],
+  "tv_episode_results": [],
+  "tv_season_results": []
+}

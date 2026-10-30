@@ -1,0 +1,699 @@
+[
+  {
+    "id": "tt0243017",
+    "title": "Waking Life",
+    "originalTitle": "Waking Life",
+    "year": 2001,
+    "type": "Movie",
+    "runtime": 99,
+    "imdbRating": 7.6,
+    "imdbVotes": 70037,
+    "genres": [
+      "Animation",
+      "Drama",
+      "Fantasy"
+    ],
+    "directors": [
+      "Richard Linklater"
+    ],
+    "category": "Existential & philosophical",
+    "mood": "Dreamlike, thought-provoking",
+    "moodBucket": "mind-bending",
+    "themes": [
+      "Consciousness",
+      "meaning"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0243017/",
+    "overview": "Waking Life is about a young man in a persistent lucid dream-like state. The film follows its protagonist as he initially observes and later participates in philosophical discussions that weave together issues like reality, free will, our relationships with others, and the meaning of life.",
+    "backdrop": "/img/backdrop/tt0243017.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0243017.jpg",
+    "poster": "/img/poster/tt0243017.jpg",
+    "trailerKey": "edrGozs6W_I",
+    "tmdbRating": 7.5,
+    "tmdbVotes": 992,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0050825",
+    "title": "Paths of Glory",
+    "originalTitle": "Paths of Glory",
+    "year": 1957,
+    "type": "Movie",
+    "runtime": 88,
+    "imdbRating": 8.4,
+    "imdbVotes": 243338,
+    "genres": [
+      "Drama",
+      "War"
+    ],
+    "directors": [
+      "Stanley Kubrick"
+    ],
+    "category": "History, war & politics",
+    "mood": "Serious, dramatic",
+    "moodBucket": "moved",
+    "themes": [
+      "History",
+      "power"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0050825/",
+    "overview": "A commanding officer defends three scapegoats on trial for a failed offensive that occurred within the French Army in 1916.",
+    "backdrop": "/img/backdrop/tt0050825.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0050825.jpg",
+    "poster": "/img/poster/tt0050825.jpg",
+    "trailerKey": "FESvZ0HG2p4",
+    "tmdbRating": 8.253,
+    "tmdbVotes": 3423,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0051378",
+    "title": "Elevator to the Gallows",
+    "originalTitle": "Ascenseur pour l'échafaud",
+    "year": 1958,
+    "type": "Movie",
+    "runtime": 91,
+    "imdbRating": 7.9,
+    "imdbVotes": 32365,
+    "genres": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
+    "directors": [
+      "Louis Malle"
+    ],
+    "category": "Crime, morality & society",
+    "mood": "Tense, gritty",
+    "moodBucket": "on-edge",
+    "themes": [
+      "Justice",
+      "morality"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0051378/",
+    "overview": "A self-assured businessman murders his employer, husband of his mistress, which unintentionally provokes an ill-fated chain of events.",
+    "backdrop": "/img/backdrop/tt0051378.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0051378.jpg",
+    "poster": "/img/poster/tt0051378.jpg",
+    "trailerKey": "LciQ1A5PvLI",
+    "tmdbRating": 7.61,
+    "tmdbVotes": 742,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0052561",
+    "title": "Anatomy of a Murder",
+    "originalTitle": "Anatomy of a Murder",
+    "year": 1959,
+    "type": "Movie",
+    "runtime": 161,
+    "imdbRating": 8,
+    "imdbVotes": 79069,
+    "genres": [
+      "Drama",
+      "Mystery"
+    ],
+    "directors": [
+      "Otto Preminger"
+    ],
+    "category": "Mind-bending mysteries",
+    "mood": "Suspenseful, investigative",
+    "moodBucket": "on-edge",
+    "themes": [
+      "Secrets",
+      "uncertainty"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0052561/",
+    "overview": "Semi-retired Michigan lawyer Paul Biegler takes the case of Army Lt. Manion, who murdered a local innkeeper after his wife claimed that he raped her. Over the course of an extensive trial, Biegler parries with District Attorney Lodwick and out-of-town prosecutor Claude Dancer to set his client free, but his case rests on the victim's mysterious business partner, who's hiding a dark secret.",
+    "backdrop": "/img/backdrop/tt0052561.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0052561.jpg",
+    "poster": "/img/poster/tt0052561.jpg",
+    "trailerKey": "LwX8NiXv9Hw",
+    "tmdbRating": 7.836,
+    "tmdbVotes": 1239,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0399146",
+    "title": "A History of Violence",
+    "originalTitle": "A History of Violence",
+    "year": 2005,
+    "type": "Movie",
+    "runtime": 96,
+    "imdbRating": 7.4,
+    "imdbVotes": 277964,
+    "genres": [
+      "Action",
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
+    "directors": [
+      "David Cronenberg"
+    ],
+    "category": "Crime, morality & society",
+    "mood": "Tense, gritty",
+    "moodBucket": "on-edge",
+    "themes": [
+      "Justice",
+      "morality"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0399146/",
+    "overview": "An average family is thrust into the spotlight after the father commits a seemingly self-defense murder at his diner.",
+    "backdrop": "/img/backdrop/tt0399146.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0399146.jpg",
+    "poster": "/img/poster/tt0399146.jpg",
+    "trailerKey": "jsEcDGKh56U",
+    "tmdbRating": 7.163,
+    "tmdbVotes": 3943,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0088680",
+    "title": "After Hours",
+    "originalTitle": "After Hours",
+    "year": 1985,
+    "type": "Movie",
+    "runtime": 97,
+    "imdbRating": 7.6,
+    "imdbVotes": 101367,
+    "genres": [
+      "Comedy",
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
+    "directors": [
+      "Martin Scorsese"
+    ],
+    "category": "Dark comedy & satire",
+    "mood": "Anxious, absurd",
+    "moodBucket": "wry-funny",
+    "themes": [
+      "Alienation",
+      "chance"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0088680/",
+    "overview": "Desperate to escape his mind-numbing routine, uptown Manhattan office worker Paul Hackett ventures downtown for a hookup with a mystery woman.",
+    "backdrop": "/img/backdrop/tt0088680.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0088680.jpg",
+    "poster": "/img/poster/tt0088680.jpg",
+    "trailerKey": "wixOBXjZvtw",
+    "tmdbRating": 7.491,
+    "tmdbVotes": 1867,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0048347",
+    "title": "The Man with the Golden Arm",
+    "originalTitle": "The Man with the Golden Arm",
+    "year": 1955,
+    "type": "Movie",
+    "runtime": 119,
+    "imdbRating": 7.3,
+    "imdbVotes": 13605,
+    "genres": [
+      "Crime",
+      "Drama",
+      "Romance"
+    ],
+    "directors": [
+      "Otto Preminger"
+    ],
+    "category": "Crime, morality & society",
+    "mood": "Tense, gritty",
+    "moodBucket": "on-edge",
+    "themes": [
+      "Justice",
+      "morality"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0048347/",
+    "overview": "When illegal card dealer and recovering heroin addict Frankie Machine gets out of prison, he decides to straighten up. Armed with nothing but an old drum set, Frankie tries to get honest work as a drummer. But when his former employer and his old drug dealer re-enter his life, Frankie finds it hard to stay clean and eventually finds himself succumbing to his old habits.",
+    "backdrop": "/img/backdrop/tt0048347.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0048347.jpg",
+    "poster": "/img/poster/tt0048347.jpg",
+    "trailerKey": "vUUbNdnwgaE",
+    "tmdbRating": 7.1,
+    "tmdbVotes": 266,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0320512",
+    "title": "The Smashing Machine",
+    "originalTitle": "The Smashing Machine",
+    "year": 2002,
+    "type": "Movie",
+    "runtime": 93,
+    "imdbRating": 7.6,
+    "imdbVotes": 2670,
+    "genres": [
+      "Documentary",
+      "Sport"
+    ],
+    "directors": [
+      "John Hyams"
+    ],
+    "category": "Documentary & real life",
+    "mood": "Informative, observational",
+    "moodBucket": "real-life",
+    "themes": [
+      "Reality",
+      "society"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0320512/",
+    "overview": "An unflinching look at the life and story of Mark Kerr between 1999 and 2001, an intelligent, articulate, and emotionally vulnerable athlete, considered by many at the time to be the most dominant ultimate fighter in the world. A former Olympic wrestler, Kerr easily dominated all his opponents, earning him the nickname \"The Smashing Machine.\" With the promise of big money and the euphoria of his early victories, Kerr must battle his injuries and inner fears. The shock of these fights takes a heavy toll on his body and mind, and Kerr attempts to overcome these physical and psychological traumas by turning to painkillers. Kerr's addiction is shown in its raw form, with the camera capturing him desperately soliciting drugs from friends and staff, and injecting painkillers into his veins. His shocking defeat to Fujita in Japan shows us a story that is sometimes difficult and heartbreaking to watch.",
+    "backdrop": "/img/backdrop/tt0320512.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0320512.jpg",
+    "poster": "/img/poster/tt0320512.jpg",
+    "trailerKey": "-7DO5c7gWNw",
+    "tmdbRating": 7.1,
+    "tmdbVotes": 27,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt1127715",
+    "title": "Sin Nombre",
+    "originalTitle": "Sin nombre",
+    "year": 2009,
+    "type": "Movie",
+    "runtime": 96,
+    "imdbRating": 7.5,
+    "imdbVotes": 35219,
+    "genres": [
+      "Adventure",
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
+    "directors": [
+      "Cary Joji Fukunaga"
+    ],
+    "category": "Crime, morality & society",
+    "mood": "Tense, gritty",
+    "moodBucket": "on-edge",
+    "themes": [
+      "Justice",
+      "morality"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt1127715/",
+    "overview": "Sayra, an Indigenous Latina American teenage girl from Honduras, Central America, hungers for a better life. Her chance for one comes when she is reunited with her long-estranged father, who intends to emigrate to Mexico and then enter the United States. Sayra's life collides with a pair of Indigenous Latino American gang members from Mexico, North America who have boarded the same USA-bound train.",
+    "backdrop": "/img/backdrop/tt1127715.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt1127715.jpg",
+    "poster": "/img/poster/tt1127715.jpg",
+    "trailerKey": "HFlTivEUlTw",
+    "tmdbRating": 7.628,
+    "tmdbVotes": 815,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt1856101",
+    "title": "Blade Runner 2049",
+    "originalTitle": "Blade Runner 2049",
+    "year": 2017,
+    "type": "Movie",
+    "runtime": 164,
+    "imdbRating": 8,
+    "imdbVotes": 772036,
+    "genres": [
+      "Action",
+      "Drama",
+      "Mystery",
+      "Sci-Fi",
+      "Thriller"
+    ],
+    "directors": [
+      "Denis Villeneuve"
+    ],
+    "category": "Science fiction & speculative",
+    "mood": "Cerebral, speculative",
+    "moodBucket": "mind-bending",
+    "themes": [
+      "Technology",
+      "reality"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt1856101/",
+    "overview": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
+    "backdrop": "/img/backdrop/tt1856101.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt1856101.jpg",
+    "poster": "/img/poster/tt1856101.jpg",
+    "trailerKey": "geFtxCSz8xI",
+    "tmdbRating": 7.611,
+    "tmdbVotes": 15929,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt6207098",
+    "title": "Pink Floyd: Shine on You Crazy Diamond",
+    "originalTitle": "Pink Floyd: Shine on You Crazy Diamond",
+    "year": 1975,
+    "type": "Movie",
+    "runtime": 8,
+    "imdbRating": 8.4,
+    "imdbVotes": 135,
+    "genres": [
+      "Animation",
+      "Music"
+    ],
+    "directors": [
+      "Gerald Scarfe"
+    ],
+    "category": "Animation & imaginative worlds",
+    "mood": "Imaginative, immersive",
+    "moodBucket": "transported",
+    "themes": [
+      "Fantasy",
+      "identity"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt6207098/",
+    "overview": "",
+    "backdrop": null,
+    "backdropSmall": null,
+    "poster": null,
+    "trailerKey": null,
+    "tmdbRating": null,
+    "tmdbVotes": null,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0064665",
+    "title": "Midnight Cowboy",
+    "originalTitle": "Midnight Cowboy",
+    "year": 1969,
+    "type": "Movie",
+    "runtime": 113,
+    "imdbRating": 7.8,
+    "imdbVotes": 133124,
+    "genres": [
+      "Drama"
+    ],
+    "directors": [
+      "John Schlesinger"
+    ],
+    "category": "Human drama & character studies",
+    "mood": "Reflective, serious",
+    "moodBucket": "moved",
+    "themes": [
+      "Human nature",
+      "identity"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0064665/",
+    "overview": "Joe Buck is a wide-eyed hustler from Texas hoping to score big with wealthy New York City women; he finds a companion in Enrico \"Ratso\" Rizzo, an ailing swindler with a bum leg and a quixotic fantasy of escaping to Florida.",
+    "backdrop": "/img/backdrop/tt0064665.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0064665.jpg",
+    "poster": "/img/poster/tt0064665.jpg",
+    "trailerKey": "o29GST0Lj28",
+    "tmdbRating": 7.527,
+    "tmdbVotes": 1708,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0443272",
+    "title": "Lincoln",
+    "originalTitle": "Lincoln",
+    "year": 2012,
+    "type": "Movie",
+    "runtime": 150,
+    "imdbRating": 7.3,
+    "imdbVotes": 287592,
+    "genres": [
+      "Biography",
+      "Drama",
+      "History",
+      "War"
+    ],
+    "directors": [
+      "Steven Spielberg"
+    ],
+    "category": "History, war & politics",
+    "mood": "Serious, dramatic",
+    "moodBucket": "moved",
+    "themes": [
+      "History",
+      "power"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0443272/",
+    "overview": "The revealing story of the 16th US President's tumultuous final months in office. In a nation divided by war and the strong winds of change, Lincoln pursues a course of action designed to end the war, unite the country and abolish slavery. With the moral courage and fierce determination to succeed, his choices during this critical moment will change the fate of generations to come.",
+    "backdrop": "/img/backdrop/tt0443272.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0443272.jpg",
+    "poster": "/img/poster/tt0443272.jpg",
+    "trailerKey": "nvP-ZrzA2lk",
+    "tmdbRating": 6.838,
+    "tmdbVotes": 4192,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0107818",
+    "title": "Philadelphia",
+    "originalTitle": "Philadelphia",
+    "year": 1993,
+    "type": "Movie",
+    "runtime": 125,
+    "imdbRating": 7.7,
+    "imdbVotes": 277446,
+    "genres": [
+      "Drama"
+    ],
+    "directors": [
+      "Jonathan Demme"
+    ],
+    "category": "Human drama & character studies",
+    "mood": "Reflective, serious",
+    "moodBucket": "moved",
+    "themes": [
+      "Human nature",
+      "identity"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0107818/",
+    "overview": "Two competing lawyers join forces to sue a prestigious law firm for AIDS discrimination. As their unlikely friendship develops, their courage overcomes the prejudice and corruption of their powerful adversaries.",
+    "backdrop": "/img/backdrop/tt0107818.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0107818.jpg",
+    "poster": "/img/poster/tt0107818.jpg",
+    "trailerKey": "qf49UApA88s",
+    "tmdbRating": 7.702,
+    "tmdbVotes": 4805,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0088939",
+    "title": "The Color Purple",
+    "originalTitle": "The Color Purple",
+    "year": 1985,
+    "type": "Movie",
+    "runtime": 154,
+    "imdbRating": 7.7,
+    "imdbVotes": 105608,
+    "genres": [
+      "Drama"
+    ],
+    "directors": [
+      "Steven Spielberg"
+    ],
+    "category": "Human drama & character studies",
+    "mood": "Reflective, serious",
+    "moodBucket": "moved",
+    "themes": [
+      "Human nature",
+      "identity"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0088939/",
+    "overview": "An epic tale spanning forty years in the life of Celie, an African-American woman living in the South who survives incredible abuse and bigotry. After Celie's abusive father marries her off to the equally debasing 'Mister' Albert Johnson, things go from bad to worse, leaving Celie to find companionship anywhere she can. She perseveres, holding on to her dream of one day being reunited with her sister in Africa.",
+    "backdrop": "/img/backdrop/tt0088939.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0088939.jpg",
+    "poster": "/img/poster/tt0088939.jpg",
+    "trailerKey": "_h-efLS7VV4",
+    "tmdbRating": 7.7,
+    "tmdbVotes": 2054,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0071115",
+    "title": "Alice Doesn't Live Here Anymore",
+    "originalTitle": "Alice Doesn't Live Here Anymore",
+    "year": 1974,
+    "type": "Movie",
+    "runtime": 112,
+    "imdbRating": 7.3,
+    "imdbVotes": 30787,
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "directors": [
+      "Martin Scorsese"
+    ],
+    "category": "Relationships & introspection",
+    "mood": "Emotional, reflective",
+    "moodBucket": "moved",
+    "themes": [
+      "Love",
+      "connection"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0071115/",
+    "overview": "After her husband dies, Alice and her son, Tommy, leave their small New Mexico town for California, where Alice hopes to make a new life for herself as a singer. Money problems force them to settle in Arizona instead, where Alice takes a job as waitress in a small diner.",
+    "backdrop": "/img/backdrop/tt0071115.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0071115.jpg",
+    "poster": "/img/poster/tt0071115.jpg",
+    "trailerKey": "H8jV98slav8",
+    "tmdbRating": 7,
+    "tmdbVotes": 560,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0146882",
+    "title": "High Fidelity",
+    "originalTitle": "High Fidelity",
+    "year": 2000,
+    "type": "Movie",
+    "runtime": 113,
+    "imdbRating": 7.4,
+    "imdbVotes": 201553,
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Music",
+      "Romance"
+    ],
+    "directors": [
+      "Stephen Frears"
+    ],
+    "category": "Dark comedy & satire",
+    "mood": "Wry, character-driven",
+    "moodBucket": "wry-funny",
+    "themes": [
+      "Society",
+      "relationships"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0146882/",
+    "overview": "After his long-time girlfriend dumps him, a thirty-year-old record store owner seeks to understand why he is unlucky in love while recounting his \"top five breakups of all time\".",
+    "backdrop": "/img/backdrop/tt0146882.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0146882.jpg",
+    "poster": "/img/poster/tt0146882.jpg",
+    "trailerKey": "6P4dXJ_Tvns",
+    "tmdbRating": 7.134,
+    "tmdbVotes": 2289,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0098258",
+    "title": "Say Anything",
+    "originalTitle": "Say Anything...",
+    "year": 1989,
+    "type": "Movie",
+    "runtime": 100,
+    "imdbRating": 7.3,
+    "imdbVotes": 104591,
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
+    "directors": [
+      "Cameron Crowe"
+    ],
+    "category": "Dark comedy & satire",
+    "mood": "Wry, character-driven",
+    "moodBucket": "wry-funny",
+    "themes": [
+      "Society",
+      "relationships"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0098258/",
+    "overview": "Average student and eternal optimist Lloyd Dobler seeks to capture the heart of Diane Court, a beautiful but unattainable valedictorian classmate. He surprises just about everyone - including himself - when she returns the sentiment. However, Diane's divorced, over-protective father soon begins to disapprove of the match, and Lloyd realises that it's going to take more than just the power of love to conquer all.",
+    "backdrop": "/img/backdrop/tt0098258.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0098258.jpg",
+    "poster": "/img/poster/tt0098258.jpg",
+    "trailerKey": "Se_eSeEAoX0",
+    "tmdbRating": 7.006,
+    "tmdbVotes": 1199,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0118842",
+    "title": "Chasing Amy",
+    "originalTitle": "Chasing Amy",
+    "year": 1997,
+    "type": "Movie",
+    "runtime": 113,
+    "imdbRating": 7.2,
+    "imdbVotes": 149311,
+    "genres": [
+      "Comedy",
+      "Drama",
+      "Romance"
+    ],
+    "directors": [
+      "Kevin Smith"
+    ],
+    "category": "Dark comedy & satire",
+    "mood": "Wry, character-driven",
+    "moodBucket": "wry-funny",
+    "themes": [
+      "Society",
+      "relationships"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0118842/",
+    "overview": "Holden and Banky are comic book artists. Everything is going good for them until they meet Alyssa, also a comic book artist. Holden falls for her, but his hopes are crushed when he finds out she's a lesbian.",
+    "backdrop": "/img/backdrop/tt0118842.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0118842.jpg",
+    "poster": "/img/poster/tt0118842.jpg",
+    "trailerKey": "2PwIAmcrr3E",
+    "tmdbRating": 6.747,
+    "tmdbVotes": 1622,
+    "rtScore": null,
+    "metacritic": null
+  },
+  {
+    "id": "tt0423731",
+    "title": "Samurai Champloo",
+    "originalTitle": "Samurai Chanpurû",
+    "year": 2004,
+    "type": "Series",
+    "runtime": 24,
+    "imdbRating": 8.5,
+    "imdbVotes": 65281,
+    "genres": [
+      "Animation",
+      "Action",
+      "Adventure",
+      "Comedy",
+      "Drama",
+      "Thriller"
+    ],
+    "directors": [],
+    "category": "Animation & imaginative worlds",
+    "mood": "Imaginative, immersive",
+    "moodBucket": "transported",
+    "themes": [
+      "Fantasy",
+      "identity"
+    ],
+    "imdbUrl": "https://www.imdb.com/title/tt0423731/",
+    "overview": "Break-dancing but fierce warrior Mugen has to deal with the cold-blooded and conceited Jin, a samurai who believes he is above all. These sworn enemies are brought together by Fuu for a special task.",
+    "backdrop": "/img/backdrop/tt0423731.jpg",
+    "backdropSmall": "/img/backdrop-sm/tt0423731.jpg",
+    "poster": "/img/poster/tt0423731.jpg",
+    "trailerKey": "hficV9yr2mA",
+    "tmdbRating": 8.311,
+    "tmdbVotes": 831,
+    "rtScore": null,
+    "metacritic": null
+  }
+]

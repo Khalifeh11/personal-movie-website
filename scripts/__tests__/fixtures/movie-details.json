@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "overview": "A self-assured businessman murders his employer, the husband of his mistress, which unintentionally provokes an ill-fated chain of events.",
+  "backdrop_path": "/elevatorBackdrop.jpg",
+  "poster_path": "/elevatorPoster.jpg",
+  "vote_average": 7.6,
+  "vote_count": 820,
+  "videos": { "results": [
+    { "site": "YouTube", "type": "Teaser", "official": true, "key": "teaserKey" },
+    { "site": "YouTube", "type": "Trailer", "official": false, "key": "fanTrailerKey" },
+    { "site": "Vimeo", "type": "Trailer", "official": true, "key": "vimeoKey" },
+    { "site": "YouTube", "type": "Trailer", "official": true, "key": "officialTrailerKey" }
+  ] }
+}
