@@ -2,6 +2,7 @@ import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
+import { HomeShelves } from "./components/HomeShelves";
 import { BrowsePage } from "./components/BrowsePage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
@@ -76,6 +77,7 @@ function Site() {
             <Label as="div" muted className="mb-6 tracking-wide">How do you want to feel?</Label>
             <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
           </section>
+          <HomeShelves deck={state.deck} current={current} onNavigate={navigate} onTrailer={setTrailerFor} />
           <Footer />
         </>
       )}

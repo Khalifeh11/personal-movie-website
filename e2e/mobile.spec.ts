@@ -104,3 +104,10 @@ test("title card is a scrollable bottom sheet", async ({ page }) => {
   expect(box.width).toBe(390);
   expect(await sheet.evaluate((el) => getComputedStyle(el).overflowY)).toBe("auto");
 });
+
+test("shelves scroll sideways without widening the page", async ({ page }) => {
+  const rail = page.getByRole("region", { name: "Under 90 minutes" }).getByTestId("rail");
+  await rail.scrollIntoViewIfNeeded();
+  expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+  expect(await noHorizontalScroll(page)).toBe(true);
+});
