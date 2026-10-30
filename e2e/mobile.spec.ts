@@ -139,3 +139,20 @@ test("shelves scroll sideways without widening the page", async ({ page }) => {
   expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
   expect(await noHorizontalScroll(page)).toBe(true);
 });
+
+test("dragging across the decade chart picks a decade without scrolling the page", async ({ page }) => {
+  await page.goto("/#/decades/2010");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("2010s");
+  const chart = page.getByTestId("decade-chart");
+  const box = (await chart.boundingBox())!;
+  const y = box.y + box.height / 2;
+  const scrollBefore = await page.evaluate(() => scrollY);
+  await page.mouse.move(box.x + box.width * 0.1, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.5, y, { steps: 8 });
+  // 1930..2026 is 97 years, so 90% still points at the 2010s; the 2020s start at ~93%.
+  await page.mouse.move(box.x + box.width * 0.96, y, { steps: 8 });
+  await page.mouse.up();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("2020s");
+  expect(await page.evaluate(() => scrollY)).toBe(scrollBefore);
+});
