@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
+import { MoodPage } from "./components/MoodPage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
 import { Label } from "./components/ui/Label";
@@ -45,6 +46,16 @@ function Site() {
           </section>
           <Footer />
         </>
+      )}
+      {route.name === "mood" && (
+        <MoodPage
+          key={route.mood}
+          mood={route.mood}
+          titles={titles}
+          filters={state.filters}
+          onFilters={setFilters}
+          onTrailer={() => {}}
+        />
       )}
       <FiltersDrawer
         open={filtersOpen}
