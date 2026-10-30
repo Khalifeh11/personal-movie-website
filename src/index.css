@@ -39,6 +39,11 @@
   }
 }
 
+/* Tailwind v4 preflight resets buttons to cursor: default */
+@layer base {
+  button:not(:disabled), select, [role="button"] { cursor: pointer; }
+}
+
 /* One-offs the theme can't express */
 html, body { background: var(--color-bg); color: var(--color-fg); }
 
