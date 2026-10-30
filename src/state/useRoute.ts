@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { parseRoute, serializeRoute, type Route } from "../lib/route";
 import type { Filters } from "../lib/types";
+import { freshNavigate, loadView, routeKey } from "./viewState";
 
 /** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL (read from it only on load). */
 export function useRoute(filters: Filters, directors: readonly string[]): { route: Route; navigate: (r: Route) => void } {
@@ -11,6 +12,8 @@ export function useRoute(filters: Filters, directors: readonly string[]): { rout
   }, [filters]);
 
   useEffect(() => {
+    // Pages restore their own scroll on Back/Forward; the browser's restoration would fight that.
+    history.scrollRestoration = "manual";
     const onHash = () => {
       const parsed = parseRoute(location.hash, directors);
       // Filters are global: Back/forward only change the page, so re-mirror the current filters
@@ -19,7 +22,6 @@ export function useRoute(filters: Filters, directors: readonly string[]): { rout
       const url = serializeRoute(parsed.route, latestFilters.current);
       if (location.hash !== url) history.replaceState(null, "", url);
       setRoute(parsed.route);
-      scrollTo(0, 0);
     };
     addEventListener("hashchange", onHash);
     return () => removeEventListener("hashchange", onHash);
@@ -30,13 +32,12 @@ export function useRoute(filters: Filters, directors: readonly string[]): { rout
     if (location.hash !== url) history.replaceState(null, "", url);
   }, [route, filters]);
 
-  const navigate = useCallback(
-    (r: Route) => {
-      location.hash = serializeRoute(r, filters);
-      scrollTo(0, 0); // also covers re-selecting the current route, which fires no hashchange
-    },
-    [filters],
-  );
+  // Interim: a page with no saved view starts at the top. Pages take this over once they restore themselves.
+  useLayoutEffect(() => {
+    if (!loadView(routeKey(route))) scrollTo(0, 0);
+  }, [route]);
+
+  const navigate = useCallback((r: Route) => freshNavigate(serializeRoute(r, filters)), [filters]);
 
   return { route, navigate };
 }
