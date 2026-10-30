@@ -4,7 +4,7 @@ import type { Filters } from "../lib/types";
 import { freshNavigate, routeKey } from "./viewState";
 
 /** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL (read from it only on load). */
-export function useRoute(filters: Filters, directors: readonly string[]): { route: Route; navigate: (r: Route) => void } {
+export function useRoute(filters: Filters, directors: readonly string[]): { route: Route; navigate: (r: Route, opts?: { replace?: boolean }) => void } {
   const [route, setRoute] = useState<Route>(() => parseRoute(location.hash, directors).route);
   const latestFilters = useRef(filters);
   useEffect(() => {
@@ -35,7 +35,7 @@ export function useRoute(filters: Filters, directors: readonly string[]): { rout
     if (location.hash !== url) history.replaceState(null, "", url);
   }, [route, filters, directors]);
 
-  const navigate = useCallback((r: Route) => freshNavigate(serializeRoute(r, filters)), [filters]);
+  const navigate = useCallback((r: Route, opts?: { replace?: boolean }) => freshNavigate(serializeRoute(r, filters), opts?.replace), [filters]);
 
   return { route, navigate };
 }

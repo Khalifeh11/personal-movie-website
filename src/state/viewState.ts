@@ -40,9 +40,13 @@ export function clearView(key: string): void {
   views.delete(key);
 }
 
-/** Navigate as a fresh visit: the target starts at defaults. Same hash → just scroll to the top. */
-export function freshNavigate(hash: string): void {
+/** Navigate as a fresh visit: the target starts at defaults. Same hash → just scroll to the top.
+ *  `replace` swaps the current history entry (Back skips it); replaceState fires no hashchange, so dispatch one. */
+export function freshNavigate(hash: string, replace = false): void {
   clearView(keyOf(hash));
   if (location.hash === hash) scrollTo(0, 0);
-  else location.hash = hash;
+  else if (replace) {
+    history.replaceState(null, "", hash);
+    dispatchEvent(new HashChangeEvent("hashchange"));
+  } else location.hash = hash;
 }
