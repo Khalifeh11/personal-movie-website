@@ -9,29 +9,45 @@ interface OverlayProps {
 
 /** Open overlays, bottom to top: only the topmost one answers Esc (e.g. trailer above the title card). */
 const stack: symbol[] = [];
+let bodyOverflow = "";
+
+/** Page scroll is locked while any overlay is open and restored when the last one closes, whatever the order. */
+function push(id: symbol) {
+  if (stack.length === 0) {
+    bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+  }
+  stack.push(id);
+}
+function pop(id: symbol) {
+  stack.splice(stack.indexOf(id), 1);
+  if (stack.length === 0) document.body.style.overflow = bodyOverflow;
+}
 
 /** Full-screen modal: ✕, Esc or a click on the backdrop closes; focus returns to the opener; page scroll locked. */
 export function Overlay({ open, onClose, label, children }: OverlayProps) {
   const panel = useRef<HTMLDivElement>(null);
   const id = useRef(Symbol("overlay"));
+  // Callers pass inline closures; the effect must not re-run (and re-focus) on every parent render.
+  const close = useRef(onClose);
+  useEffect(() => {
+    close.current = onClose;
+  });
 
   useEffect(() => {
     if (!open) return;
     const me = id.current;
-    stack.push(me);
+    push(me);
     const opener = document.activeElement as HTMLElement | null;
     panel.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && stack.at(-1) === me && onClose();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && stack.at(-1) === me && close.current();
     addEventListener("keydown", onKey);
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     return () => {
-      stack.splice(stack.indexOf(me), 1);
+      pop(me);
       removeEventListener("keydown", onKey);
-      document.body.style.overflow = overflow;
       opener?.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
   return (

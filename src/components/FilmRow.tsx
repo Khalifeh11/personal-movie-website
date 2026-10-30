@@ -52,19 +52,19 @@ export function Facts({ title: t, className = "", onNavigate }: FactsProps) {
 }
 
 export function FilmRow({ n, title: t, dimmed, actions, onOpen }: FilmRowProps) {
-  const open = `Open ${t.title}`;
   return (
     <article
       data-dimmed={dimmed}
       className={`flex gap-4 border-b border-white/10 py-7 transition-opacity md:gap-6 md:py-8 ${dimmed ? "opacity-45" : ""}`}
     >
       <span className="w-8 flex-none font-display text-2xl leading-none text-fg-3 md:w-12 md:text-4xl">{pad(n)}</span>
-      <button type="button" aria-label={open} onClick={() => onOpen(t)} className={`${poster} overflow-hidden text-left`}>
+      {/* Decorative duplicate of the title button for the mouse: one tab stop per row. */}
+      <button type="button" tabIndex={-1} aria-hidden onClick={() => onOpen(t)} className={`${poster} overflow-hidden text-left`}>
         {t.poster && <FadeImg src={t.poster} alt="" loading="lazy" className="h-full w-full object-cover transition-opacity duration-300" />}
       </button>
       <div className="flex min-w-0 flex-col gap-2">
         <h2 className="font-display text-2xl uppercase leading-none md:text-[32px]">
-          <button type="button" aria-label={open} onClick={() => onOpen(t)} className="text-left transition-colors hover:text-fg-2">
+          <button type="button" onClick={() => onOpen(t)} className="text-left transition-colors hover:text-fg-2">
             {t.title}
           </button>
         </h2>

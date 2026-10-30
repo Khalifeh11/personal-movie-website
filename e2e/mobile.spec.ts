@@ -96,7 +96,7 @@ test("grid is two-up with no horizontal scroll", async ({ page }) => {
 
 test("title card is a scrollable bottom sheet", async ({ page }) => {
   await page.goto("/#/mood/tense");
-  await page.getByRole("article").first().getByRole("button", { name: /^Open / }).first().tap();
+  await page.getByRole("article").first().getByRole("heading", { level: 2 }).getByRole("button").tap();
   const sheet = page.getByRole("dialog").getByTestId("card");
   const box = (await sheet.boundingBox())!;
   const vh = await page.evaluate(() => innerHeight);

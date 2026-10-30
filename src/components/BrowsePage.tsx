@@ -43,7 +43,9 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
   // The title card: opened from a poster/title click or a grid cell; a route change unmounts the page and so closes it.
   const [cardFor, setCardFor] = useState<Title | null>(null);
   const latest = useRef({ sort, dir, query });
-  latest.current = { sort, dir, query };
+  useLayoutEffect(() => {
+    latest.current = { sort, dir, query };
+  });
   useLayoutEffect(() => {
     scrollTo(0, loadView(viewKey)?.scrollY ?? 0);
     // Cleanup runs before the next page's layout effect, so scrollY is still this page's.

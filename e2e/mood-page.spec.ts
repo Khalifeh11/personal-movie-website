@@ -290,7 +290,7 @@ test("grid cell without a poster renders a placeholder box", async ({ page }) =>
 
 test("poster click opens the title card; Esc closes it", async ({ page }) => {
   await page.goto("/#/mood/tense");
-  await rows(page).first().getByRole("button", { name: "Open Chernobyl" }).first().click();
+  await rows(page).first().getByRole("button", { name: "Chernobyl", exact: true }).click();
   const card = page.getByRole("dialog", { name: "Chernobyl" });
   await expect(card).toBeVisible();
   await expect(card.getByRole("heading", { level: 2 })).toHaveText("Chernobyl");
@@ -315,8 +315,48 @@ test("card from the grid; trailer stacks above it and Esc closes only the traile
 
 test("director link in the card navigates and closes the card", async ({ page }) => {
   await page.goto("/#/mood/tense");
-  await rows(page).filter({ hasText: "Parasite" }).getByRole("button", { name: "Open Parasite" }).first().click();
+  await rows(page).filter({ hasText: "Parasite" }).getByRole("button", { name: "Parasite", exact: true }).click();
   await page.getByRole("dialog", { name: "Parasite" }).getByRole("link", { name: "Bong Joon Ho" }).click();
   await expect(page).toHaveURL(/#\/director\/bong-joon-ho$/);
   await expect(page.getByRole("dialog")).toHaveCount(0);
+});
+
+test("closing the trailer and then the card unlocks page scroll", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await rows(page).first().getByRole("button", { name: "Chernobyl", exact: true }).click();
+  await page.getByRole("dialog", { name: "Chernobyl" }).getByRole("button", { name: "▶ Trailer" }).click();
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+});
+
+test("Back with the card and trailer open unlocks page scroll", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /^Tense, / }).click();
+  await rows(page).first().getByRole("button", { name: "Chernobyl", exact: true }).click();
+  await page.getByRole("dialog", { name: "Chernobyl" }).getByRole("button", { name: "▶ Trailer" }).click();
+  await page.goBack();
+  await expect(page.locator("#moods")).toBeAttached();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+});
+
+test("rating in the card keeps keyboard focus on the stars", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await rows(page).first().getByRole("button", { name: "Chernobyl", exact: true }).click();
+  const stars = page.getByRole("dialog", { name: "Chernobyl" }).getByRole("slider", { name: "Your rating" });
+  await stars.focus();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowRight");
+  await expect(stars).toHaveAttribute("aria-valuenow", "1");
+  await expect(stars).toBeFocused();
+});
+
+test("each row has one tab stop for opening the card", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  const row = rows(page).first();
+  await expect(row.getByRole("button", { name: "Chernobyl", exact: true })).toHaveCount(1);
+  await expect(row.locator("button[aria-hidden]")).toHaveAttribute("tabindex", "-1");
+  await expect(row.getByRole("heading", { level: 2 })).toHaveAccessibleName("Chernobyl");
 });
