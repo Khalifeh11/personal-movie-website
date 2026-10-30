@@ -1,5 +1,6 @@
 import { slugify } from "./directors";
 import { parseQuery, serializeQuery, type QueryFilters } from "./hash";
+import { isDecade, type Decade } from "./decades";
 import { MOODS } from "./moods";
 import type { Filters, MoodFilter } from "./types";
 
@@ -9,14 +10,15 @@ export type Route =
   | { name: "home" }
   | { name: "mood"; mood: MoodFilter }
   | { name: "director"; director: string }
-  | { name: "shelf"; shelf: ShelfId };
+  | { name: "shelf"; shelf: ShelfId }
+  | { name: "decades"; decade: Decade | null };
 
 const SLUGS = new Set<string>(["all", ...MOODS.map((m) => m.slug)]);
 const SHELVES = new Set<string>(Object.keys(SHELF_HEADINGS));
 const HOME: Route = { name: "home" };
 
 /**
- * `#/`, `#/mood/<slug>`, `#/director/<slug>`, `#/shelf/<id>`, each with an optional `?type=…&rt=…`. Anything else is
+ * `#/`, `#/mood/<slug>`, `#/director/<slug>`, `#/shelf/<id>`, `#/decades[/<decade>]`, each with an optional `?type=…&rt=…`. Anything else is
  * home with `redirect: true`; a legacy query-only hash (`#mood=x&type=Movie`) keeps its valid filters.
  * Director slugs resolve against `directors` (original names); the first match wins on collision.
  */
@@ -25,19 +27,46 @@ export function parseRoute(
   directors: readonly string[] = [],
 ): { route: Route; filters: QueryFilters; redirect: boolean } {
   const raw = hash.replace(/^#/, "");
-  if (raw && !raw.startsWith("/")) return { route: HOME, filters: parseQuery(raw), redirect: true };
+  if (raw && !raw.startsWith("/"))
+    return { route: HOME, filters: parseQuery(raw), redirect: true };
   const q = raw.indexOf("?");
   const path = q >= 0 ? raw.slice(0, q) : raw;
   const filters = parseQuery(q >= 0 ? raw.slice(q + 1) : "");
-  if (path === "" || path === "/") return { route: HOME, filters, redirect: false };
+  if (path === "" || path === "/")
+    return { route: HOME, filters, redirect: false };
   const m = path.match(/^\/mood\/([^/]+)$/);
-  if (m && SLUGS.has(m[1])) return { route: { name: "mood", mood: m[1] as MoodFilter }, filters, redirect: false };
+  if (m && SLUGS.has(m[1]))
+    return {
+      route: { name: "mood", mood: m[1] as MoodFilter },
+      filters,
+      redirect: false,
+    };
   const s = path.match(/^\/shelf\/([^/]+)$/);
-  if (s && SHELVES.has(s[1])) return { route: { name: "shelf", shelf: s[1] as ShelfId }, filters, redirect: false };
+  if (s && SHELVES.has(s[1]))
+    return {
+      route: { name: "shelf", shelf: s[1] as ShelfId },
+      filters,
+      redirect: false,
+    };
+  const dc = path.match(/^\/decades(?:\/(\d{4}))?$/);
+  if (dc && (dc[1] === undefined || isDecade(dc[1])))
+    return {
+      route: {
+        name: "decades",
+        decade: dc[1] === undefined ? null : (Number(dc[1]) as Decade),
+      },
+      filters,
+      redirect: false,
+    };
   const d = path.match(/^\/director\/([^/]+)$/);
   if (d) {
     const director = directors.find((name) => slugify(name) === d[1]);
-    if (director) return { route: { name: "director", director }, filters, redirect: false };
+    if (director)
+      return {
+        route: { name: "director", director },
+        filters,
+        redirect: false,
+      };
   }
   return { route: HOME, filters: {}, redirect: true };
 }
@@ -50,7 +79,9 @@ export function serializeRoute(route: Route, f: Filters): string {
         ? `/director/${slugify(route.director)}`
         : route.name === "shelf"
           ? `/shelf/${route.shelf}`
-          : "/";
+          : route.name === "decades"
+            ? `/decades${route.decade === null ? "" : `/${route.decade}`}`
+            : "/";
   const query = serializeQuery(f);
   return `#${path}${query ? `?${query}` : ""}`;
 }
