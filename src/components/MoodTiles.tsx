@@ -4,7 +4,7 @@ import { Label } from "./ui/Label";
 
 export function MoodTiles({ tiles, onOpen }: { tiles: Tile[]; onOpen: (mood: MoodFilter) => void }) {
   return (
-    <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
       {tiles.map((t) => (
         <button
           key={t.slug}
@@ -27,9 +27,9 @@ export function MoodTiles({ tiles, onOpen }: { tiles: Tile[]; onOpen: (mood: Moo
             ),
           )}
           <span className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent to-60%" />
-          {/* Stacked on phones (long names collide with the count), side by side from md up. */}
-          <span className="absolute inset-x-3 bottom-3 flex flex-col gap-1.5 md:inset-x-4 md:bottom-4 md:flex-row md:items-end md:justify-between">
-            <span className="font-display text-xl uppercase leading-none md:text-3xl">{t.label}</span>
+          {/* Stacked: with 18 tiles they're too narrow for long names beside the count. */}
+          <span className="absolute inset-x-3 bottom-3 flex flex-col gap-1.5 md:inset-x-4 md:bottom-4">
+            <span className="font-display text-xl uppercase leading-none md:text-2xl">{t.label}</span>
             <Label className="text-[10px]">{countLabel(t.count)}</Label>
           </span>
         </button>

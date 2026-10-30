@@ -5,9 +5,11 @@ A static site for picking something to watch from a personal IMDb watchlist. The
 ## Routes
 
 - `#/`: home (hero film + mood tiles)
-- `#/mood/<slug>`: one mood (`on-edge`, `unsettling`, `mind-bending`, `wry-funny`, `transported`, `moved`, `real-life`, or `all`)
+- `#/mood/<slug>`: one mood (slugs in `src/data/moods.json`, e.g. `tense`, `slow-and-quiet`), or `all`
 
-Filters ride along as a query: `#/mood/on-edge?type=Movie&rt=mid`. They are also saved in `localStorage`.
+Films carry 1–3 moods from `data/mood-tags.json`; edit it and run `npm run enrich` to apply (no `--force` needed).
+
+Filters ride along as a query: `#/mood/tense?type=Movie&rt=mid`. They are also saved in `localStorage`.
 
 ## Data
 

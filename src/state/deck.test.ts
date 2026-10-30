@@ -69,7 +69,7 @@ describe("resolveInitialFilters", () => {
     expect(resolveInitialFilters("", { runtime: "long", hideWatched: false })).toEqual({ ...defaults, runtime: "long", hideWatched: false });
   });
   test("hash wins over stored for the keys it has", () => {
-    expect(resolveInitialFilters("#/mood/moved?rt=short", { runtime: "long", type: "Series" })).toEqual({ ...defaults, runtime: "short", type: "Series" });
+    expect(resolveInitialFilters("#/mood/feel-good?rt=short", { runtime: "long", type: "Series" })).toEqual({ ...defaults, runtime: "short", type: "Series" });
   });
   test("garbage in storage is ignored", () => {
     expect(resolveInitialFilters("", { type: "zzz" as never, runtime: 5 as never })).toEqual(defaults);

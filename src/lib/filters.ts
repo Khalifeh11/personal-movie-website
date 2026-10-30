@@ -10,7 +10,7 @@ export function runtimeBand(runtime: number | null): RuntimeBand | null {
 }
 
 export function inMood(t: Title, mood: MoodFilter): boolean {
-  return mood === "all" || t.moodBucket === mood;
+  return mood === "all" || t.moods.includes(mood);
 }
 
 export function matches(t: Title, f: Filters, user: Record<string, UserEntry>): boolean {

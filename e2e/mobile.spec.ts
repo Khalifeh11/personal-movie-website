@@ -12,7 +12,7 @@ const noHorizontalScroll = (page: Page) => page.evaluate(() => document.document
 
 test("no horizontal scroll on home or a mood page", async ({ page }) => {
   expect(await noHorizontalScroll(page)).toBe(true);
-  await page.goto("/#/mood/on-edge");
+  await page.goto("/#/mood/tense");
   await expect(page.getByRole("article").first()).toBeVisible();
   expect(await noHorizontalScroll(page)).toBe(true);
 });
@@ -26,10 +26,10 @@ test("nav items live behind the Menu button", async ({ page }) => {
 });
 
 test("mood page menu lists the moods", async ({ page }) => {
-  await page.goto("/#/mood/on-edge");
+  await page.goto("/#/mood/tense");
   await page.getByRole("button", { name: "Menu" }).tap();
-  await page.getByRole("menuitem", { name: "Moved" }).tap();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Moved");
+  await page.getByRole("menuitem", { name: "Feel-good" }).tap();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
 });
 
 test("swiping the hero changes the film", async ({ page }) => {
@@ -51,13 +51,13 @@ test("tiles sit two per row", async ({ page }) => {
 });
 
 test("row blurbs are clamped to two lines", async ({ page }) => {
-  await page.goto("/#/mood/on-edge");
+  await page.goto("/#/mood/tense");
   const clamp = await page.getByRole("article").first().locator("p").last().evaluate((el) => getComputedStyle(el).webkitLineClamp);
   expect(clamp).toBe("2");
 });
 
 test("tile mood name and count never overlap", async ({ page }) => {
-  for (const name of ["Mind-bending", "Wry & funny", "Transported"]) {
+  for (const name of ["Thought-provoking", "Heartbreaking", "Slow & quiet"]) {
     const tile = page.getByRole("button", { name: new RegExp(`^${name}, `) });
     const label = await tile.getByText(name, { exact: true }).boundingBox();
     const count = await tile.getByText(/\d+ titles?/).boundingBox();
@@ -68,10 +68,10 @@ test("tile mood name and count never overlap", async ({ page }) => {
 });
 
 test("the menu closes when the page changes", async ({ page }) => {
-  await page.goto("/#/mood/on-edge");
+  await page.goto("/#/mood/tense");
   await page.getByRole("button", { name: "Menu" }).tap();
   await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "true");
-  await page.evaluate(() => (location.hash = "#/mood/moved"));
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Moved");
+  await page.evaluate(() => (location.hash = "#/mood/feel-good"));
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
   await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "false");
 });

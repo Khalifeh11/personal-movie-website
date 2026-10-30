@@ -18,15 +18,16 @@ test("null runtime passes any, fails ranged bands", () => {
   }
 });
 
-test("inMood: all matches everything, a bucket only itself", () => {
-  const t = mk({ moodBucket: "on-edge" });
+test("inMood: all matches everything, a mood any title tagged with it", () => {
+  const t = mk({ moods: ["tense", "gritty"] });
   expect(inMood(t, "all")).toBe(true);
-  expect(inMood(t, "on-edge")).toBe(true);
-  expect(inMood(t, "moved")).toBe(false);
+  expect(inMood(t, "gritty")).toBe(true);
+  expect(inMood(t, "dread")).toBe(false);
+  expect(inMood(mk({ moods: [] }), "all")).toBe(true);
 });
 
 describe("matches", () => {
-  const t = mk({ id: "tt1", moodBucket: "on-edge", type: "Series" });
+  const t = mk({ id: "tt1", moods: ["tense"], type: "Series" });
   test("type filter", () => {
     expect(matches(t, F({ type: "Series" }), {})).toBe(true);
     expect(matches(t, F({ type: "Movie" }), {})).toBe(false);

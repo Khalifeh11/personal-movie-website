@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { byline, genreLine, ratingText } from "./format";
+import { byline, feelsLine, genreLine, ratingText } from "./format";
 import { mk } from "./testUtils";
 
 test("byline: film / series with and without director", () => {
@@ -19,4 +19,10 @@ test("ratingText: one decimal or dash", () => {
   expect(ratingText(mk({ imdbRating: 8 }))).toBe("8.0");
   expect(ratingText(mk({ imdbRating: 7.9 }))).toBe("7.9");
   expect(ratingText(mk({ imdbRating: null }))).toBe("—");
+});
+
+test("feelsLine: mood labels joined, empty when untagged", () => {
+  expect(feelsLine(mk({ moods: ["tense", "gritty"] }))).toBe("Tense · Gritty");
+  expect(feelsLine(mk({ moods: ["slow-and-quiet"] }))).toBe("Slow & quiet");
+  expect(feelsLine(mk({ moods: [] }))).toBe("");
 });

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BUCKETS } from "../lib/moods";
+import { MOODS as VOCAB } from "../lib/moods";
 import type { Route } from "../lib/route";
 import type { MoodFilter } from "../lib/types";
 
@@ -9,7 +9,7 @@ interface NavProps {
   onOpenFilters: () => void;
 }
 
-const MOODS: { slug: MoodFilter; label: string }[] = [...BUCKETS, { slug: "all", label: "All titles" }];
+const MOODS: { slug: MoodFilter; label: string }[] = [...VOCAB, { slug: "all", label: "All titles" }];
 
 const item = "font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:text-fg";
 
@@ -63,14 +63,14 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
     onNavigate({ name: "mood", mood });
   };
   const moodList = (
-    <div role="menu" aria-label="Moods" className="flex flex-col items-start gap-3">
+    <div role="menu" aria-label="Moods" className="grid grid-cols-2 items-start justify-items-start gap-x-8 gap-y-3">
       {MOODS.map((m) => (
         <button
           key={m.slug}
           type="button"
           role="menuitem"
           onClick={() => goMood(m.slug)}
-          className={`${item} ${route.name === "mood" && route.mood === m.slug ? "text-fg" : ""}`}
+          className={`${item} text-left md:whitespace-nowrap ${route.name === "mood" && route.mood === m.slug ? "text-fg" : ""}`}
         >
           {m.label}
         </button>
@@ -110,7 +110,7 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
               Moods
             </button>
             {moodsOpen && (
-              <div className="absolute right-0 top-full mt-4 min-w-44 border border-white/10 bg-bg/95 px-5 py-4 backdrop-blur-md">
+              <div className="absolute right-0 top-full mt-4 w-max border border-white/10 bg-bg/95 px-5 py-4 backdrop-blur-md">
                 {moodList}
               </div>
             )}

@@ -1,10 +1,10 @@
 import { parseQuery, serializeQuery, type QueryFilters } from "./hash";
-import { BUCKETS } from "./moods";
+import { MOODS } from "./moods";
 import type { Filters, MoodFilter } from "./types";
 
 export type Route = { name: "home" } | { name: "mood"; mood: MoodFilter };
 
-const MOODS = new Set<string>(["all", ...BUCKETS.map((b) => b.slug)]);
+const SLUGS = new Set<string>(["all", ...MOODS.map((m) => m.slug)]);
 const HOME: Route = { name: "home" };
 
 /**
@@ -19,7 +19,7 @@ export function parseRoute(hash: string): { route: Route; filters: QueryFilters;
   const filters = parseQuery(q >= 0 ? raw.slice(q + 1) : "");
   if (path === "" || path === "/") return { route: HOME, filters, redirect: false };
   const m = path.match(/^\/mood\/([^/]+)$/);
-  if (m && MOODS.has(m[1])) return { route: { name: "mood", mood: m[1] as MoodFilter }, filters, redirect: false };
+  if (m && SLUGS.has(m[1])) return { route: { name: "mood", mood: m[1] as MoodFilter }, filters, redirect: false };
   return { route: HOME, filters: {}, redirect: true };
 }
 

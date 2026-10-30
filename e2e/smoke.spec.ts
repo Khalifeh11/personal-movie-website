@@ -54,10 +54,10 @@ test("footer shows TMDB attribution", async ({ page }) => {
 
 test("mood tiles: one per mood plus All; click opens the mood page", async ({ page }) => {
   const tiles = page.locator("#moods").getByRole("button");
-  await expect(tiles).toHaveCount(8);
-  await expect(page.getByRole("button", { name: "Unsettling, 37 titles" })).toBeVisible();
-  await page.getByRole("button", { name: /^On edge, \d+ titles?$/ }).click();
-  await expect(page).toHaveURL(/#\/mood\/on-edge$/);
+  await expect(tiles).toHaveCount(18);
+  await expect(page.getByRole("button", { name: "Dread, 48 titles" })).toBeVisible();
+  await page.getByRole("button", { name: /^Tense, \d+ titles?$/ }).click();
+  await expect(page).toHaveURL(/#\/mood\/tense$/);
 });
 
 test("hero trailer opens in place and Esc closes it", async ({ page }) => {

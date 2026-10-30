@@ -1,31 +1,33 @@
 import { expect, test } from "vitest";
-import { BUCKETS } from "./moods";
+import { MOODS } from "./moods";
 import { countLabel, moodTiles } from "./moodTiles";
 import { mk } from "./testUtils";
 
 const deck = [
-  mk({ id: "a", moodBucket: "on-edge", poster: "/a.jpg" }),
-  mk({ id: "b", moodBucket: "moved", poster: "/b.jpg" }),
-  mk({ id: "c", moodBucket: "on-edge", poster: null }),
-  mk({ id: "d", moodBucket: "on-edge", poster: "/d.jpg" }),
+  mk({ id: "a", moods: ["tense", "gritty"], poster: "/a.jpg" }),
+  mk({ id: "b", moods: ["bittersweet"], poster: "/b.jpg" }),
+  mk({ id: "c", moods: ["tense"], poster: null }),
+  mk({ id: "d", moods: ["tense"], poster: "/d.jpg" }),
+  mk({ id: "e", moods: [], poster: null }),
 ];
 
-test("one tile per bucket in order, then All", () => {
-  expect(moodTiles(deck).map((t) => t.slug)).toEqual([...BUCKETS.map((b) => b.slug), "all"]);
+test("one tile per mood in order, then All", () => {
+  expect(moodTiles(deck).map((t) => t.slug)).toEqual([...MOODS.map((m) => m.slug), "all"]);
   expect(moodTiles(deck).at(-1)!.label).toBe("All");
 });
 
-test("counts per bucket; All counts the whole deck", () => {
+test("a film counts in each of its moods; All counts the whole deck incl. untagged", () => {
   const bySlug = Object.fromEntries(moodTiles(deck).map((t) => [t.slug, t.count]));
-  expect(bySlug["on-edge"]).toBe(3);
-  expect(bySlug.moved).toBe(1);
-  expect(bySlug.all).toBe(4);
+  expect(bySlug.tense).toBe(3);
+  expect(bySlug.gritty).toBe(1);
+  expect(bySlug.bittersweet).toBe(1);
+  expect(bySlug.all).toBe(5);
 });
 
 test("posters skip nulls, keep deck order, pad to four", () => {
   const tiles = Object.fromEntries(moodTiles(deck).map((t) => [t.slug, t]));
-  expect(tiles["on-edge"].posters).toEqual(["/a.jpg", "/d.jpg", null, null]);
-  expect(tiles.unsettling).toMatchObject({ count: 0, posters: [null, null, null, null] });
+  expect(tiles.tense.posters).toEqual(["/a.jpg", "/d.jpg", null, null]);
+  expect(tiles.dread).toMatchObject({ count: 0, posters: [null, null, null, null] });
   expect(tiles.all.posters).toEqual(["/a.jpg", "/b.jpg", "/d.jpg", null]);
 });
 

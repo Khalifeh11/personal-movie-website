@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { formatRuntime } from "../lib/filters";
-import { genreLine, ratingText } from "../lib/format";
+import { feelsLine, genreLine, ratingText } from "../lib/format";
 import type { Title } from "../lib/types";
 
 interface FilmRowProps {
@@ -29,7 +29,8 @@ export function FilmRow({ n, title: t, dimmed, actions }: FilmRowProps) {
         <h2 className="font-display text-xl uppercase leading-none md:text-2xl">{t.title}</h2>
         <p className="text-xs text-fg-2">{facts.join(" · ")}</p>
         <p className="text-xs text-fg-3">
-          {genreLine(t)} · Feels: {t.mood}
+          {genreLine(t)}
+          {t.moods.length > 0 && ` · Feels: ${feelsLine(t)}`}
         </p>
         {t.overview && <p className="line-clamp-2 max-w-[640px] text-[13px] leading-relaxed text-fg-2 md:line-clamp-none">{t.overview}</p>}
         <div className="mt-1.5 flex flex-wrap items-center gap-2">{actions}</div>

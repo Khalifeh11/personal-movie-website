@@ -1,5 +1,5 @@
 import { inMood } from "./filters";
-import { BUCKETS, bucketLabel } from "./moods";
+import { MOODS, moodLabel } from "./moods";
 import type { MoodFilter, Title } from "./types";
 
 export interface Tile {
@@ -12,15 +12,15 @@ export interface Tile {
 
 const SLOTS = 4;
 
-/** One tile per bucket (BUCKETS order) then All, from a deck that's already filtered and shuffled. */
+/** One tile per mood (MOODS order) then All, from a deck that's already filtered and shuffled. */
 export function moodTiles(deck: Title[]): Tile[] {
-  const slugs: MoodFilter[] = [...BUCKETS.map((b) => b.slug), "all"];
+  const slugs: MoodFilter[] = [...MOODS.map((m) => m.slug), "all"];
   return slugs.map((slug) => {
     const ts = deck.filter((t) => inMood(t, slug));
     const posters = ts.flatMap((t) => (t.poster ? [t.poster] : [])).slice(0, SLOTS);
     return {
       slug,
-      label: bucketLabel(slug),
+      label: moodLabel(slug),
       count: ts.length,
       posters: [...posters, ...Array<null>(SLOTS - posters.length).fill(null)],
     };

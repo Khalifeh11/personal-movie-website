@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { searchTitles, SORTS, sortTitles, type SortKey } from "../lib/browse";
 import { inMood, matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
-import { bucketLabel } from "../lib/moods";
+import { moodLabel } from "../lib/moods";
 import type { Filters, MoodFilter, Title } from "../lib/types";
 import { useUserData } from "../state/useUserData";
 import { EmptyState } from "./EmptyState";
@@ -44,7 +44,7 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
     <main className="px-5 pb-16 pt-24 md:px-11 md:pt-32">
       <header className="mb-6 flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="font-display text-5xl uppercase leading-[0.9] md:text-7xl">{bucketLabel(mood)}</h1>
+          <h1 className="font-display text-5xl uppercase leading-[0.9] md:text-7xl">{moodLabel(mood)}</h1>
           <p className="mt-3 font-ui text-[11px] uppercase tracking-ui text-fg-3">{countLabel(rows.length)}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">

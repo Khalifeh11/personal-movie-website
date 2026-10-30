@@ -1,5 +1,5 @@
 import { formatRuntime } from "../lib/filters";
-import { genreLine, ratingText } from "../lib/format";
+import { feelsLine, genreLine, ratingText } from "../lib/format";
 import type { Title } from "../lib/types";
 import { Label } from "./ui/Label";
 
@@ -8,8 +8,8 @@ export function FactsRow({ title }: { title: Title }) {
     ["Runtime", formatRuntime(title)],
     ["IMDb", ratingText(title)],
     ["Genre", genreLine(title)],
-    ["Feels", title.mood],
-  ];
+    ["Feels", feelsLine(title)],
+  ].filter(([, v]) => v);
   return (
     <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-4 text-[13px] text-fg-2">
       {facts.map(([k, v]) => (

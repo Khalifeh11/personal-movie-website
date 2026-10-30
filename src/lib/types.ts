@@ -1,7 +1,8 @@
 export type TitleType = "Movie" | "Series";
 export type MoodSlug =
-  | "on-edge" | "unsettling" | "mind-bending" | "wry-funny"
-  | "transported" | "moved" | "real-life";
+  | "tense" | "gritty" | "puzzling" | "dread" | "mind-bending" | "thought-provoking"
+  | "funny" | "absurd" | "satirical" | "feel-good" | "bittersweet" | "heartbreaking"
+  | "epic" | "dreamy" | "romantic" | "true-story" | "slow-and-quiet";
 export type MoodFilter = MoodSlug | "all";
 export type RuntimeBand = "any" | "short" | "mid" | "long";
 export type TypeFilter = "all" | TitleType;
@@ -19,8 +20,10 @@ export interface Title {
   directors: string[];
   category: string;
   mood: string;
-  moodBucket: MoodSlug;
+  /** 1-3 moods in vocabulary order; empty when the title isn't tagged yet. */
+  moods: MoodSlug[];
   themes: string[];
+  keywords: string[];
   imdbUrl: string;
   overview: string;
   backdrop: string | null;
