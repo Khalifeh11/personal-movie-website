@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,7 +20,7 @@ function fakeTmdb() {
 
 function setup() {
   const dir = mkdtempSync(join(tmpdir(), "enrich-"));
-  return { csvPath: fx("rows.csv"), outPath: join(dir, "titles.json"), imgDir: join(dir, "img"), log: () => {} };
+  return { csvPath: fx("rows.csv"), outPath: join(dir, "titles.json"), imgDir: join(dir, "img"), tagsPath: join(dir, "mood-tags.json"), log: () => {} };
 }
 
 test("writes all titles, reports unmatched, downloads images", async () => {
@@ -56,4 +56,20 @@ test("limit processes only the first N CSV rows and keeps prior output", async (
   expect(out).toHaveLength(2);
   const more = await main({ ...opts, tmdb: fakeTmdb(), force: false });
   expect(more).toMatchObject({ written: 1, skipped: 2 });
+});
+
+test("merges mood tags on every run, including skipped titles; logs untagged ids", async () => {
+  const opts = setup();
+  const lines = [];
+  writeFileSync(opts.tagsPath, JSON.stringify({ tt0051378: ["gritty", "tense"] }));
+  await main({ ...opts, tmdb: fakeTmdb(), log: (l) => lines.push(l) });
+  const moodsOf = () => Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.moods]));
+  expect(moodsOf()).toEqual({ tt0051378: ["tense", "gritty"], tt5753856: [], tt6207098: [] });
+  expect(lines).toContain("Untagged (2): tt6207098, tt5753856");
+
+  writeFileSync(opts.tagsPath, JSON.stringify({ tt0051378: ["dread"], tt5753856: ["mind-bending"], tt6207098: ["funny"] }));
+  const again = fakeTmdb();
+  expect(await main({ ...opts, tmdb: again })).toMatchObject({ written: 0, skipped: 3 });
+  expect(again.find).not.toHaveBeenCalled();
+  expect(moodsOf()).toEqual({ tt0051378: ["dread"], tt5753856: ["mind-bending"], tt6207098: ["funny"] });
 });

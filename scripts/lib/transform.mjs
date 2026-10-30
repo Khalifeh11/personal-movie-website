@@ -17,7 +17,7 @@ export function pickTrailer(videos) {
 }
 
 /** CSV row (+ optional TMDB match/details) → Title, per the spec schema. */
-export function toTitle(row, found, details, bucketFor) {
+export function toTitle(row, found, details) {
   const id = row.Const;
   const hasBackdrop = Boolean(details?.backdrop_path);
   const poster = details?.poster_path ? `/img/poster/${id}.webp` : null;
@@ -34,8 +34,9 @@ export function toTitle(row, found, details, bucketFor) {
     directors: list(row.Directors),
     category: row["Primary category"],
     mood: row["Likely mood"],
-    moodBucket: bucketFor(row["Likely mood"]),
     themes: list(row["Broad themes"]),
+    // TMDB returns movie keywords under `keywords`, TV keywords under `results`.
+    keywords: (details?.keywords?.keywords ?? details?.keywords?.results ?? []).map((k) => k.name),
     imdbUrl: row.URL,
     overview: details?.overview ?? "",
     backdrop: hasBackdrop ? `/img/backdrop/${id}.webp` : poster,

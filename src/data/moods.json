@@ -1,0 +1,19 @@
+[
+  { "slug": "tense", "label": "Tense" },
+  { "slug": "gritty", "label": "Gritty" },
+  { "slug": "puzzling", "label": "Puzzling" },
+  { "slug": "dread", "label": "Dread" },
+  { "slug": "mind-bending", "label": "Mind-bending" },
+  { "slug": "thought-provoking", "label": "Thought-provoking" },
+  { "slug": "funny", "label": "Funny" },
+  { "slug": "absurd", "label": "Absurd" },
+  { "slug": "satirical", "label": "Satirical" },
+  { "slug": "feel-good", "label": "Feel-good" },
+  { "slug": "bittersweet", "label": "Bittersweet" },
+  { "slug": "heartbreaking", "label": "Heartbreaking" },
+  { "slug": "epic", "label": "Epic" },
+  { "slug": "dreamy", "label": "Dreamy" },
+  { "slug": "romantic", "label": "Romantic" },
+  { "slug": "true-story", "label": "True story" },
+  { "slug": "slow-and-quiet", "label": "Slow & quiet" }
+]

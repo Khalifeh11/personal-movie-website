@@ -4,24 +4,17 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readWatchlist } from "./lib/csv.mjs";
+import { applyMoods } from "./lib/moods.mjs";
 import { makeTmdb } from "./lib/tmdb.mjs";
 import { toTitle } from "./lib/transform.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const buckets = JSON.parse(readFileSync(join(root, "src/data/mood-buckets.json"), "utf8"));
+const vocab = JSON.parse(readFileSync(join(root, "src/data/moods.json"), "utf8"));
+const readJson = (path, fallback) => (existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : fallback);
 
-// Mirrors src/lib/moods.ts#bucketFor (Node 20 can't import the .ts directly).
-const moodLookup = new Map(Object.entries(buckets).flatMap(([slug, moods]) => moods.map((m) => [m, slug])));
-function bucketFor(mood) {
-  const slug = moodLookup.get(mood.trim());
-  if (slug) return slug;
-  console.warn(`Unmapped mood "${mood}" → moved`);
-  return "moved";
-}
-
-export async function main({ csvPath, outPath, imgDir, tmdb, force = false, limit, log = console.log }) {
+export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, force = false, limit, log = console.log }) {
   const rows = readWatchlist(csvPath);
-  const existing = existsSync(outPath) ? JSON.parse(readFileSync(outPath, "utf8")) : [];
+  const existing = readJson(outPath, []);
   const byId = new Map(existing.map((t) => [t.id, t]));
   const todo = limit ? rows.slice(0, limit) : rows;
   let written = 0;
@@ -46,16 +39,22 @@ export async function main({ csvPath, outPath, imgDir, tmdb, force = false, limi
       await tmdb.download(`/w500${details.poster_path}`, join(imgDir, "poster", `${id}.webp`));
     }
 
-    byId.set(id, toTitle(row, found, details, bucketFor));
+    byId.set(id, toTitle(row, found, details));
     written++;
     log(`${String(written + skipped).padStart(3)}/${todo.length} ${row.Title}${found ? "" : "  (no TMDB match)"}`);
   }
 
-  // Keep CSV order for everything we have.
-  const out = rows.map((r) => byId.get(r.Const)).filter(Boolean);
+  // Keep CSV order for everything we have. Moods merge on every run so tag edits apply without --force.
+  const { titles: out, untagged, stray } = applyMoods(
+    rows.map((r) => byId.get(r.Const)).filter(Boolean),
+    tagsPath ? readJson(tagsPath, {}) : {},
+    vocab,
+  );
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, JSON.stringify(out, null, 2) + "\n");
   if (unmatched.length) log(`Unmatched (${unmatched.length}): ${unmatched.join(", ")}`);
+  if (untagged.length) log(`Untagged (${untagged.length}): ${untagged.join(", ")}`);
+  if (stray.length) log(`Stray tags (${stray.length}): ${stray.join(", ")}`);
   return { written, skipped, unmatched };
 }
 
@@ -66,6 +65,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     csvPath: join(root, "data/watchlist.csv"),
     outPath: join(root, "src/data/titles.json"),
     imgDir: join(root, "public/img"),
+    tagsPath: join(root, "data/mood-tags.json"),
     tmdb: makeTmdb({ apiKey: process.env.TMDB_API_KEY }),
     force: args.includes("--force"),
     limit: limitIdx >= 0 ? Number(args[limitIdx + 1]) : undefined,

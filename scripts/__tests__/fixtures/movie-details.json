@@ -5,6 +5,7 @@
   "poster_path": "/elevatorPoster.jpg",
   "vote_average": 7.6,
   "vote_count": 820,
+  "keywords": { "keywords": [{ "id": 1, "name": "murder" }, { "id": 2, "name": "film noir" }] },
   "videos": { "results": [
     { "site": "YouTube", "type": "Teaser", "official": true, "key": "teaserKey" },
     { "site": "YouTube", "type": "Trailer", "official": false, "key": "fanTrailerKey" },

@@ -35,7 +35,7 @@ export function makeTmdb({ apiKey, fetch = globalThis.fetch, imageBase = "https:
       return null;
     },
     details(media, id) {
-      return get(`/${media}/${id}`, { append_to_response: "videos,images" });
+      return get(`/${media}/${id}`, { append_to_response: "videos,images,keywords" });
     },
     /** Saves the TMDB jpg next to destFile, then converts it to destFile (.webp) with cwebp. */
     async download(sizePath, destFile) {
