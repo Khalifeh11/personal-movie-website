@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Backdrop } from "./components/Backdrop";
 import { BottomNav, type Tab } from "./components/BottomNav";
 import { EmptyState } from "./components/EmptyState";
+import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { ThumbStrip } from "./components/ThumbStrip";
@@ -26,7 +27,9 @@ export default function App() {
 }
 
 function Deck() {
-  const { entries } = useUserData();
+  const { store, entries } = useUserData();
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const closeFilters = useCallback(() => setFiltersOpen(false), []);
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
   const [tab, setTab] = useState<Tab>("film");
   const next = () => dispatch({ type: "next" });
@@ -85,7 +88,7 @@ function Deck() {
         <Header
           mood={state.filters.mood}
           onMood={(mood) => setFilters({ mood })}
-          onOpenFilters={() => {}}
+          onOpenFilters={() => setFiltersOpen(true)}
           count={count}
         />
         <span className="pointer-events-none fixed left-[30px] top-1/2 hidden origin-left -translate-y-1/2 -rotate-90 whitespace-nowrap font-ui text-[10px] uppercase tracking-[0.35em] text-fg-3 md:block">
@@ -112,6 +115,14 @@ function Deck() {
           onSelect={onTab}
         />
       </div>
+      <FiltersDrawer
+        open={filtersOpen}
+        onClose={closeFilters}
+        filters={state.filters}
+        onChange={setFilters}
+        matchCount={state.deck.length}
+        store={store}
+      />
     </div>
   );
 }

@@ -10,13 +10,15 @@
     "test": "vitest run",
     "lint": "oxlint",
     "typecheck": "tsc -b",
-    "enrich": "node --env-file=.env scripts/enrich.mjs"
+    "enrich": "node --env-file=.env scripts/enrich.mjs",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
