@@ -7,6 +7,8 @@ interface FadeImgProps extends ImgHTMLAttributes<HTMLImageElement> {
    * page starts at once and starves the hero still.
    */
   defer?: boolean;
+  /** Fires when the image is usable, including the cached case where `onLoad` never fires. */
+  onReady?: (src: string) => void;
 }
 
 const NEAR_VIEWPORT = "200px";
@@ -17,7 +19,7 @@ const NEAR_VIEWPORT = "200px";
  * combine them with its own (filter, scale) without two `transition-*` utilities fighting.
  * Handles cached images (already complete before React attaches onLoad) and src changes.
  */
-export function FadeImg({ className = "", onLoad, src, defer = false, ...rest }: FadeImgProps) {
+export function FadeImg({ className = "", onLoad, onReady, src, defer = false, ...rest }: FadeImgProps) {
   const [loadedSrc, setLoadedSrc] = useState<string | undefined>();
   const [near, setNear] = useState(!defer);
   const el = useRef<HTMLImageElement | null>(null);
@@ -27,9 +29,12 @@ export function FadeImg({ className = "", onLoad, src, defer = false, ...rest }:
   const ref = useCallback(
     (node: HTMLImageElement | null) => {
       el.current = node;
-      if (node?.complete && node.naturalWidth > 0 && node.getAttribute("src") === src) setLoadedSrc(src);
+      if (node?.complete && node.naturalWidth > 0 && node.getAttribute("src") === src) {
+        setLoadedSrc(src);
+        if (src) onReady?.(src);
+      }
     },
-    [src],
+    [src, onReady],
   );
 
   useEffect(() => {
@@ -50,6 +55,7 @@ export function FadeImg({ className = "", onLoad, src, defer = false, ...rest }:
   const handleLoad = (e: SyntheticEvent<HTMLImageElement>) => {
     setLoadedSrc(src);
     onLoad?.(e);
+    if (src) onReady?.(src);
   };
 
   return (

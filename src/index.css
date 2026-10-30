@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@font-face { font-family: "Anton"; font-weight: 400; font-display: swap; src: url("/fonts/anton.woff2") format("woff2"); }
+@font-face { font-family: "Bebas Neue"; font-weight: 400; font-display: swap; src: url("/fonts/bebas-neue.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 400; font-display: swap; src: url("/fonts/space-grotesk-400.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 500; font-display: swap; src: url("/fonts/space-grotesk-500.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 600; font-display: swap; src: url("/fonts/space-grotesk-600.woff2") format("woff2"); }
+
 @theme {
   --color-bg: #000;
   --color-fg: #fff;

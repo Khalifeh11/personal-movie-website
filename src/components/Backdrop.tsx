@@ -23,15 +23,32 @@ const toLayer =(t: Title | undefined): Layer => ({
  * with a slow Ken-Burns zoom, then the shade and grain layers.
  * Each still blurs up: the small image shows at once, the full one fades in over it when loaded.
  */
-export function Backdrop({ title, upcoming }: { title: Title | undefined; upcoming: Title[] }) {
+interface BackdropProps {
+  title: Title | undefined;
+  upcoming: Title[];
+  /** Fires once the still on screen has loaded; the hero section holds its other images until then. */
+  onStillLoaded?: () => void;
+}
+
+export function Backdrop({ title, upcoming, onStillLoaded }: BackdropProps) {
   const [layers, setLayers] = useState<Layer[]>(() => [toLayer(title)]);
+  const [loadedKey, setLoadedKey] = useState<string | null>(null);
 
   // New title → push it on top, keep only the previous one underneath (adjust-state-on-prop-change).
   const next = toLayer(title);
   if (layers.at(-1)?.key !== next.key) setLayers([...layers.slice(-1), next]);
+  const top = layers.at(-1)!;
+  const topLoaded = loadedKey === top.key || !top.src;
 
-  // Warm the cache for the next couple of stills, at low priority so they never queue ahead of the one on screen.
+  const markLoaded = (key: string) => {
+    setLoadedKey(key);
+    onStillLoaded?.();
+  };
+
+  // Warm the cache for the next couple of stills, but only once the one on screen is in: on a cold
+  // load every byte of pipe belongs to the hero.
   useEffect(() => {
+    if (!topLoaded) return;
     const small = matchMedia(SMALL_SCREEN).matches;
     for (const t of upcoming) {
       const srcs = small ? [t.backdropSmall ?? t.backdrop] : [t.backdropSmall, t.backdrop];
@@ -42,7 +59,7 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
         img.src = src;
       }
     }
-  }, [upcoming]);
+  }, [upcoming, topLoaded]);
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-bg" aria-hidden>
@@ -55,7 +72,7 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
               {/* Phones get the small still here too: it's already cached, so the top image is complete at once. */}
               <picture>
                 {l.srcSmall && <source media={SMALL_SCREEN} srcSet={l.srcSmall} />}
-                <FadeImg src={l.src} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-opacity duration-(--duration-bg)" />
+                <FadeImg src={l.src} alt="" fetchPriority="high" onReady={() => markLoaded(l.key)} className="absolute inset-0 h-full w-full object-cover transition-opacity duration-(--duration-bg)" />
               </picture>
             </div>
           </div>

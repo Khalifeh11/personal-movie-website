@@ -1,7 +1,15 @@
 import type { Title } from "../lib/types";
 import { FadeImg } from "./ui/FadeImg";
 
-export function ThumbStrip({ deck, index, onJump }: { deck: Title[]; index: number; onJump: (id: string) => void }) {
+interface ThumbStripProps {
+  deck: Title[];
+  index: number;
+  onJump: (id: string) => void;
+  /** Posters wait for this (the hero still has loaded) so they don't compete with it on a cold load. */
+  ready: boolean;
+}
+
+export function ThumbStrip({ deck, index, onJump, ready }: ThumbStripProps) {
   const count = Math.min(5, deck.length);
   const items = Array.from({ length: count }, (_, k) => deck[(index + k) % deck.length]);
   return (
@@ -16,7 +24,7 @@ export function ThumbStrip({ deck, index, onJump }: { deck: Title[]; index: numb
             k === 0 ? "border-fg opacity-100" : "border-white/30 opacity-55"
           }`}
         >
-          {t.poster && <FadeImg src={t.poster} alt="" className="h-full w-full object-cover transition-opacity duration-300" />}
+          {t.poster && ready && <FadeImg src={t.poster} alt="" fetchPriority="low" className="h-full w-full object-cover transition-opacity duration-300" />}
         </button>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Title } from "../lib/types";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import type { DeckAction, DeckState } from "../state/deck";
@@ -30,6 +30,8 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
   const still = useRef<HTMLDivElement>(null);
   const touchX = useRef<number | null>(null);
   const wide = useMediaQuery("(min-width: 768px)");
+  // Flips once the first still is in; the thumb strip's posters wait for it.
+  const [heroReady, setHeroReady] = useState(false);
 
   useEffect(() => {
     if (!active) return;
@@ -109,7 +111,7 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
 
   return (
     <section ref={section} aria-label="Tonight's film" className="relative min-h-dvh overflow-hidden">
-      <Backdrop title={current} upcoming={upcoming} />
+      <Backdrop title={current} upcoming={upcoming} onStillLoaded={() => setHeroReady(true)} />
       <span className="pointer-events-none absolute left-[30px] top-1/2 z-(--z-ui) origin-left -translate-y-1/2 -rotate-90 whitespace-nowrap font-ui text-[10px] uppercase tracking-[0.35em] text-fg-3">
         Swipe or press → for the next one
       </span>
@@ -130,7 +132,7 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
         {count}
       </span>
       <div className="absolute bottom-10 right-11 z-(--z-ui)">
-        <ThumbStrip deck={state.deck} index={state.index} onJump={(id) => dispatch({ type: "jump", id })} />
+        <ThumbStrip deck={state.deck} index={state.index} ready={heroReady} onJump={(id) => dispatch({ type: "jump", id })} />
       </div>
     </section>
   );
