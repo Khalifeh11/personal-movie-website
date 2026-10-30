@@ -3,6 +3,9 @@ import { expect, test, type Page } from "@playwright/test";
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  // Wait for the app to mount (hashchange listener attached) before tests change the hash.
+  await page.locator("h1").waitFor();
 });
 
 const rows = (page: Page) => page.getByRole("article");

@@ -4,6 +4,8 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
   await page.goto("/");
+  // Wait for the app to mount (hashchange listener attached) before tests change the hash.
+  await page.locator("h1").waitFor();
 });
 
 const drawer = (page: Page) => page.getByRole("dialog", { name: "Filters" });
