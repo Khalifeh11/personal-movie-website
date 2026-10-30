@@ -34,3 +34,21 @@ test("a shelf poster opens the title card", async ({ page }) => {
   await cell.click();
   await expect(page.getByRole("dialog", { name: name! })).toBeVisible();
 });
+
+test("Back from See all returns to the shelf you left", async ({ page }) => {
+  const heading = page.getByRole("heading", { name: "Waiting the longest" });
+  await heading.scrollIntoViewIfNeeded();
+  const before = await page.evaluate(() => scrollY);
+  expect(before).toBeGreaterThan(0);
+  await shelf(page, "Waiting the longest").getByRole("button", { name: "See all →" }).click();
+  await expect(page.locator("h1")).toHaveText("Waiting the longest");
+  await page.goBack();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(before);
+});
+
+test("the wordmark still opens home at the top", async ({ page }) => {
+  await page.evaluate(() => scrollTo(0, 1200));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(0);
+  await page.getByRole("link", { name: "Not Tonight" }).click();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+});

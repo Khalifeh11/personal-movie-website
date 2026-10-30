@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useState, type ReactNode } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
@@ -17,7 +17,7 @@ import { LocalStorageUserData } from "./lib/userData";
 import { whyThis } from "./lib/whyThis";
 import { useDeck } from "./state/useDeck";
 import { useRoute } from "./state/useRoute";
-import { routeKey } from "./state/viewState";
+import { loadView, routeKey, saveView } from "./state/viewState";
 import { UserDataContext, useUserData } from "./state/useUserData";
 
 const titles = titlesJson as Title[];
@@ -47,10 +47,6 @@ function Site() {
     setTrailerRoute(route);
     setTrailerFor(null);
   }
-  // Home always starts at the top; browse pages restore their own scroll (see BrowsePage).
-  useLayoutEffect(() => {
-    if (route.name === "home") scrollTo(0, 0);
-  }, [route]);
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
   // Fixed for the session: "today" only gates multi-year thresholds.
   const [today] = useState(() => new Date());
@@ -68,7 +64,7 @@ function Site() {
     <div className="min-h-dvh bg-bg font-ui text-fg">
       <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
       {route.name === "home" && (
-        <>
+        <Home>
           <HeroSection state={state} current={current} why={why} count={count} dispatch={dispatch}
             active={!trailerFor && !filtersOpen}
             onTrailer={setTrailerFor}
@@ -79,7 +75,7 @@ function Site() {
           </section>
           <HomeShelves deck={state.deck} current={current} onNavigate={navigate} onTrailer={setTrailerFor} />
           <Footer />
-        </>
+        </Home>
       )}
       {scope && (
         <BrowsePage
@@ -103,4 +99,16 @@ function Site() {
       />
     </div>
   );
+}
+
+const HOME_KEY = "/";
+
+/** Home restores its scroll on Back/Forward only: `freshNavigate` clears the key, so a fresh visit starts at the top. */
+function Home({ children }: { children: ReactNode }) {
+  useLayoutEffect(() => {
+    scrollTo(0, loadView(HOME_KEY)?.scrollY ?? 0);
+    // Cleanup runs before the next page's layout effect, so scrollY is still home's.
+    return () => saveView(HOME_KEY, { scrollY });
+  }, []);
+  return <>{children}</>;
 }

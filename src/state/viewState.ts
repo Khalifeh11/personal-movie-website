@@ -2,14 +2,16 @@ import type { SortDir, SortKey } from "../lib/browse";
 import { serializeRoute, type Route } from "../lib/route";
 
 export interface ViewState {
-  sort: SortKey;
-  dir: SortDir;
-  query: string;
   scrollY: number;
+  /** Browse pages only; home saves just the scroll. */
+  sort?: SortKey;
+  dir?: SortDir;
+  query?: string;
 }
 
 /**
  * Per-route view state (sort, direction, search, scroll) so Back/Forward land where you left.
+ * Home keeps only its scroll (under "/"): a fresh visit starts at the top, Back returns to the shelf you left.
  * Pages save on unmount and load on mount; a fresh navigation clears the target first so only
  * history traversal restores. Module-level: lost on reload, which is the intended "defaults" case.
  */
