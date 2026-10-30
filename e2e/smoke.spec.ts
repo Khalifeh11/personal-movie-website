@@ -100,7 +100,8 @@ test("arrow keys do nothing to the hero while the trailer is open", async ({ pag
 test("mood tiles show a backdrop still, distinct per tile", async ({ page }) => {
   const imgs = page.locator("#moods").getByRole("button").locator("img");
   await expect(imgs).toHaveCount(18);
-  const srcs = await imgs.evaluateAll((els) => els.map((e) => (e as HTMLImageElement).getAttribute("src")));
+  // Tiles hold their request until they near the viewport; `data-src` carries the still regardless.
+  const srcs = await imgs.evaluateAll((els) => els.map((e) => e.getAttribute("data-src")));
   expect(new Set(srcs).size).toBe(18);
   expect(srcs.every((s) => s?.startsWith("/img/backdrop"))).toBe(true);
 });

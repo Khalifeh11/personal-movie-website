@@ -30,12 +30,17 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
   const next = toLayer(title);
   if (layers.at(-1)?.key !== next.key) setLayers([...layers.slice(-1), next]);
 
-  // Warm the cache for the next couple of stills.
+  // Warm the cache for the next couple of stills, at low priority so they never queue ahead of the one on screen.
   useEffect(() => {
     const small = matchMedia(SMALL_SCREEN).matches;
     for (const t of upcoming) {
       const srcs = small ? [t.backdropSmall ?? t.backdrop] : [t.backdropSmall, t.backdrop];
-      for (const src of srcs) if (src) new Image().src = src;
+      for (const src of srcs) {
+        if (!src) continue;
+        const img = new Image();
+        img.fetchPriority = "low";
+        img.src = src;
+      }
     }
   }, [upcoming]);
 
@@ -45,11 +50,12 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
         l.src ? (
           <div key={l.key} className={`absolute inset-0 ${i === layers.length - 1 && layers.length > 1 ? "animate-fadein" : ""}`}>
             <div className={`absolute inset-0 animate-kenburns ${l.blurred ? "scale-110 blur-xl" : ""}`}>
-              {l.srcSmall && <img src={l.srcSmall} alt="" className="absolute inset-0 h-full w-full scale-105 object-cover blur-md" />}
+              {/* The still on screen outranks every tile and poster below the fold. */}
+              {l.srcSmall && <img src={l.srcSmall} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full scale-105 object-cover blur-md" />}
               {/* Phones get the small still here too: it's already cached, so the top image is complete at once. */}
               <picture>
                 {l.srcSmall && <source media={SMALL_SCREEN} srcSet={l.srcSmall} />}
-                <FadeImg src={l.src} alt="" className="absolute inset-0 h-full w-full object-cover transition-opacity duration-(--duration-bg)" />
+                <FadeImg src={l.src} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-opacity duration-(--duration-bg)" />
               </picture>
             </div>
           </div>

@@ -25,7 +25,7 @@ export function MoodTiles({ tiles, onOpen }: { tiles: Tile[]; onOpen: (mood: Moo
           style={{ "--accent": t.accent } as CSSProperties}
           className={`group relative aspect-video overflow-hidden rounded-sm bg-bg text-left outline-none focus-visible:ring-1 focus-visible:ring-fg ${t.count === 0 ? "opacity-40" : ""}`}
         >
-          {t.backdrop && <FadeImg src={t.backdrop} alt="" loading="lazy" className={still} />}
+          {t.backdrop && <FadeImg src={t.backdrop} alt="" loading="lazy" defer fetchPriority="low" className={still} />}
           <span className={tint} />
           <span className={edge} />
           <span className="absolute inset-x-3 bottom-3 flex flex-col gap-1.5 md:inset-x-4 md:bottom-4">

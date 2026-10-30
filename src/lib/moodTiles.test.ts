@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { MOODS } from "./moods";
-import { countLabel, moodTiles } from "./moodTiles";
+import { countLabel, moodTiles, tileBackdrop } from "./moodTiles";
 import { mk } from "./testUtils";
 
 const deck = [
@@ -54,6 +54,13 @@ test("hero override wins and is skipped by later tiles; a bad hero id falls thro
   expect(t.gritty.backdrop).toBe("/a-sm.jpg");
   expect(t.tense.backdrop).toBe("/b.jpg");
   expect(t.dread.backdrop).toBeNull();
+});
+
+test("tileBackdrop swaps the small still for the tile cut, leaves posters and full stills alone", () => {
+  expect(tileBackdrop(mk({ backdrop: "/img/backdrop/x.webp", backdropSmall: "/img/backdrop-sm/x.webp" }))).toBe("/img/backdrop-tile/x.webp");
+  expect(tileBackdrop(mk({ backdrop: "/img/poster/x.webp", backdropSmall: "/img/poster/x.webp" }))).toBe("/img/poster/x.webp");
+  expect(tileBackdrop(mk({ backdrop: "/b.jpg", backdropSmall: null }))).toBe("/b.jpg");
+  expect(tileBackdrop(mk({ backdrop: null, backdropSmall: null }))).toBeNull();
 });
 
 test("countLabel", () => {

@@ -34,6 +34,7 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, force = f
     if (details?.backdrop_path) {
       await tmdb.download(`/w1280${details.backdrop_path}`, join(imgDir, "backdrop", `${id}.webp`));
       await tmdb.download(`/w780${details.backdrop_path}`, join(imgDir, "backdrop-sm", `${id}.webp`));
+      await tmdb.tile(join(imgDir, "backdrop-sm", `${id}.webp`), join(imgDir, "backdrop-tile", `${id}.webp`));
     }
     if (details?.poster_path) {
       await tmdb.download(`/w500${details.poster_path}`, join(imgDir, "poster", `${id}.webp`));

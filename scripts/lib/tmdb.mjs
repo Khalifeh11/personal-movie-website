@@ -49,5 +49,11 @@ export function makeTmdb({ apiKey, fetch = globalThis.fetch, imageBase = "https:
       }
       await promisify(execFile)("cwebp", ["-quiet", "-q", "82", jpg, "-o", destFile]);
     },
+    /** A 560px-wide, lighter cut of an existing webp (mood tiles never show more than ~350 CSS px). Needs ImageMagick. */
+    async tile(srcFile, destFile) {
+      if (existsSync(destFile)) return;
+      await mkdir(dirname(destFile), { recursive: true });
+      await promisify(execFile)("magick", [srcFile, "-resize", "560x", "-quality", "65", destFile]);
+    },
   };
 }

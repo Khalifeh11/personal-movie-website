@@ -15,6 +15,7 @@ function fakeTmdb() {
       id === "tt0051378" ? { media: "movie", id: 1 } : id === "tt5753856" ? { media: "tv", id: 2 } : null),
     details: vi.fn(async (media) => (media === "movie" ? movieDetails : tvDetails)),
     download: vi.fn(async () => {}),
+    tile: vi.fn(async () => {}),
   };
 }
 
@@ -35,6 +36,7 @@ test("writes all titles, reports unmatched, downloads images", async () => {
   expect(tmdb.download).toHaveBeenCalledWith("/w780/elevatorBackdrop.jpg", join(opts.imgDir, "backdrop-sm", "tt0051378.webp"));
   expect(tmdb.download).toHaveBeenCalledWith("/w500/darkPoster.jpg", join(opts.imgDir, "poster", "tt5753856.webp"));
   expect(tmdb.download).toHaveBeenCalledTimes(4);
+  expect(tmdb.tile).toHaveBeenCalledWith(join(opts.imgDir, "backdrop-sm", "tt0051378.webp"), join(opts.imgDir, "backdrop-tile", "tt0051378.webp"));
 });
 
 test("second run skips existing; --force refetches", async () => {

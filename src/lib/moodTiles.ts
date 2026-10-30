@@ -7,11 +7,21 @@ export interface Tile {
   label: string;
   count: number;
   accent: string;
-  /** The picked title's small backdrop (full one as fallback); `null` when no title in the mood has one. */
+  /** The picked title's tile-size backdrop (full one as fallback); `null` when no title in the mood has one. */
   backdrop: string | null;
 }
 
 const num = (n: number | null) => n ?? -Infinity;
+
+/**
+ * The still a tile shows: the 560px `backdrop-tile` cut of the small backdrop (a tile is at most
+ * ~350 CSS px wide, so the 780px phone-hero still is 3× the bytes for nothing). Posters standing
+ * in for a missing backdrop, and anything else, pass through unchanged.
+ */
+export function tileBackdrop(t: Title): string | null {
+  const small = t.backdropSmall ?? t.backdrop;
+  return small ? small.replace("/img/backdrop-sm/", "/img/backdrop-tile/") : null;
+}
 
 /** Best first: rating, then votes, then id (stable across reloads). */
 function byRank(a: Title, b: Title): number {
@@ -40,7 +50,7 @@ export function moodTiles(deck: Title[], titles: Title[], heroOf: (slug: MoodFil
       label: moodLabel(slug),
       count: deck.filter((t) => inMood(t, slug)).length,
       accent: moodAccent(slug),
-      backdrop: pick ? (pick.backdropSmall ?? pick.backdrop) : null,
+      backdrop: pick ? tileBackdrop(pick) : null,
     };
   });
 }

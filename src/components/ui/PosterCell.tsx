@@ -35,6 +35,8 @@ export function PosterCell({ title: t, dimmed, accent, caption, onOpen, classNam
             src={t.poster}
             alt=""
             loading="lazy"
+            defer
+            fetchPriority="low"
             className="h-full w-full object-cover transition-[opacity,scale] duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-visible:scale-105"
           />
         )}
