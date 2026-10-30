@@ -3,7 +3,13 @@ import { parseQuery, serializeQuery, type QueryFilters } from "./hash";
 import { MOODS } from "./moods";
 import type { Filters, MoodFilter } from "./types";
 
-export type Route = { name: "home" } | { name: "mood"; mood: MoodFilter } | { name: "director"; director: string };
+import type { ShelfId } from "./shelves";
+
+export type Route =
+  | { name: "home" }
+  | { name: "mood"; mood: MoodFilter }
+  | { name: "director"; director: string }
+  | { name: "shelf"; shelf: ShelfId };
 
 const SLUGS = new Set<string>(["all", ...MOODS.map((m) => m.slug)]);
 const HOME: Route = { name: "home" };
