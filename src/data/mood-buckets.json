@@ -1,9 +1,0 @@
-{
-  "on-edge": ["Tense, gritty", "Suspenseful, investigative", "Tense, cerebral", "Tense, moving"],
-  "unsettling": ["Unsettling, intense", "Nightmarish, unsettling", "Nightmarish, surreal", "Psychological, enigmatic"],
-  "mind-bending": ["Cerebral, speculative", "Cerebral, conversational", "Dreamlike, thought-provoking", "Lonely, surreal", "Surreal, devastating"],
-  "wry-funny": ["Wry, character-driven", "Funny, energetic", "Anxious, absurd", "Absurd, cold", "Absurd, cynical", "Neurotic, inventive", "Satirical, uncomfortable"],
-  "transported": ["Imaginative, immersive"],
-  "moved": ["Serious, dramatic", "Reflective, serious", "Emotional, reflective", "Raw, heartbreaking", "Grief-stricken, realistic", "Reflective, moving", "Melancholic, poetic", "Gentle, contemplative", "Bittersweet, reflective", "Bleak, meditative"],
-  "real-life": ["Informative, observational"]
-}
