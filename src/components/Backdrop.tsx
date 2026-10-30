@@ -36,7 +36,7 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
   }, [upcoming]);
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-bg" aria-hidden>
+    <div className="absolute inset-0 overflow-hidden bg-bg" aria-hidden>
       {layers.map((l, i) =>
         l.src ? (
           <picture key={l.key} className={`absolute inset-0 ${i === layers.length - 1 && layers.length > 1 ? "animate-fadein" : ""}`}>

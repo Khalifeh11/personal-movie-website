@@ -3,7 +3,10 @@ import type { Title } from "../lib/types";
 import { FactsRow } from "./FactsRow";
 import { Label } from "./ui/Label";
 
-export function Hero({ title, showBlurb }: { title: Title; showBlurb: boolean }) {
+const heroAction =
+  "rounded-full border border-white/25 px-3.5 py-2 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg";
+
+export function Hero({ title }: { title: Title }) {
   const by = byline(title);
   return (
     <section key={title.id} className="max-w-[900px] animate-rise">
@@ -18,7 +21,10 @@ export function Hero({ title, showBlurb }: { title: Title; showBlurb: boolean })
         {by.lead} {by.name && <b className="font-semibold tracking-[0.15em] text-fg">{by.name}</b>}
       </Label>
       <FactsRow title={title} />
-      {showBlurb && title.overview && (
+      <div className="mt-5 flex flex-wrap gap-2">
+        <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>
+      </div>
+      {title.overview && (
         <p className="mt-5 line-clamp-5 max-w-[520px] text-sm leading-relaxed text-fg-2 md:line-clamp-none">{title.overview}</p>
       )}
     </section>
