@@ -50,8 +50,10 @@ export function DecadesPage({ decade, titles, filters, onFilters, onTrailer, nav
   // and the list's own layout effect (a child's, so it runs first) would otherwise restore it.
   if (decade === null) return null;
   const scope: Scope = { kind: "decade", decade: resolved };
+  // One host element: on unmount the list's cleanup saves scrollY before any of the page leaves the DOM
+  // (with a Fragment the band's section went first and the saved scroll came back short by its height).
   return (
-    <>
+    <div>
       {/* Outside the keyed list so a decade change keeps the band mounted: the still crossfades,
           the glow tweens, and a drag or focus on the chart survives the list's remount. */}
       <DecadeBand
@@ -73,6 +75,6 @@ export function DecadesPage({ decade, titles, filters, onFilters, onTrailer, nav
         onTrailer={onTrailer}
         headless
       />
-    </>
+    </div>
   );
 }

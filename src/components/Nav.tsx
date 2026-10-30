@@ -6,7 +6,7 @@ import { MoodDot } from "./ui/MoodDot";
 
 interface NavProps {
   route: Route;
-  onNavigate: (r: Route) => void;
+  onNavigate: (r: Route, opts?: { replace?: boolean }) => void;
   onOpenFilters: () => void;
 }
 
@@ -91,7 +91,8 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
       type="button"
       onClick={() => {
         setMenuOpen(false);
-        onNavigate({ name: "decades", decade: null });
+        // Already on the page: replace, so Back still leaves it.
+        onNavigate({ name: "decades", decade: null }, { replace: route.name === "decades" });
       }}
       className={`${item} ${route.name === "decades" ? "text-fg" : ""}`}
     >
