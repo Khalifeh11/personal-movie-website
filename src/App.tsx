@@ -34,7 +34,7 @@ function Site() {
   const closeTrailer = useCallback(() => setTrailerFor(null), []);
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
-  const { route, navigate } = useRoute(state.filters);
+  const { route, navigate } = useRoute(state.filters, setFilters);
   const tiles = useMemo(() => moodTiles(state.deck), [state.deck]);
 
   return (

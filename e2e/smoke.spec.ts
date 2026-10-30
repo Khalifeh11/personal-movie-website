@@ -40,6 +40,7 @@ test("Moods scrolls to the mood section", async ({ page }) => {
 });
 
 test("legacy hash redirects home and keeps valid filters", async ({ page }) => {
+  await expect(page.locator("h1")).toBeVisible(); // app mounted, hashchange listener attached
   await page.goto("/#mood=on-edge&type=Series");
   await expect(page).toHaveURL(/#\/\?type=Series$/);
 });

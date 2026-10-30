@@ -111,3 +111,11 @@ test("a note saves on blur", async ({ page }) => {
   await page.getByRole("heading", { level: 1 }).click();
   await expect(rows(page).first().getByRole("button", { name: "Note •" })).toBeVisible();
 });
+
+test("following a link to a mood page starts at the top", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => scrollTo(0, 900));
+  await page.evaluate(() => (location.hash = "#/mood/on-edge"));
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("On edge");
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+});

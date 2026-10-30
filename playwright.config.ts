@@ -5,6 +5,7 @@ export default defineConfig({
   use: { baseURL: "http://localhost:4173" },
   webServer: { command: "npx vite --port 4173 --strictPort", url: "http://localhost:4173", reuseExistingServer: true },
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "desktop", testIgnore: /mobile\.spec/, use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "mobile", testMatch: /mobile\.spec/, use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 3 } },
   ],
 });

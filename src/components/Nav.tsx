@@ -29,6 +29,14 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
   const [moodsOpen, setMoodsOpen] = useState(false);
   const moodsRef = useRef<HTMLDivElement>(null);
   const onHome = route.name === "home";
+
+  // Any route change (link, Back) closes open menus.
+  const [menusFor, setMenusFor] = useState(route);
+  if (menusFor !== route) {
+    setMenusFor(route);
+    setMenuOpen(false);
+    setMoodsOpen(false);
+  }
   const solid = scrolled || !onHome || menuOpen;
 
   // Dropdown closes on Esc or a click anywhere outside it.

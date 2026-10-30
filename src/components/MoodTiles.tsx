@@ -27,10 +27,11 @@ export function MoodTiles({ tiles, onOpen }: { tiles: Tile[]; onOpen: (mood: Moo
             ),
           )}
           <span className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent to-60%" />
-          <span className="absolute bottom-3 left-3 font-display text-xl uppercase leading-none md:bottom-4 md:left-4 md:text-3xl">
-            {t.label}
+          {/* Stacked on phones (long names collide with the count), side by side from md up. */}
+          <span className="absolute inset-x-3 bottom-3 flex flex-col gap-1.5 md:inset-x-4 md:bottom-4 md:flex-row md:items-end md:justify-between">
+            <span className="font-display text-xl uppercase leading-none md:text-3xl">{t.label}</span>
+            <Label className="text-[10px]">{countLabel(t.count)}</Label>
           </span>
-          <Label className="absolute bottom-3 right-3 text-[10px] md:bottom-4 md:right-4">{countLabel(t.count)}</Label>
         </button>
       ))}
     </div>
