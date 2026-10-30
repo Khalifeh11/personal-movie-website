@@ -17,10 +17,3 @@ test("home shows a film and arrows move", async ({ page }) => {
   await expect(h1).not.toHaveText(first!);
   await expect(counter(page)).toHaveText(/^02 \//);
 });
-
-test("picking a mood updates hash and survives reload", async ({ page }) => {
-  await page.getByRole("button", { name: "On edge", exact: true }).click();
-  await expect(page).toHaveURL(/#mood=on-edge/);
-  await page.reload();
-  await expect(page.getByRole("button", { name: "On edge", exact: true })).toHaveAttribute("aria-pressed", "true");
-});

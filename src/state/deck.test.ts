@@ -3,11 +3,11 @@ import { F, mk, U } from "../lib/testUtils";
 import { counterText, deckReducer, initDeck, resolveInitialFilters } from "./deck";
 
 const titles = [
-  mk({ id: "a", moodBucket: "on-edge" }),
-  mk({ id: "b", moodBucket: "on-edge" }),
-  mk({ id: "c", moodBucket: "moved" }),
-  mk({ id: "d", moodBucket: "moved" }),
-  mk({ id: "e", moodBucket: "unsettling" }),
+  mk({ id: "a", runtime: 90 }),
+  mk({ id: "b", runtime: 95 }),
+  mk({ id: "c", runtime: 110 }),
+  mk({ id: "d", runtime: 120 }),
+  mk({ id: "e", runtime: 150 }),
 ];
 const start = (f = F()) => initDeck(titles, f, {}, 7);
 const ids = (s: ReturnType<typeof start>) => s.deck.map((t) => t.id);
@@ -24,13 +24,13 @@ describe("deckReducer", () => {
 
   test("setFilters keeps current title if still present, else resets to 0", () => {
     let s = start();
-    const onEdgeIdx = s.deck.findIndex((t) => t.moodBucket === "on-edge");
-    s = deckReducer(titles, {}, s, { type: "jump", id: s.deck[onEdgeIdx].id });
+    const shortIdx = s.deck.findIndex((t) => t.runtime! < 100);
+    s = deckReducer(titles, {}, s, { type: "jump", id: s.deck[shortIdx].id });
     const currentId = s.deck[s.index].id;
-    s = deckReducer(titles, {}, s, { type: "setFilters", filters: { mood: "on-edge" } });
+    s = deckReducer(titles, {}, s, { type: "setFilters", filters: { runtime: "short" } });
     expect(s.deck[s.index].id).toBe(currentId);
-    expect(s.filters.mood).toBe("on-edge");
-    s = deckReducer(titles, {}, s, { type: "setFilters", filters: { mood: "unsettling" } });
+    expect(s.filters.runtime).toBe("short");
+    s = deckReducer(titles, {}, s, { type: "setFilters", filters: { runtime: "long" } });
     expect(ids(s)).toEqual(["e"]);
     expect(s.index).toBe(0);
   });
@@ -42,15 +42,6 @@ describe("deckReducer", () => {
     const before = s.index;
     s = deckReducer(titles, {}, s, { type: "jump", id: "zzz" });
     expect(s.index).toBe(before);
-  });
-
-  test("shuffle changes seed and order, resets index", () => {
-    let s = deckReducer(titles, {}, start(), { type: "next" });
-    const order = ids(s);
-    s = deckReducer(titles, {}, s, { type: "shuffle" });
-    expect(s.seed).not.toBe(7);
-    expect(s.index).toBe(0);
-    expect(ids(s).sort()).toEqual([...order].sort());
   });
 
   test("rebuild with everything watched + hideWatched → empty deck, index 0, next is safe", () => {
@@ -70,17 +61,17 @@ test("counterText pads to two digits; empty deck shows 00 / 00", () => {
 });
 
 describe("resolveInitialFilters", () => {
-  const defaults = { mood: "all", type: "all", runtime: "any", hideWatched: true };
+  const defaults = { type: "all", runtime: "any", hideWatched: true };
   test("defaults when nothing stored", () => {
     expect(resolveInitialFilters("", null)).toEqual(defaults);
   });
   test("stored used when no hash", () => {
-    expect(resolveInitialFilters("", { mood: "moved", hideWatched: false })).toEqual({ ...defaults, mood: "moved", hideWatched: false });
+    expect(resolveInitialFilters("", { runtime: "long", hideWatched: false })).toEqual({ ...defaults, runtime: "long", hideWatched: false });
   });
   test("hash wins over stored for the keys it has", () => {
-    expect(resolveInitialFilters("#mood=on-edge", { mood: "moved", type: "Series" })).toEqual({ ...defaults, mood: "on-edge", type: "Series" });
+    expect(resolveInitialFilters("#/mood/moved?rt=short", { runtime: "long", type: "Series" })).toEqual({ ...defaults, runtime: "short", type: "Series" });
   });
   test("garbage in storage is ignored", () => {
-    expect(resolveInitialFilters("", { mood: "zzz" as never, runtime: 5 as never })).toEqual(defaults);
+    expect(resolveInitialFilters("", { type: "zzz" as never, runtime: 5 as never })).toEqual(defaults);
   });
 });

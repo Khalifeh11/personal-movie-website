@@ -34,7 +34,6 @@ export interface Title {
 }
 
 export interface Filters {
-  mood: MoodFilter;
   type: TypeFilter;
   runtime: RuntimeBand;
   hideWatched: boolean;

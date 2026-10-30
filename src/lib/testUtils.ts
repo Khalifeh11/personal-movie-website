@@ -31,7 +31,7 @@ export function mk(partial: Partial<Title> = {}): Title {
 }
 
 export function F(partial: Partial<Filters> = {}): Filters {
-  return { mood: "all", type: "all", runtime: "any", hideWatched: false, ...partial };
+  return { type: "all", runtime: "any", hideWatched: false, ...partial };
 }
 
 export function U(partial: Partial<UserEntry> = {}): UserEntry {

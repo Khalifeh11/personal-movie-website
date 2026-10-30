@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { buildDeck, formatRuntime, matches, runtimeBand } from "./filters";
+import { buildDeck, formatRuntime, inMood, matches, runtimeBand } from "./filters";
 import { F, mk, U } from "./testUtils";
 
 test("runtime bands", () => {
@@ -18,13 +18,15 @@ test("null runtime passes any, fails ranged bands", () => {
   }
 });
 
+test("inMood: all matches everything, a bucket only itself", () => {
+  const t = mk({ moodBucket: "on-edge" });
+  expect(inMood(t, "all")).toBe(true);
+  expect(inMood(t, "on-edge")).toBe(true);
+  expect(inMood(t, "moved")).toBe(false);
+});
+
 describe("matches", () => {
   const t = mk({ id: "tt1", moodBucket: "on-edge", type: "Series" });
-  test("mood all vs bucket", () => {
-    expect(matches(t, F({ mood: "all" }), {})).toBe(true);
-    expect(matches(t, F({ mood: "on-edge" }), {})).toBe(true);
-    expect(matches(t, F({ mood: "moved" }), {})).toBe(false);
-  });
   test("type filter", () => {
     expect(matches(t, F({ type: "Series" }), {})).toBe(true);
     expect(matches(t, F({ type: "Movie" }), {})).toBe(false);

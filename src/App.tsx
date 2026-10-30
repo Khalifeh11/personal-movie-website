@@ -9,6 +9,7 @@ import { ThumbStrip } from "./components/ThumbStrip";
 import { RoundButton } from "./components/ui/RoundButton";
 import titlesJson from "./data/titles.json";
 import type { Title } from "./lib/types";
+import { serializeRoute } from "./lib/route";
 import { LocalStorageUserData } from "./lib/userData";
 import { useDeck } from "./state/useDeck";
 import { UserDataContext, useUserData } from "./state/useUserData";
@@ -32,6 +33,8 @@ function Deck() {
   const closeFilters = useCallback(() => setFiltersOpen(false), []);
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
   const [tab, setTab] = useState<Tab>("film");
+  // Temporary: keep the URL in sync until useRoute owns it.
+  useEffect(() => history.replaceState(null, "", serializeRoute({ name: "home" }, state.filters)), [state.filters]);
   const next = () => dispatch({ type: "next" });
   const prev = () => dispatch({ type: "prev" });
 
@@ -75,7 +78,6 @@ function Deck() {
   );
 
   const onTab = (t: Tab) => {
-    if (t === "shuffle") return dispatch({ type: "shuffle" });
     if (t === "film") return setTab(tab === "film" ? ("" as Tab) : "film");
     // Trailer and Browse overlays arrive in later tasks.
     setTab(t);
@@ -86,8 +88,6 @@ function Deck() {
       <Backdrop title={current} upcoming={upcoming} />
       <div className="relative z-(--z-ui) flex h-full flex-col">
         <Header
-          mood={state.filters.mood}
-          onMood={(mood) => setFilters({ mood })}
           onOpenFilters={() => setFiltersOpen(true)}
           count={count}
         />

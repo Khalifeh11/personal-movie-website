@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useReducer } from "react";
-import { serializeHash } from "../lib/hash";
 import { daySeed } from "../lib/shuffle";
 import type { Filters, Title, UserEntry } from "../lib/types";
 import { counterText, deckReducer, initDeck, resolveInitialFilters, type DeckAction, type DeckState } from "./deck";
@@ -29,10 +28,8 @@ export function useDeck(titles: Title[], user: Record<string, UserEntry>) {
   // Watched state arrives async / changes → rebuild, keeping the current film if it survives.
   useEffect(() => dispatch({ type: "rebuild", user }), [user]);
 
-  // Mirror filters to the URL hash and localStorage.
+  // Persist filters; the URL is mirrored by useRoute.
   useEffect(() => {
-    const hash = serializeHash(state.filters);
-    history.replaceState(null, "", hash || location.pathname + location.search);
     try {
       localStorage.setItem(FILTERS_KEY, JSON.stringify(state.filters));
     } catch {

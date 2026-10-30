@@ -1,5 +1,5 @@
 import { seededShuffle } from "./shuffle";
-import type { Filters, RuntimeBand, Title, UserEntry } from "./types";
+import type { Filters, MoodFilter, RuntimeBand, Title, UserEntry } from "./types";
 
 /** short < 100, mid 100–140 inclusive, long > 140; null when runtime unknown. */
 export function runtimeBand(runtime: number | null): RuntimeBand | null {
@@ -9,8 +9,11 @@ export function runtimeBand(runtime: number | null): RuntimeBand | null {
   return "long";
 }
 
+export function inMood(t: Title, mood: MoodFilter): boolean {
+  return mood === "all" || t.moodBucket === mood;
+}
+
 export function matches(t: Title, f: Filters, user: Record<string, UserEntry>): boolean {
-  if (f.mood !== "all" && t.moodBucket !== f.mood) return false;
   if (f.type !== "all" && t.type !== f.type) return false;
   if (f.runtime !== "any" && runtimeBand(t.runtime) !== f.runtime) return false;
   if (f.hideWatched && user[t.id]?.watched) return false;
