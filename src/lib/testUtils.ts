@@ -8,6 +8,7 @@ export function mk(partial: Partial<Title> = {}): Title {
     year: 2000,
     type: "Movie",
     runtime: 100,
+    added: null,
     imdbRating: 7,
     imdbVotes: 1000,
     genres: ["Drama"],

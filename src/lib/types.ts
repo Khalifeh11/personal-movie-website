@@ -14,6 +14,8 @@ export interface Title {
   year: number | null;
   type: TitleType;
   runtime: number | null;
+  /** IMDb "added to list" date, `YYYY-MM-DD`; null when the export lacks it. */
+  added: string | null;
   imdbRating: number | null;
   imdbVotes: number | null;
   genres: string[];

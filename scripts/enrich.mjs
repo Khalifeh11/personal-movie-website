@@ -5,8 +5,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readWatchlist } from "./lib/csv.mjs";
 import { applyMoods } from "./lib/moods.mjs";
+import { isoDate, toTitle } from "./lib/transform.mjs";
 import { makeTmdb } from "./lib/tmdb.mjs";
-import { toTitle } from "./lib/transform.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const vocab = JSON.parse(readFileSync(join(root, "src/data/moods.json"), "utf8"));
@@ -42,6 +42,12 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, force = f
     byId.set(id, toTitle(row, found, details));
     written++;
     log(`${String(written + skipped).padStart(3)}/${todo.length} ${row.Title}${found ? "" : "  (no TMDB match)"}`);
+  }
+
+  // CSV-only fields merge on every run, like moods, so older outputs gain them without --force.
+  for (const row of rows) {
+    const t = byId.get(row.Const);
+    if (t) t.added = isoDate(row.Created);
   }
 
   // Keep CSV order for everything we have. Moods merge on every run so tag edits apply without --force.

@@ -10,6 +10,9 @@ const int = (s) => {
 
 const SERIES = new Set(["TV Series", "TV Mini Series"]);
 
+/** IMDb's `Created` column is `YYYY-MM-DD`; anything else → null. */
+export const isoDate = (s) => (/^\d{4}-\d{2}-\d{2}$/.test(s ?? "") ? s : null);
+
 /** First YouTube "Trailer", official ones first; YouTube key or null. */
 export function pickTrailer(videos) {
   const trailers = (videos ?? []).filter((v) => v.site === "YouTube" && v.type === "Trailer");
@@ -28,6 +31,7 @@ export function toTitle(row, found, details) {
     year: int(row.Year),
     type: SERIES.has(row["Title Type"]) ? "Series" : "Movie",
     runtime: int(row["Runtime (mins)"]),
+    added: isoDate(row.Created),
     imdbRating: num(row["IMDb Rating"]),
     imdbVotes: int(row["Num Votes"]),
     genres: list(row.Genres),

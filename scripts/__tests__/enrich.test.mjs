@@ -73,3 +73,16 @@ test("merges mood tags on every run, including skipped titles; logs untagged ids
   expect(again.find).not.toHaveBeenCalled();
   expect(moodsOf()).toEqual({ tt0051378: ["dread"], tt5753856: ["mind-bending"], tt6207098: ["funny"] });
 });
+
+test("added merges from the CSV on every run, including skipped titles", async () => {
+  const opts = setup();
+  await main({ ...opts, tmdb: fakeTmdb() });
+  const out = JSON.parse(readFileSync(opts.outPath, "utf8"));
+  // Simulate an output written before `added` existed.
+  writeFileSync(opts.outPath, JSON.stringify(out.map(({ added: _added, ...t }) => t)));
+  const again = fakeTmdb();
+  expect(await main({ ...opts, tmdb: again })).toMatchObject({ written: 0, skipped: 3 });
+  expect(again.find).not.toHaveBeenCalled();
+  const addedOf = Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.added]));
+  expect(addedOf).toEqual({ tt0051378: "2017-06-17", tt6207098: "2017-11-01", tt5753856: "2018-02-11" });
+});

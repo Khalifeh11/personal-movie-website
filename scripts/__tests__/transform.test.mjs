@@ -14,7 +14,7 @@ describe("toTitle", () => {
     const t = toTitle(byId.tt0051378, { media: "movie", id: 1 }, movieDetails);
     expect(t).toMatchObject({
       id: "tt0051378", title: "Elevator to the Gallows", originalTitle: "Ascenseur pour l'échafaud",
-      type: "Movie", runtime: 91, year: 1958, imdbRating: 7.9, imdbVotes: 32365,
+      type: "Movie", runtime: 91, year: 1958, added: "2017-06-17", imdbRating: 7.9, imdbVotes: 32365,
       genres: ["Crime", "Drama", "Thriller"], directors: ["Louis Malle"],
       mood: "Tense, gritty", keywords: ["murder", "film noir"], themes: ["Justice", "morality"],
       imdbUrl: "https://www.imdb.com/title/tt0051378/",
@@ -40,6 +40,13 @@ describe("toTitle", () => {
       poster: null, trailerKey: null, tmdbRating: null, tmdbVotes: null, keywords: [],
     });
     expect(t).not.toHaveProperty("moodBucket");
+  });
+
+  test("added comes from Created; empty or garbage → null", () => {
+    const row = { ...byId.tt0051378, Created: "" };
+    expect(toTitle(row, null, null).added).toBeNull();
+    expect(toTitle({ ...row, Created: "not a date" }, null, null).added).toBeNull();
+    expect(toTitle({ ...row, Created: "2013-12-14" }, null, null).added).toBe("2013-12-14");
   });
 });
 
