@@ -1,6 +1,6 @@
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test, vi } from "vitest";
 import { main } from "../enrich.mjs";
@@ -106,4 +106,18 @@ test("tint comes from the small still on disk, and backfills outputs that lack i
   expect(tint).toHaveBeenCalledWith(join(opts.imgDir, "backdrop-sm", "tt0051378.webp"));
   const tintOf = Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.tint]));
   expect(tintOf).toEqual({ tt0051378: "#3095cf", tt5753856: null, tt6207098: null });
+});
+
+test("a title written this run gets a tint from its freshly downloaded still", async () => {
+  const opts = setup();
+  const tmdb = fakeTmdb();
+  tmdb.download = vi.fn(async (_url, dest) => {
+    mkdirSync(dirname(dest), { recursive: true });
+    writeFileSync(dest, "");
+  });
+  const tint = vi.fn(async () => "#3095cf");
+  await main({ ...opts, tmdb, tint });
+  const tintOf = Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.tint]));
+  expect(tintOf.tt0051378).toBe("#3095cf");
+  expect(tint).toHaveBeenCalledWith(join(opts.imgDir, "backdrop-sm", "tt0051378.webp"));
 });

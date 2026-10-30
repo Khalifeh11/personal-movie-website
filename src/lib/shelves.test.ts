@@ -2,7 +2,8 @@ import { expect, test } from "vitest";
 import { homeShelves, SHELF_LIMIT, shelfTitles } from "./shelves";
 import { mk } from "./testUtils";
 
-const today = new Date("2026-10-30");
+// Local-time midnight, like the app passes.
+const today = new Date(2026, 9, 30);
 const ids = (ts: { id: string }[]) => ts.map((t) => t.id);
 const byId = (shelves: ReturnType<typeof homeShelves>, id: string) => shelves.find((s) => s.id === id);
 
@@ -87,12 +88,12 @@ test("around: within 3 days either side, earlier years only", () => {
 
 test("around: wraps across Jan 1 both ways", () => {
   const ts = [added("dec", "2015-12-30"), added("far", "2015-12-27")];
-  expect(ids(shelfTitles(ts, "around", new Date("2026-01-01")))).toEqual(["dec"]);
-  expect(ids(shelfTitles([added("jan", "2015-01-02")], "around", new Date("2026-12-31")))).toEqual(["jan"]);
+  expect(ids(shelfTitles(ts, "around", new Date(2026, 0, 1)))).toEqual(["dec"]);
+  expect(ids(shelfTitles([added("jan", "2015-01-02")], "around", new Date(2026, 11, 31)))).toEqual(["jan"]);
 });
 
 test("around: Feb 29 counts as Mar 1", () => {
-  expect(ids(shelfTitles([added("leap", "2016-02-29")], "around", new Date("2026-03-02")))).toEqual(["leap"]);
+  expect(ids(shelfTitles([added("leap", "2016-02-29")], "around", new Date(2026, 2, 2)))).toEqual(["leap"]);
 });
 
 test("around: nearest day first, then earliest added, then title", () => {
@@ -113,4 +114,9 @@ test("around shelf: fourth after waiting, before director, with a short-date cap
 
 test("around shelf omitted when nothing is near", () => {
   expect(byId(homeShelves(deck, hero, today), "around")).toBeUndefined();
+});
+
+test("around: Jan 1 excludes a film added days ago last year, keeps older Decembers", () => {
+  const ts = [added("recent", "2025-12-30"), added("old", "2024-12-30")];
+  expect(ids(shelfTitles(ts, "around", new Date(2026, 0, 1)))).toEqual(["old"]);
 });

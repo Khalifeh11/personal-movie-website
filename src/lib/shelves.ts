@@ -52,12 +52,15 @@ function offsetFrom(today: Date, iso: string): number {
 /** The shelf's full set in shelf order (also the browse scope for `#/shelf/<id>`). `today` only matters for "around". */
 export function shelfTitles(titles: Title[], id: ShelfId, today: Date = new Date()): Title[] {
   if (id === "around") {
-    const year = today.getUTCFullYear();
+    // The app passes local time; the added dates are UTC days. Compare local y/m/d as a UTC day.
+    const day = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    // Must be a past anniversary, not something added days ago across Jan 1.
+    const earlier = (iso: string) => day.getTime() - new Date(iso).getTime() > 7 * DAY_MS;
     return titles
-      .filter((t) => t.added != null && Number(t.added.slice(0, 4)) < year && Math.abs(offsetFrom(today, t.added)) <= AROUND_DAYS)
+      .filter((t) => t.added != null && earlier(t.added) && Math.abs(offsetFrom(day, t.added)) <= AROUND_DAYS)
       .sort(
         (x, y) =>
-          Math.abs(offsetFrom(today, x.added!)) - Math.abs(offsetFrom(today, y.added!)) || x.added!.localeCompare(y.added!) || byTitle(x, y),
+          Math.abs(offsetFrom(day, x.added!)) - Math.abs(offsetFrom(day, y.added!)) || x.added!.localeCompare(y.added!) || byTitle(x, y),
       );
   }
   if (id === "short") {

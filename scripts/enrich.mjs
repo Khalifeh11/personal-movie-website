@@ -19,6 +19,7 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, tint = ti
   const byId = new Map(existing.map((t) => [t.id, t]));
   const todo = limit ? rows.slice(0, limit) : rows;
   let written = 0;
+  const fresh = new Set();
   let skipped = 0;
   const unmatched = [];
 
@@ -42,6 +43,7 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, tint = ti
     }
 
     byId.set(id, toTitle(row, found, details));
+    fresh.add(id);
     written++;
     log(`${String(written + skipped).padStart(3)}/${todo.length} ${row.Title}${found ? "" : "  (no TMDB match)"}`);
   }
@@ -52,9 +54,9 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, tint = ti
     if (t) t.added = isoDate(row.Created);
   }
 
-  // The still's tint is derived from the file on disk, so older outputs gain it on the next run too.
+  // The still's tint is derived from the file on disk, so older outputs gain it on the next run too. Titles written this run start at null and are tinted here.
   for (const t of byId.values()) {
-    if (t.tint !== undefined && !force) continue;
+    if (t.tint !== undefined && !force && !fresh.has(t.id)) continue;
     const file = t.backdropSmall && join(imgDir, t.backdropSmall.replace(/^\/img\//, ""));
     t.tint = file && existsSync(file) ? await tint(file) : null;
   }
