@@ -26,13 +26,15 @@ interface BrowsePageProps {
   filters: Filters;
   onFilters: (f: Partial<Filters>) => void;
   onTrailer: (t: Title) => void;
+  /** The page above supplies the header (the Decades band): no top padding, title, count or mood hue; just the controls. */
+  headless?: boolean;
 }
 
 const control =
   "rounded-full border border-white/25 bg-transparent px-3.5 py-2 font-ui text-xs text-fg-2 outline-none focus:border-fg";
 
-/** A mood page or a director page: header, sort/search controls and the rows. Keyed by scope from App. */
-export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrailer }: BrowsePageProps) {
+/** A mood, director, shelf or decade page: header (or band), sort/search controls and the rows. Keyed by scope. */
+export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrailer, headless }: BrowsePageProps) {
   const { entries } = useUserData();
   // Arriving by Back/Forward restores the view you left; a fresh navigation cleared it, so defaults.
   const [saved] = useState(() => loadView(viewKey));
@@ -67,23 +69,25 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
   }, [titles, scope, filters, entries, query, sort, dir, kept.ids]);
 
   return (
-    <main className="overflow-x-clip px-5 pb-16 pt-24 md:px-11 md:pt-32">
+    <main className={`overflow-x-clip px-5 pb-16 md:px-11 ${headless ? "pt-6" : "pt-24 md:pt-32"}`}>
       <header className="relative mb-6 flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
         {/* The mood's hue, bleeding in from the page's top-left corner. Director pages stay neutral. */}
-        {mood && (
+        {mood && !headless && (
           <div
             aria-hidden
             className="pointer-events-none absolute -inset-x-5 -top-24 bottom-0 md:-inset-x-11 md:-top-32"
             style={{ background: `radial-gradient(60% 100% at 0% 100%, color-mix(in srgb, ${accent} 22%, transparent), transparent)` }}
           />
         )}
-        <div className="relative">
-          <h1 className="font-display text-5xl uppercase leading-[0.9] md:text-7xl">{scopeLabel(scope)}</h1>
-          <p className="mt-3 flex items-center gap-2 font-ui text-[11px] uppercase tracking-ui text-fg-3">
-            {mood && <MoodDot slug={mood} />}
-            {countLabel(rows.length)}
-          </p>
-        </div>
+        {!headless && (
+          <div className="relative">
+            <h1 className="font-display text-5xl uppercase leading-[0.9] md:text-7xl">{scopeLabel(scope)}</h1>
+            <p className="mt-3 flex items-center gap-2 font-ui text-[11px] uppercase tracking-ui text-fg-3">
+              {mood && <MoodDot slug={mood} />}
+              {countLabel(rows.length)}
+            </p>
+          </div>
+        )}
         <div className="flex flex-wrap items-center gap-2">
           <ViewToggle value={layout} onChange={setLayout} />
           <SortMenu

@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
 import { HomeShelves } from "./components/HomeShelves";
 import { BrowsePage } from "./components/BrowsePage";
+import { DecadesPage } from "./components/DecadesPage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
 import { TrailerOverlay } from "./components/TrailerOverlay";
@@ -76,6 +77,18 @@ function Site() {
           <HomeShelves deck={state.deck} current={current} onNavigate={navigate} onTrailer={setTrailerFor} />
           <Footer />
         </Home>
+      )}
+      {route.name === "decades" && (
+        <DecadesPage
+          decade={route.decade}
+          titles={titles}
+          filters={state.filters}
+          onFilters={setFilters}
+          onTrailer={setTrailerFor}
+          navigate={navigate}
+          active={!trailerFor && !filtersOpen}
+          today={today}
+        />
       )}
       {scope && (
         <BrowsePage

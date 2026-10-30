@@ -57,7 +57,8 @@ export function DecadeBand({ decade, titles, allTitles, counts, tint, onSelect, 
   return (
     <section className="relative h-[60vh] min-h-[420px] overflow-hidden" style={style}>
       <Backdrop title={titles[0]} upcoming={NO_UPCOMING} />
-      <div className="absolute bottom-[120px] left-[84px] z-(--z-ui)">{text}</div>
+      {/* The hero's left offset; raised clear of the chart (bottom-10 + ~80px) by a 24px gap. */}
+      <div className="absolute bottom-[144px] left-[84px] z-(--z-ui)">{text}</div>
       <div className="absolute inset-x-11 bottom-10 z-(--z-ui)">{chart}</div>
     </section>
   );

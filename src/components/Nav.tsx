@@ -38,7 +38,8 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
     setMenuOpen(false);
     setMoodsOpen(false);
   }
-  const solid = scrolled || !onHome || menuOpen;
+  // Home's hero and the Decades band sit under a clear nav until you scroll.
+  const solid = scrolled || !(onHome || route.name === "decades") || menuOpen;
 
   // Dropdown closes on Esc or a click anywhere outside it.
   useEffect(() => {
@@ -85,6 +86,18 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
   };
 
   const filtersButton = <button type="button" onClick={onFilters} className={item}>Filters</button>;
+  const decadesButton = (
+    <button
+      type="button"
+      onClick={() => {
+        setMenuOpen(false);
+        onNavigate({ name: "decades", decade: null });
+      }}
+      className={`${item} ${route.name === "decades" ? "text-fg" : ""}`}
+    >
+      Decades
+    </button>
+  );
 
   return (
     <nav
@@ -117,6 +130,7 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
               </div>
             )}
           </div>
+          {decadesButton}
           {filtersButton}
         </div>
         <button
@@ -134,6 +148,7 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
       {menuOpen && (
         <div className="flex flex-col items-start gap-5 px-5 pb-6 md:hidden">
           {onHome ? <button type="button" onClick={onMoods} className={item}>Moods</button> : moodList}
+          {decadesButton}
           {filtersButton}
         </div>
       )}

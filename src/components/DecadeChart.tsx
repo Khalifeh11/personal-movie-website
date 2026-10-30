@@ -58,6 +58,8 @@ export function DecadeChart({ counts, allTitles, selected, tint, onSelect, now }
       className="cursor-ew-resize select-none"
       style={{ touchAction: "pan-y" }}
       onPointerDown={(e) => {
+        // Primary button only: a right-click or middle-click shouldn't change the decade.
+        if (e.button !== 0) return;
         e.currentTarget.setPointerCapture(e.pointerId);
         selectAt(e);
       }}
@@ -80,7 +82,7 @@ export function DecadeChart({ counts, allTitles, selected, tint, onSelect, now }
       {/* Same grouping as the bars so each label sits under its decade; phones show every other one. */}
       <div className="mt-2 flex font-ui text-[10px] uppercase tracking-[0.25em] text-fg-3">
         {all.map((d) => (
-          <span key={d} className="basis-0 not-last:mr-2 max-md:even:invisible" style={{ flexGrow: span(d) }}>
+          <span key={d} className="min-w-0 basis-0 whitespace-nowrap not-last:mr-2 max-md:even:invisible" style={{ flexGrow: span(d) }}>
             {d}
           </span>
         ))}
