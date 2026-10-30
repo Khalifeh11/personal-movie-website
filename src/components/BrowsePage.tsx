@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { defaultDir, defaultDirFor, defaultSort, scopeLabel, scopeTitles, searchTitles, sortTitles, type Scope, type SortDir, type SortKey } from "../lib/browse";
+import { defaultDirFor, defaultSort, scopeLabel, scopeTitles, searchTitles, sortTitles, type Scope, type SortDir, type SortKey } from "../lib/browse";
 import { matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
 import { moodAccent } from "../lib/moods";
@@ -90,7 +90,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
             value={sort}
             onChange={(key) => {
               setSort(key);
-              setDir(defaultDir(key));
+              setDir(defaultDirFor(scope, key));
             }}
             className={control}
           />
