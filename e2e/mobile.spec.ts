@@ -118,6 +118,21 @@ test("title card is a scrollable bottom sheet", async ({ page }) => {
   expect(await sheet.evaluate((el) => getComputedStyle(el).overflowY)).toBe("auto");
 });
 
+test("title card poster keeps its 2:3 shape and the sheet has its own close button", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("article").first().getByRole("heading", { level: 2 }).getByRole("button").tap();
+  const sheet = page.getByRole("dialog").getByTestId("card");
+  const poster = (await sheet.getByTestId("poster").boundingBox())!;
+  expect(Math.round(poster.height)).toBe(Math.round((poster.width * 3) / 2));
+  // The close control sits inside the sheet with a thumb-sized target, not up by the nav.
+  const close = sheet.getByRole("button", { name: "Close" });
+  const box = (await close.boundingBox())!;
+  expect(box.width).toBeGreaterThanOrEqual(44);
+  expect(box.height).toBeGreaterThanOrEqual(44);
+  await close.tap();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+});
+
 test("shelves scroll sideways without widening the page", async ({ page }) => {
   const rail = page.getByRole("region", { name: "Under 90 minutes" }).getByTestId("rail");
   await rail.scrollIntoViewIfNeeded();

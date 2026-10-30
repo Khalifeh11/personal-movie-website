@@ -5,11 +5,13 @@ interface OverlayProps {
   open: boolean;
   onClose: () => void;
   label: string;
+  /** Extra classes on the ✕, e.g. to hide it where the child supplies its own close control. */
+  closeClassName?: string;
   children: ReactNode;
 }
 
 /** Full-screen modal: ✕, Esc or a click on the backdrop closes; focus returns to the opener; page scroll locked. */
-export function Overlay({ open, onClose, label, children }: OverlayProps) {
+export function Overlay({ open, onClose, label, closeClassName = "", children }: OverlayProps) {
   const panel = useRef<HTMLDivElement>(null);
   const id = useRef(Symbol("overlay"));
   // Callers pass inline closures; the effect must not re-run (and re-focus) on every parent render.
@@ -48,7 +50,7 @@ export function Overlay({ open, onClose, label, children }: OverlayProps) {
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute right-5 top-4 text-2xl text-fg-3 hover:text-fg md:right-8 md:top-6"
+        className={`absolute right-5 top-4 text-2xl text-fg-3 hover:text-fg md:right-8 md:top-6 ${closeClassName}`}
       >
         ✕
       </button>

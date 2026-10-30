@@ -22,12 +22,21 @@ interface TitleCardProps {
  */
 export function TitleCard({ title: t, onClose, onTrailer, onWatched }: TitleCardProps) {
   return (
-    <Overlay open={Boolean(t)} onClose={onClose} label={t?.title ?? ""}>
+    <Overlay open={Boolean(t)} onClose={onClose} label={t?.title ?? ""} closeClassName="hidden md:block">
       {t && (
         <div
           data-testid="card"
           className="fixed inset-x-0 bottom-0 max-h-[90vh] overflow-y-auto border-t border-white/10 bg-[#0a0a0a] md:static md:w-[720px] md:rounded-md md:border"
         >
+          {/* Phones: the sheet carries its own ✕ (thumb-sized, sticky so it survives scrolling); desktop uses the overlay's. */}
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={onClose}
+            className="sticky top-0 z-(--z-ui) float-right flex h-11 w-11 items-center justify-center text-2xl text-fg-2 md:hidden"
+          >
+            ✕
+          </button>
           {t.backdrop && (
             <div
               className="relative h-[180px] bg-cover bg-center md:h-[220px]"
@@ -38,7 +47,8 @@ export function TitleCard({ title: t, onClose, onTrailer, onWatched }: TitleCard
             </div>
           )}
           <div className={`relative flex gap-5 px-5 pb-6 md:px-6 ${t.backdrop ? "-mt-[60px] md:-mt-[70px]" : "pt-12"}`}>
-            <div className="relative aspect-[2/3] w-[84px] flex-none overflow-hidden rounded-sm bg-white/5 md:w-[110px]">
+            {/* self-start: flex stretch would otherwise win over the aspect ratio and pull the poster to the text's height. */}
+            <div data-testid="poster" className="relative aspect-[2/3] w-[84px] flex-none self-start overflow-hidden rounded-sm bg-white/5 md:w-[110px]">
               {t.poster && <FadeImg src={t.poster} alt="" className="h-full w-full object-cover transition-opacity duration-300" />}
             </div>
             <div className="flex min-w-0 flex-col gap-2 pt-10 md:pt-14">
