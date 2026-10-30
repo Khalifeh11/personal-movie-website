@@ -1,15 +1,17 @@
+import { decadeLabel, decadeTitles, type Decade } from "./decades";
 import { titlesBy } from "./directors";
 import { inMood } from "./filters";
 import { moodLabel } from "./moods";
 import { SHELF_HEADINGS, shelfTitles, type ShelfId } from "./shelves";
 import type { MoodFilter, Title, UserEntry } from "./types";
 
-/** What a browse page lists: everything in a mood, everything by a director, or a home shelf's set. */
-export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId };
+/** What a browse page lists: everything in a mood, everything by a director, a home shelf's set, or a decade's titles. */
+export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId } | { kind: "decade"; decade: Decade };
 
 export function scopeTitles(titles: Title[], scope: Scope): Title[] {
   if (scope.kind === "mood") return titles.filter((t) => inMood(t, scope.mood));
   if (scope.kind === "director") return titlesBy(titles, scope.name);
+  if (scope.kind === "decade") return decadeTitles(titles, scope.decade);
   return shelfTitles(titles, scope.shelf);
 }
 
@@ -17,6 +19,7 @@ export function scopeTitles(titles: Title[], scope: Scope): Title[] {
 export function scopeLabel(scope: Scope): string {
   if (scope.kind === "mood") return moodLabel(scope.mood);
   if (scope.kind === "director") return scope.name;
+  if (scope.kind === "decade") return decadeLabel(scope.decade);
   return SHELF_HEADINGS[scope.shelf];
 }
 
@@ -24,11 +27,13 @@ export function scopeLabel(scope: Scope): string {
 export function scopeKey(scope: Scope): string {
   if (scope.kind === "mood") return `mood:${scope.mood}`;
   if (scope.kind === "director") return `director:${scope.name}`;
+  if (scope.kind === "decade") return `decade:${scope.decade}`;
   return `shelf:${scope.shelf}`;
 }
 
 /** The sort a page starts with when nothing is saved for it: shelves sort by what defines them. */
 export function defaultSort(scope: Scope): SortKey {
+  if (scope.kind === "decade") return "year";
   if (scope.kind !== "shelf") return "imdb";
   return scope.shelf === "waiting" ? "added" : "runtime";
 }
@@ -47,6 +52,10 @@ export const SORTS: { key: SortKey; label: string; dir: SortDir }[] = [
 
 /** The direction a key starts in when picked. */
 export const defaultDir = (key: SortKey): SortDir => SORTS.find((s) => s.key === key)!.dir;
+
+/** A decade reads oldest-first, so its year sort starts ascending. */
+export const defaultDirFor = (scope: Scope, key: SortKey): SortDir =>
+  scope.kind === "decade" && key === "year" ? "asc" : defaultDir(key);
 
 type User = Record<string, UserEntry>;
 

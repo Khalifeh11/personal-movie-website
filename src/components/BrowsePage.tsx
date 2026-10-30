@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { defaultDir, defaultSort, scopeLabel, scopeTitles, searchTitles, sortTitles, type Scope, type SortDir, type SortKey } from "../lib/browse";
+import { defaultDir, defaultDirFor, defaultSort, scopeLabel, scopeTitles, searchTitles, sortTitles, type Scope, type SortDir, type SortKey } from "../lib/browse";
 import { matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
 import { moodAccent } from "../lib/moods";
@@ -37,7 +37,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
   // Arriving by Back/Forward restores the view you left; a fresh navigation cleared it, so defaults.
   const [saved] = useState(() => loadView(viewKey));
   const [sort, setSort] = useState<SortKey>(saved?.sort ?? defaultSort(scope));
-  const [dir, setDir] = useState<SortDir>(saved?.dir ?? defaultDir(saved?.sort ?? defaultSort(scope)));
+  const [dir, setDir] = useState<SortDir>(saved?.dir ?? defaultDirFor(scope, saved?.sort ?? defaultSort(scope)));
   const [query, setQuery] = useState(saved?.query ?? "");
   const [layout, setLayout] = usePersistedState<View>(VIEW_KEY, "list");
   // The title card: opened from a poster/title click or a grid cell; a route change unmounts the page and so closes it.

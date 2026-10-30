@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { defaultDir, defaultSort, scopeKey, scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
+import { defaultDir, defaultDirFor, defaultSort, scopeKey, scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
 import { mk, U } from "./testUtils";
 
 const a = mk({ id: "a", title: "Brazil", year: 1985, runtime: 132, imdbRating: 7.9 });
@@ -74,4 +74,15 @@ test("shelf scopes list the shelf's set, label with its heading and pick its def
   expect(defaultSort({ kind: "shelf", shelf: "short" })).toBe("runtime");
   expect(defaultSort({ kind: "mood", mood: "all" })).toBe("imdb");
   expect(defaultSort({ kind: "director", name: "X" })).toBe("imdb");
+});
+
+test("decade scope lists the decade year-ascending, labelled, keyed, sorted by year", () => {
+  const ts = [mk({ id: "a", year: 2007 }), mk({ id: "b", year: 1999 }), mk({ id: "c", year: 2001 })];
+  const scope = { kind: "decade", decade: 2000 } as const;
+  expect(ids(scopeTitles(ts, scope))).toEqual(["c", "a"]);
+  expect(scopeLabel(scope)).toBe("2000s");
+  expect(scopeKey(scope)).toBe("decade:2000");
+  expect(defaultSort(scope)).toBe("year");
+  expect(defaultDirFor(scope, "year")).toBe("asc");
+  expect(defaultDirFor({ kind: "mood", mood: "tense" }, "year")).toBe("desc");
 });
