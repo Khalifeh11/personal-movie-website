@@ -47,6 +47,8 @@ export function toTitle(row, found, details) {
     backdropSmall: hasBackdrop ? `/img/backdrop-sm/${id}.webp` : poster,
     poster,
     trailerKey: pickTrailer(details?.videos?.results),
+    // Filled from the downloaded still by enrich; see scripts/lib/tint.mjs.
+    tint: null,
     tmdbRating: found ? (details?.vote_average ?? null) : null,
     tmdbVotes: found ? (details?.vote_count ?? null) : null,
     rtScore: null,

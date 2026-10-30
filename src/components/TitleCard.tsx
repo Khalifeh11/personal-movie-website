@@ -1,6 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { genreLine } from "../lib/format";
 import { moodLabel } from "../lib/moods";
+import { tintOf } from "../lib/tint";
 import type { Title } from "../lib/types";
 import { Facts } from "./FilmRow";
 import { action } from "./ui/actionClass";
@@ -27,6 +28,7 @@ export function TitleCard({ title: t, onClose, onTrailer, onWatched }: TitleCard
         <div
           data-testid="card"
           className="fixed inset-x-0 bottom-0 max-h-[90vh] overflow-y-auto border-t border-white/10 bg-[#0a0a0a] md:static md:w-[720px] md:rounded-md md:border"
+          style={{ "--tint": tintOf(t) } as CSSProperties}
         >
           {/* Phones: the sheet carries its own ✕ (thumb-sized, sticky so it survives scrolling); desktop uses the overlay's. */}
           <button
@@ -43,6 +45,7 @@ export function TitleCard({ title: t, onClose, onTrailer, onWatched }: TitleCard
               style={t.backdropSmall ? { backgroundImage: `url(${t.backdropSmall})` } : undefined}
             >
               <FadeImg src={t.backdrop} alt="" className="h-full w-full object-cover transition-opacity duration-500" />
+              <div aria-hidden className="glow absolute inset-0" style={{ backgroundColor: "var(--tint)" }} />
               <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,#0a0a0a,transparent_70%)]" />
             </div>
           )}

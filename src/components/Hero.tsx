@@ -8,7 +8,7 @@ import { Label } from "./ui/Label";
 import { UserControls } from "./UserControls";
 
 const heroAction =
-  "rounded-full border border-white/25 px-3.5 py-2 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg";
+  "rounded-full border border-white/25 px-3.5 py-2 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-(--tint) hover:text-fg";
 
 interface HeroProps {
   title: Title;

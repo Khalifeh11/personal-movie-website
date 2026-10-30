@@ -43,7 +43,8 @@
       "thought-provoking",
       "dreamy"
     ],
-    "added": "2013-12-14"
+    "added": "2013-12-14",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt0050825",
@@ -101,7 +102,8 @@
       "thought-provoking",
       "heartbreaking"
     ],
-    "added": "2015-11-05"
+    "added": "2015-11-05",
+    "tint": null
   },
   {
     "id": "tt0051378",
@@ -162,7 +164,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2017-06-17"
+    "added": "2017-06-17",
+    "tint": null
   },
   {
     "id": "tt0052561",
@@ -218,7 +221,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2017-06-17"
+    "added": "2017-06-17",
+    "tint": null
   },
   {
     "id": "tt0399146",
@@ -281,7 +285,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2017-06-28"
+    "added": "2017-06-28",
+    "tint": "#306ecf"
   },
   {
     "id": "tt0088680",
@@ -347,7 +352,8 @@
       "tense",
       "absurd"
     ],
-    "added": "2017-07-03"
+    "added": "2017-07-03",
+    "tint": "#308ecf"
   },
   {
     "id": "tt0048347",
@@ -403,7 +409,8 @@
       "gritty",
       "heartbreaking"
     ],
-    "added": "2017-07-05"
+    "added": "2017-07-05",
+    "tint": null
   },
   {
     "id": "tt0320512",
@@ -455,7 +462,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2017-07-17"
+    "added": "2017-07-17",
+    "tint": "#cf7230"
   },
   {
     "id": "tt1127715",
@@ -509,7 +517,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2017-09-30"
+    "added": "2017-09-30",
+    "tint": "#cfa430"
   },
   {
     "id": "tt1856101",
@@ -569,7 +578,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2017-10-14"
+    "added": "2017-10-14",
+    "tint": "#6630cf"
   },
   {
     "id": "tt6207098",
@@ -607,7 +617,8 @@
     "moods": [
       "dreamy"
     ],
-    "added": "2017-11-01"
+    "added": "2017-11-01",
+    "tint": null
   },
   {
     "id": "tt0064665",
@@ -669,7 +680,8 @@
       "gritty",
       "bittersweet"
     ],
-    "added": "2017-11-08"
+    "added": "2017-11-08",
+    "tint": "#30a0cf"
   },
   {
     "id": "tt0443272",
@@ -730,7 +742,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2017-11-08"
+    "added": "2017-11-08",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt0107818",
@@ -786,7 +799,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2017-11-08"
+    "added": "2017-11-08",
+    "tint": "#3058cf"
   },
   {
     "id": "tt0088939",
@@ -855,7 +869,8 @@
       "bittersweet",
       "heartbreaking"
     ],
-    "added": "2017-11-08"
+    "added": "2017-11-08",
+    "tint": "#9230cf"
   },
   {
     "id": "tt0071115",
@@ -904,7 +919,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2017-11-08"
+    "added": "2017-11-08",
+    "tint": "#3059cf"
   },
   {
     "id": "tt0146882",
@@ -971,7 +987,8 @@
       "funny",
       "romantic"
     ],
-    "added": "2017-11-14"
+    "added": "2017-11-14",
+    "tint": "#cf8430"
   },
   {
     "id": "tt0098258",
@@ -1021,7 +1038,8 @@
       "feel-good",
       "romantic"
     ],
-    "added": "2017-11-14"
+    "added": "2017-11-14",
+    "tint": "#306ecf"
   },
   {
     "id": "tt0118842",
@@ -1074,7 +1092,8 @@
       "funny",
       "romantic"
     ],
-    "added": "2017-11-14"
+    "added": "2017-11-14",
+    "tint": null
   },
   {
     "id": "tt0423731",
@@ -1127,7 +1146,8 @@
       "funny",
       "epic"
     ],
-    "added": "2017-11-15"
+    "added": "2017-11-15",
+    "tint": "#cf9630"
   },
   {
     "id": "tt0113568",
@@ -1190,7 +1210,8 @@
       "mind-bending",
       "thought-provoking"
     ],
-    "added": "2017-11-17"
+    "added": "2017-11-17",
+    "tint": null
   },
   {
     "id": "tt7487382",
@@ -1227,7 +1248,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2017-11-18"
+    "added": "2017-11-18",
+    "tint": "#cfad30"
   },
   {
     "id": "tt1124052",
@@ -1280,7 +1302,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf9030"
   },
   {
     "id": "tt1149362",
@@ -1343,7 +1366,8 @@
       "puzzling",
       "dread"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0046359",
@@ -1395,7 +1419,8 @@
       "tense",
       "funny"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0089881",
@@ -1458,7 +1483,8 @@
       "heartbreaking",
       "epic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#30cf9e"
   },
   {
     "id": "tt0020629",
@@ -1524,7 +1550,8 @@
       "thought-provoking",
       "heartbreaking"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0050212",
@@ -1578,7 +1605,8 @@
       "tense",
       "epic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf9030"
   },
   {
     "id": "tt0077416",
@@ -1641,7 +1669,8 @@
       "heartbreaking",
       "epic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf4c30"
   },
   {
     "id": "tt0057115",
@@ -1715,7 +1744,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#3088cf"
   },
   {
     "id": "tt0064040",
@@ -1768,7 +1798,8 @@
       "tense",
       "slow-and-quiet"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#30cfb6"
   },
   {
     "id": "tt0062229",
@@ -1823,7 +1854,8 @@
       "tense",
       "slow-and-quiet"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#307bcf"
   },
   {
     "id": "tt0245429",
@@ -1876,7 +1908,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#30a2cf"
   },
   {
     "id": "tt0060196",
@@ -1940,7 +1973,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6630"
   },
   {
     "id": "tt0129167",
@@ -2009,7 +2043,8 @@
       "feel-good",
       "bittersweet"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6230"
   },
   {
     "id": "tt0808417",
@@ -2069,7 +2104,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#30c2cf"
   },
   {
     "id": "tt0109707",
@@ -2129,7 +2165,8 @@
       "feel-good",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt4975722",
@@ -2189,7 +2226,8 @@
       "bittersweet",
       "dreamy"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#30cfca"
   },
   {
     "id": "tt0036868",
@@ -2240,7 +2278,8 @@
       "bittersweet",
       "heartbreaking"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6530"
   },
   {
     "id": "tt0055614",
@@ -2308,7 +2347,8 @@
       "heartbreaking",
       "romantic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf8e30"
   },
   {
     "id": "tt0086879",
@@ -2368,7 +2408,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt0099348",
@@ -2436,7 +2477,8 @@
       "bittersweet",
       "epic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf5030"
   },
   {
     "id": "tt0887912",
@@ -2501,7 +2543,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf8930"
   },
   {
     "id": "tt1504320",
@@ -2568,7 +2611,8 @@
       "feel-good",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf5530"
   },
   {
     "id": "tt0056172",
@@ -2626,7 +2670,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt0075686",
@@ -2680,7 +2725,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6130"
   },
   {
     "id": "tt0053604",
@@ -2743,7 +2789,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0081283",
@@ -2802,7 +2849,8 @@
       "heartbreaking",
       "slow-and-quiet"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf6430"
   },
   {
     "id": "tt0061811",
@@ -2871,7 +2919,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#308acf"
   },
   {
     "id": "tt0067116",
@@ -2930,7 +2979,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf5330"
   },
   {
     "id": "tt0066206",
@@ -2986,7 +3036,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf3d30"
   },
   {
     "id": "tt0079417",
@@ -3038,7 +3089,8 @@
       "bittersweet",
       "heartbreaking"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cf7130"
   },
   {
     "id": "tt0042192",
@@ -3089,7 +3141,8 @@
       "funny",
       "satirical"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cfa030"
   },
   {
     "id": "tt0093389",
@@ -3164,7 +3217,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": "#cfaa30"
   },
   {
     "id": "tt0037884",
@@ -3224,7 +3278,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0033729",
@@ -3275,7 +3330,8 @@
     "moods": [
       "bittersweet"
     ],
-    "added": "2017-11-23"
+    "added": "2017-11-23",
+    "tint": null
   },
   {
     "id": "tt0094747",
@@ -3327,7 +3383,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2017-11-24"
+    "added": "2017-11-24",
+    "tint": "#cf3f30"
   },
   {
     "id": "tt1120985",
@@ -3386,7 +3443,8 @@
       "heartbreaking",
       "romantic"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": "#5630cf"
   },
   {
     "id": "tt0443680",
@@ -3440,7 +3498,8 @@
       "true-story",
       "slow-and-quiet"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": "#cfb130"
   },
   {
     "id": "tt0421082",
@@ -3495,7 +3554,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": null
   },
   {
     "id": "tt2582496",
@@ -3548,7 +3608,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": "#cfa030"
   },
   {
     "id": "tt2334649",
@@ -3606,7 +3667,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": "#cf6730"
   },
   {
     "id": "tt4034228",
@@ -3666,7 +3728,8 @@
       "heartbreaking",
       "slow-and-quiet"
     ],
-    "added": "2018-01-16"
+    "added": "2018-01-16",
+    "tint": "#30b0cf"
   },
   {
     "id": "tt0102536",
@@ -3727,7 +3790,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2018-01-21"
+    "added": "2018-01-21",
+    "tint": "#cf6230"
   },
   {
     "id": "tt0156729",
@@ -3783,7 +3847,8 @@
       "thought-provoking",
       "bittersweet"
     ],
-    "added": "2018-01-21"
+    "added": "2018-01-21",
+    "tint": "#3063cf"
   },
   {
     "id": "tt0099871",
@@ -3842,7 +3907,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2018-01-21"
+    "added": "2018-01-21",
+    "tint": "#309fcf"
   },
   {
     "id": "tt0097216",
@@ -3905,7 +3971,8 @@
       "thought-provoking",
       "funny"
     ],
-    "added": "2018-01-21"
+    "added": "2018-01-21",
+    "tint": "#cf6830"
   },
   {
     "id": "tt4550098",
@@ -3969,7 +4036,8 @@
       "tense",
       "dread"
     ],
-    "added": "2018-01-22"
+    "added": "2018-01-22",
+    "tint": "#cf8a30"
   },
   {
     "id": "tt5247022",
@@ -4037,7 +4105,8 @@
       "feel-good",
       "slow-and-quiet"
     ],
-    "added": "2018-01-22"
+    "added": "2018-01-22",
+    "tint": "#cfa230"
   },
   {
     "id": "tt2884206",
@@ -4083,7 +4152,8 @@
       "thought-provoking",
       "romantic"
     ],
-    "added": "2018-01-30"
+    "added": "2018-01-30",
+    "tint": "#cf5a30"
   },
   {
     "id": "tt5052448",
@@ -4143,7 +4213,8 @@
       "dread",
       "satirical"
     ],
-    "added": "2018-01-31"
+    "added": "2018-01-31",
+    "tint": "#cf6f30"
   },
   {
     "id": "tt5753856",
@@ -4210,7 +4281,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2018-02-11"
+    "added": "2018-02-11",
+    "tint": "#30afcf"
   },
   {
     "id": "tt0318462",
@@ -4265,7 +4337,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2018-02-11"
+    "added": "2018-02-11",
+    "tint": "#cfb130"
   },
   {
     "id": "tt0756683",
@@ -4325,7 +4398,8 @@
       "thought-provoking",
       "slow-and-quiet"
     ],
-    "added": "2018-02-12"
+    "added": "2018-02-12",
+    "tint": "#306dcf"
   },
   {
     "id": "tt0067549",
@@ -4372,7 +4446,8 @@
       "gritty",
       "heartbreaking"
     ],
-    "added": "2018-02-12"
+    "added": "2018-02-12",
+    "tint": "#cfa230"
   },
   {
     "id": "tt0070666",
@@ -4444,7 +4519,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2018-02-12"
+    "added": "2018-02-12",
+    "tint": null
   },
   {
     "id": "tt0082009",
@@ -4502,7 +4578,8 @@
       "bittersweet",
       "epic"
     ],
-    "added": "2018-02-28"
+    "added": "2018-02-28",
+    "tint": "#30a4cf"
   },
   {
     "id": "tt4555426",
@@ -4562,7 +4639,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2018-03-05"
+    "added": "2018-03-05",
+    "tint": "#3074cf"
   },
   {
     "id": "tt0090557",
@@ -4610,7 +4688,8 @@
       "bittersweet",
       "slow-and-quiet"
     ],
-    "added": "2018-03-08"
+    "added": "2018-03-08",
+    "tint": "#cf9630"
   },
   {
     "id": "tt6294822",
@@ -4670,7 +4749,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2018-03-14"
+    "added": "2018-03-14",
+    "tint": "#cfa730"
   },
   {
     "id": "tt2401878",
@@ -4729,7 +4809,8 @@
       "absurd",
       "bittersweet"
     ],
-    "added": "2018-03-17"
+    "added": "2018-03-17",
+    "tint": "#cf5730"
   },
   {
     "id": "tt0383028",
@@ -4786,7 +4867,8 @@
       "mind-bending",
       "heartbreaking"
     ],
-    "added": "2018-03-17"
+    "added": "2018-03-17",
+    "tint": "#cf9b30"
   },
   {
     "id": "tt0118749",
@@ -4854,7 +4936,8 @@
       "gritty",
       "funny"
     ],
-    "added": "2018-04-15"
+    "added": "2018-04-15",
+    "tint": "#cf6230"
   },
   {
     "id": "tt0116282",
@@ -4919,7 +5002,8 @@
       "gritty",
       "funny"
     ],
-    "added": "2018-04-15"
+    "added": "2018-04-15",
+    "tint": "#3072cf"
   },
   {
     "id": "tt0783233",
@@ -4983,7 +5067,8 @@
       "heartbreaking",
       "romantic"
     ],
-    "added": "2018-04-16"
+    "added": "2018-04-16",
+    "tint": "#cfb230"
   },
   {
     "id": "tt1846472",
@@ -5042,7 +5127,8 @@
       "thought-provoking",
       "bittersweet"
     ],
-    "added": "2018-04-16"
+    "added": "2018-04-16",
+    "tint": "#cf9b30"
   },
   {
     "id": "tt1869716",
@@ -5089,7 +5175,8 @@
       "tense",
       "thought-provoking"
     ],
-    "added": "2018-04-16"
+    "added": "2018-04-16",
+    "tint": "#cf5c30"
   },
   {
     "id": "tt0058946",
@@ -5142,7 +5229,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2018-04-17"
+    "added": "2018-04-17",
+    "tint": null
   },
   {
     "id": "tt0077928",
@@ -5206,7 +5294,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2018-04-17"
+    "added": "2018-04-17",
+    "tint": "#cf8f30"
   },
   {
     "id": "tt0090163",
@@ -5262,7 +5351,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2018-04-25"
+    "added": "2018-04-25",
+    "tint": "#3064cf"
   },
   {
     "id": "tt0150230",
@@ -5304,7 +5394,8 @@
       "funny",
       "true-story"
     ],
-    "added": "2018-05-07"
+    "added": "2018-05-07",
+    "tint": null
   },
   {
     "id": "tt0087553",
@@ -5367,7 +5458,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2018-06-03"
+    "added": "2018-06-03",
+    "tint": "#cf9c30"
   },
   {
     "id": "tt7784604",
@@ -5437,7 +5529,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2018-06-07"
+    "added": "2018-06-07",
+    "tint": "#cf9c30"
   },
   {
     "id": "tt3464902",
@@ -5496,7 +5589,8 @@
       "dread",
       "absurd"
     ],
-    "added": "2018-06-24"
+    "added": "2018-06-24",
+    "tint": "#cfa630"
   },
   {
     "id": "tt1450321",
@@ -5556,7 +5650,8 @@
       "gritty",
       "funny"
     ],
-    "added": "2018-07-27"
+    "added": "2018-07-27",
+    "tint": "#304fcf"
   },
   {
     "id": "tt0386741",
@@ -5617,7 +5712,8 @@
       "puzzling",
       "dreamy"
     ],
-    "added": "2018-07-30"
+    "added": "2018-07-30",
+    "tint": null
   },
   {
     "id": "tt2375574",
@@ -5677,7 +5773,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2018-08-28"
+    "added": "2018-08-28",
+    "tint": null
   },
   {
     "id": "tt4857264",
@@ -5733,7 +5830,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2018-08-29"
+    "added": "2018-08-29",
+    "tint": "#308fcf"
   },
   {
     "id": "tt1937149",
@@ -5787,7 +5885,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2018-08-29"
+    "added": "2018-08-29",
+    "tint": "#cf6930"
   },
   {
     "id": "tt4160708",
@@ -5835,7 +5934,8 @@
       "tense",
       "dread"
     ],
-    "added": "2018-08-29"
+    "added": "2018-08-29",
+    "tint": "#30b7cf"
   },
   {
     "id": "tt0086798",
@@ -5890,7 +5990,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2018-09-03"
+    "added": "2018-09-03",
+    "tint": "#cf6230"
   },
   {
     "id": "tt0053472",
@@ -5953,7 +6054,8 @@
       "gritty",
       "romantic"
     ],
-    "added": "2018-09-17"
+    "added": "2018-09-17",
+    "tint": "#cf4830"
   },
   {
     "id": "tt0419677",
@@ -6006,7 +6108,8 @@
       "gritty",
       "heartbreaking"
     ],
-    "added": "2018-09-21"
+    "added": "2018-09-21",
+    "tint": "#cf3040"
   },
   {
     "id": "tt2866360",
@@ -6066,7 +6169,8 @@
       "tense",
       "mind-bending"
     ],
-    "added": "2018-09-21"
+    "added": "2018-09-21",
+    "tint": "#cf8e30"
   },
   {
     "id": "tt0107554",
@@ -6126,7 +6230,8 @@
       "gritty",
       "heartbreaking"
     ],
-    "added": "2018-09-21"
+    "added": "2018-09-21",
+    "tint": "#cf5a30"
   },
   {
     "id": "tt0057193",
@@ -6184,7 +6289,8 @@
       "funny",
       "epic"
     ],
-    "added": "2018-09-21"
+    "added": "2018-09-21",
+    "tint": "#cf6630"
   },
   {
     "id": "tt0116695",
@@ -6233,7 +6339,8 @@
       "feel-good",
       "romantic"
     ],
-    "added": "2018-12-19"
+    "added": "2018-12-19",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt0117381",
@@ -6298,7 +6405,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2018-12-19"
+    "added": "2018-12-19",
+    "tint": "#cf9830"
   },
   {
     "id": "tt0217869",
@@ -6355,7 +6463,8 @@
       "mind-bending",
       "slow-and-quiet"
     ],
-    "added": "2019-03-25"
+    "added": "2019-03-25",
+    "tint": "#309ccf"
   },
   {
     "id": "tt7366338",
@@ -6401,7 +6510,8 @@
       "dread",
       "true-story"
     ],
-    "added": "2019-05-22"
+    "added": "2019-05-22",
+    "tint": "#30cf96"
   },
   {
     "id": "tt1333667",
@@ -6447,7 +6557,8 @@
       "dreamy",
       "true-story"
     ],
-    "added": "2019-05-24"
+    "added": "2019-05-24",
+    "tint": "#cf9e30"
   },
   {
     "id": "tt0884328",
@@ -6512,7 +6623,8 @@
       "tense",
       "dread"
     ],
-    "added": "2019-07-02"
+    "added": "2019-07-02",
+    "tint": "#cf9530"
   },
   {
     "id": "tt4604612",
@@ -6562,7 +6674,8 @@
       "gritty",
       "puzzling"
     ],
-    "added": "2019-07-06"
+    "added": "2019-07-06",
+    "tint": "#3059cf"
   },
   {
     "id": "tt2516424",
@@ -6605,7 +6718,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2019-07-10"
+    "added": "2019-07-10",
+    "tint": "#8a30cf"
   },
   {
     "id": "tt0092005",
@@ -6665,7 +6779,8 @@
       "feel-good",
       "bittersweet"
     ],
-    "added": "2019-07-16"
+    "added": "2019-07-16",
+    "tint": "#cf4d30"
   },
   {
     "id": "tt0435625",
@@ -6728,7 +6843,8 @@
       "tense",
       "dread"
     ],
-    "added": "2019-07-24"
+    "added": "2019-07-24",
+    "tint": "#30b2cf"
   },
   {
     "id": "tt3521126",
@@ -6789,7 +6905,8 @@
       "funny",
       "true-story"
     ],
-    "added": "2019-07-28"
+    "added": "2019-07-28",
+    "tint": "#3069cf"
   },
   {
     "id": "tt0805564",
@@ -6846,7 +6963,8 @@
       "feel-good",
       "bittersweet"
     ],
-    "added": "2019-07-29"
+    "added": "2019-07-29",
+    "tint": "#cf3056"
   },
   {
     "id": "tt1540133",
@@ -6895,7 +7013,8 @@
       "gritty",
       "funny"
     ],
-    "added": "2019-08-01"
+    "added": "2019-08-01",
+    "tint": "#cf6930"
   },
   {
     "id": "tt0096438",
@@ -6959,7 +7078,8 @@
       "puzzling",
       "funny"
     ],
-    "added": "2019-08-02"
+    "added": "2019-08-02",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt4686844",
@@ -7019,7 +7139,8 @@
       "satirical",
       "true-story"
     ],
-    "added": "2019-08-05"
+    "added": "2019-08-05",
+    "tint": "#cf303b"
   },
   {
     "id": "tt0309698",
@@ -7085,7 +7206,8 @@
       "puzzling",
       "mind-bending"
     ],
-    "added": "2019-08-13"
+    "added": "2019-08-13",
+    "tint": "#cf5430"
   },
   {
     "id": "tt0851578",
@@ -7144,7 +7266,8 @@
       "mind-bending",
       "dreamy"
     ],
-    "added": "2019-08-21"
+    "added": "2019-08-21",
+    "tint": "#cf5930"
   },
   {
     "id": "tt0038109",
@@ -7192,7 +7315,8 @@
       "puzzling",
       "romantic"
     ],
-    "added": "2019-08-21"
+    "added": "2019-08-21",
+    "tint": null
   },
   {
     "id": "tt8661404",
@@ -7230,7 +7354,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2019-08-23"
+    "added": "2019-08-23",
+    "tint": "#30b2cf"
   },
   {
     "id": "tt2359024",
@@ -7286,7 +7411,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2019-08-24"
+    "added": "2019-08-24",
+    "tint": "#cf6830"
   },
   {
     "id": "tt2194499",
@@ -7354,7 +7480,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2019-08-29"
+    "added": "2019-08-29",
+    "tint": "#cf6730"
   },
   {
     "id": "tt0384092",
@@ -7397,7 +7524,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2019-08-30"
+    "added": "2019-08-30",
+    "tint": "#cf9130"
   },
   {
     "id": "tt0377091",
@@ -7456,7 +7584,8 @@
       "gritty",
       "heartbreaking"
     ],
-    "added": "2019-09-25"
+    "added": "2019-09-25",
+    "tint": "#cf5d30"
   },
   {
     "id": "tt7286456",
@@ -7513,7 +7642,8 @@
       "gritty",
       "dread"
     ],
-    "added": "2019-10-05"
+    "added": "2019-10-05",
+    "tint": "#cf6030"
   },
   {
     "id": "tt6966692",
@@ -7571,7 +7701,8 @@
       "feel-good",
       "true-story"
     ],
-    "added": "2019-10-07"
+    "added": "2019-10-07",
+    "tint": "#30b7cf"
   },
   {
     "id": "tt3521164",
@@ -7644,7 +7775,8 @@
       "feel-good",
       "epic"
     ],
-    "added": "2019-10-30"
+    "added": "2019-10-30",
+    "tint": "#30aecf"
   },
   {
     "id": "tt4908644",
@@ -7695,7 +7827,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2019-10-31"
+    "added": "2019-10-31",
+    "tint": "#cf6a30"
   },
   {
     "id": "tt7959216",
@@ -7747,7 +7880,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2019-11-01"
+    "added": "2019-11-01",
+    "tint": "#cf9830"
   },
   {
     "id": "tt8111088",
@@ -7793,7 +7927,8 @@
       "feel-good",
       "epic"
     ],
-    "added": "2019-11-21"
+    "added": "2019-11-21",
+    "tint": "#3099cf"
   },
   {
     "id": "tt1302006",
@@ -7865,7 +8000,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2019-11-27"
+    "added": "2019-11-27",
+    "tint": "#3093cf"
   },
   {
     "id": "tt8080122",
@@ -7907,7 +8043,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2019-11-29"
+    "added": "2019-11-29",
+    "tint": "#309dcf"
   },
   {
     "id": "tt5687612",
@@ -7971,7 +8108,8 @@
       "funny",
       "heartbreaking"
     ],
-    "added": "2019-11-29"
+    "added": "2019-11-29",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt0104073",
@@ -8023,7 +8161,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2019-12-08"
+    "added": "2019-12-08",
+    "tint": "#cf5c30"
   },
   {
     "id": "tt7984734",
@@ -8086,7 +8225,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2019-12-22"
+    "added": "2019-12-22",
+    "tint": null
   },
   {
     "id": "tt0804503",
@@ -8141,7 +8281,8 @@
       "thought-provoking",
       "slow-and-quiet"
     ],
-    "added": "2019-12-26"
+    "added": "2019-12-26",
+    "tint": "#cf6930"
   },
   {
     "id": "tt0475784",
@@ -8194,7 +8335,8 @@
       "mind-bending",
       "thought-provoking"
     ],
-    "added": "2019-12-26"
+    "added": "2019-12-26",
+    "tint": null
   },
   {
     "id": "tt0409459",
@@ -8257,7 +8399,8 @@
       "thought-provoking",
       "epic"
     ],
-    "added": "2019-12-28"
+    "added": "2019-12-28",
+    "tint": "#30a9cf"
   },
   {
     "id": "tt8579674",
@@ -8311,7 +8454,8 @@
       "tense",
       "epic"
     ],
-    "added": "2020-01-06"
+    "added": "2020-01-06",
+    "tint": "#cf5e30"
   },
   {
     "id": "tt2821314",
@@ -8354,7 +8498,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2020-01-13"
+    "added": "2020-01-13",
+    "tint": "#cf9630"
   },
   {
     "id": "tt2584384",
@@ -8414,7 +8559,8 @@
       "satirical",
       "bittersweet"
     ],
-    "added": "2020-01-16"
+    "added": "2020-01-16",
+    "tint": "#cf303d"
   },
   {
     "id": "tt6751668",
@@ -8469,7 +8615,8 @@
       "tense",
       "satirical"
     ],
-    "added": "2020-02-13"
+    "added": "2020-02-13",
+    "tint": "#cf8e30"
   },
   {
     "id": "tt1598778",
@@ -8524,7 +8671,8 @@
       "tense",
       "dread"
     ],
-    "added": "2020-02-16"
+    "added": "2020-02-16",
+    "tint": "#cf9930"
   },
   {
     "id": "tt0060827",
@@ -8587,7 +8735,8 @@
       "mind-bending",
       "slow-and-quiet"
     ],
-    "added": "2020-02-25"
+    "added": "2020-02-25",
+    "tint": null
   },
   {
     "id": "tt8228288",
@@ -8639,7 +8788,8 @@
       "dread",
       "satirical"
     ],
-    "added": "2020-03-28"
+    "added": "2020-03-28",
+    "tint": "#30b5cf"
   },
   {
     "id": "tt5715874",
@@ -8699,7 +8849,8 @@
       "dread",
       "absurd"
     ],
-    "added": "2020-03-28"
+    "added": "2020-03-28",
+    "tint": "#cf9530"
   },
   {
     "id": "tt0087995",
@@ -8763,7 +8914,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2020-04-06"
+    "added": "2020-04-06",
+    "tint": "#309bcf"
   },
   {
     "id": "tt0075860",
@@ -8839,7 +8991,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2020-04-13"
+    "added": "2020-04-13",
+    "tint": "#5730cf"
   },
   {
     "id": "tt0146425",
@@ -8882,7 +9035,8 @@
       "gritty",
       "bittersweet"
     ],
-    "added": "2020-04-15"
+    "added": "2020-04-15",
+    "tint": "#cf5530"
   },
   {
     "id": "tt0070034",
@@ -8936,7 +9090,8 @@
       "tense",
       "epic"
     ],
-    "added": "2020-05-16"
+    "added": "2020-05-16",
+    "tint": "#cf4830"
   },
   {
     "id": "tt1403865",
@@ -8988,7 +9143,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2020-06-06"
+    "added": "2020-06-06",
+    "tint": "#cf6730"
   },
   {
     "id": "tt7939766",
@@ -9048,7 +9204,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2020-09-06"
+    "added": "2020-09-06",
+    "tint": "#cf3040"
   },
   {
     "id": "tt0106856",
@@ -9115,7 +9272,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2020-09-13"
+    "added": "2020-09-13",
+    "tint": "#3053cf"
   },
   {
     "id": "tt3397884",
@@ -9195,7 +9353,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2020-09-13"
+    "added": "2020-09-13",
+    "tint": "#cfa430"
   },
   {
     "id": "tt0088930",
@@ -9253,7 +9412,8 @@
       "puzzling",
       "funny"
     ],
-    "added": "2020-09-15"
+    "added": "2020-09-15",
+    "tint": "#cf6e30"
   },
   {
     "id": "tt1465522",
@@ -9310,7 +9470,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2020-09-15"
+    "added": "2020-09-15",
+    "tint": "#30a1cf"
   },
   {
     "id": "tt2692904",
@@ -9358,7 +9519,8 @@
       "tense",
       "slow-and-quiet"
     ],
-    "added": "2020-09-15"
+    "added": "2020-09-15",
+    "tint": "#cf5030"
   },
   {
     "id": "tt0375063",
@@ -9417,7 +9579,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2020-09-28"
+    "added": "2020-09-28",
+    "tint": "#cf9830"
   },
   {
     "id": "tt4698684",
@@ -9469,7 +9632,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2020-09-28"
+    "added": "2020-09-28",
+    "tint": "#30cfc0"
   },
   {
     "id": "tt5649144",
@@ -9530,7 +9694,8 @@
       "bittersweet",
       "heartbreaking"
     ],
-    "added": "2020-09-28"
+    "added": "2020-09-28",
+    "tint": "#3079cf"
   },
   {
     "id": "tt0104952",
@@ -9597,7 +9762,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2020-10-14"
+    "added": "2020-10-14",
+    "tint": "#cf4f30"
   },
   {
     "id": "tt0095159",
@@ -9660,7 +9826,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2020-10-14"
+    "added": "2020-10-14",
+    "tint": "#cf6a30"
   },
   {
     "id": "tt0203230",
@@ -9708,7 +9875,8 @@
       "bittersweet",
       "slow-and-quiet"
     ],
-    "added": "2020-10-25"
+    "added": "2020-10-25",
+    "tint": "#30a7cf"
   },
   {
     "id": "tt3967856",
@@ -9765,7 +9933,8 @@
       "heartbreaking",
       "epic"
     ],
-    "added": "2020-11-06"
+    "added": "2020-11-06",
+    "tint": null
   },
   {
     "id": "tt1935156",
@@ -9815,7 +9984,8 @@
       "dreamy",
       "true-story"
     ],
-    "added": "2020-11-11"
+    "added": "2020-11-11",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt0044081",
@@ -9869,7 +10039,8 @@
       "tense",
       "heartbreaking"
     ],
-    "added": "2020-11-22"
+    "added": "2020-11-22",
+    "tint": null
   },
   {
     "id": "tt0065214",
@@ -9923,7 +10094,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2020-11-26"
+    "added": "2020-11-26",
+    "tint": "#cf6530"
   },
   {
     "id": "tt0069704",
@@ -9982,7 +10154,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2020-11-26"
+    "added": "2020-11-26",
+    "tint": "#3056cf"
   },
   {
     "id": "tt0093779",
@@ -10050,7 +10223,8 @@
       "feel-good",
       "romantic"
     ],
-    "added": "2020-11-26"
+    "added": "2020-11-26",
+    "tint": "#cf5d30"
   },
   {
     "id": "tt1190634",
@@ -10102,7 +10276,8 @@
       "gritty",
       "satirical"
     ],
-    "added": "2020-11-29"
+    "added": "2020-11-29",
+    "tint": "#30bacf"
   },
   {
     "id": "tt5390504",
@@ -10155,7 +10330,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2020-12-04"
+    "added": "2020-12-04",
+    "tint": "#cf9c30"
   },
   {
     "id": "tt0103767",
@@ -10211,7 +10387,8 @@
       "dreamy",
       "slow-and-quiet"
     ],
-    "added": "2020-12-04"
+    "added": "2020-12-04",
+    "tint": "#cf4c30"
   },
   {
     "id": "tt0770802",
@@ -10259,7 +10436,8 @@
       "dreamy",
       "slow-and-quiet"
     ],
-    "added": "2020-12-04"
+    "added": "2020-12-04",
+    "tint": "#cfa830"
   },
   {
     "id": "tt0290673",
@@ -10338,7 +10516,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2020-12-04"
+    "added": "2020-12-04",
+    "tint": "#cf3043"
   },
   {
     "id": "tt11382384",
@@ -10381,7 +10560,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2020-12-13"
+    "added": "2020-12-13",
+    "tint": "#cf3d30"
   },
   {
     "id": "tt0490215",
@@ -10442,7 +10622,8 @@
       "true-story",
       "slow-and-quiet"
     ],
-    "added": "2020-12-24"
+    "added": "2020-12-24",
+    "tint": "#30a1cf"
   },
   {
     "id": "tt0265086",
@@ -10507,7 +10688,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2021-01-09"
+    "added": "2021-01-09",
+    "tint": "#cfa130"
   },
   {
     "id": "tt0114558",
@@ -10573,7 +10755,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2021-01-10"
+    "added": "2021-01-10",
+    "tint": "#cf4b30"
   },
   {
     "id": "tt1790885",
@@ -10651,7 +10834,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2021-01-10"
+    "added": "2021-01-10",
+    "tint": "#cfa130"
   },
   {
     "id": "tt0110322",
@@ -10717,7 +10901,8 @@
       "epic",
       "romantic"
     ],
-    "added": "2021-01-10"
+    "added": "2021-01-10",
+    "tint": "#cfa330"
   },
   {
     "id": "tt0363547",
@@ -10784,7 +10969,8 @@
       "tense",
       "dread"
     ],
-    "added": "2021-01-10"
+    "added": "2021-01-10",
+    "tint": "#cf4f30"
   },
   {
     "id": "tt0289043",
@@ -10836,7 +11022,8 @@
       "tense",
       "dread"
     ],
-    "added": "2021-01-10"
+    "added": "2021-01-10",
+    "tint": "#cf3730"
   },
   {
     "id": "tt0268126",
@@ -10887,7 +11074,8 @@
       "mind-bending",
       "funny"
     ],
-    "added": "2021-01-17"
+    "added": "2021-01-17",
+    "tint": "#cf9d30"
   },
   {
     "id": "tt0091251",
@@ -10945,7 +11133,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2021-02-06"
+    "added": "2021-02-06",
+    "tint": "#cf8c30"
   },
   {
     "id": "tt0108037",
@@ -10998,7 +11187,8 @@
       "feel-good",
       "bittersweet"
     ],
-    "added": "2021-02-11"
+    "added": "2021-02-11",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt10332508",
@@ -11091,7 +11281,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2021-02-12"
+    "added": "2021-02-12",
+    "tint": "#cf4030"
   },
   {
     "id": "tt0109424",
@@ -11146,7 +11337,8 @@
       "dreamy",
       "romantic"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#9fcf30"
   },
   {
     "id": "tt0405094",
@@ -11215,7 +11407,8 @@
       "tense",
       "thought-provoking"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#cfbe30"
   },
   {
     "id": "tt0250258",
@@ -11282,7 +11475,8 @@
       "tense",
       "thought-provoking"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#306dcf"
   },
   {
     "id": "tt0118694",
@@ -11341,7 +11535,8 @@
       "dreamy",
       "romantic"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#cf4930"
   },
   {
     "id": "tt1235166",
@@ -11399,7 +11594,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#cf3036"
   },
   {
     "id": "tt0460791",
@@ -11460,7 +11656,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2021-02-14"
+    "added": "2021-02-14",
+    "tint": "#cf4d30"
   },
   {
     "id": "tt4034354",
@@ -11511,7 +11708,8 @@
       "absurd",
       "bittersweet"
     ],
-    "added": "2021-02-15"
+    "added": "2021-02-15",
+    "tint": "#59cf30"
   },
   {
     "id": "tt0085809",
@@ -11575,7 +11773,8 @@
       "thought-provoking",
       "dreamy"
     ],
-    "added": "2021-02-16"
+    "added": "2021-02-16",
+    "tint": "#30accf"
   },
   {
     "id": "tt0361127",
@@ -11624,7 +11823,8 @@
       "thought-provoking",
       "slow-and-quiet"
     ],
-    "added": "2021-02-20"
+    "added": "2021-02-20",
+    "tint": "#cf6830"
   },
   {
     "id": "tt0111257",
@@ -11686,7 +11886,8 @@
       "tense",
       "epic"
     ],
-    "added": "2021-02-22"
+    "added": "2021-02-22",
+    "tint": "#cf6130"
   },
   {
     "id": "tt0109445",
@@ -11739,7 +11940,8 @@
     "moods": [
       "funny"
     ],
-    "added": "2021-02-22"
+    "added": "2021-02-22",
+    "tint": null
   },
   {
     "id": "tt0109506",
@@ -11808,7 +12010,8 @@
       "gritty",
       "dreamy"
     ],
-    "added": "2021-02-22"
+    "added": "2021-02-22",
+    "tint": "#cf3730"
   },
   {
     "id": "tt0110932",
@@ -11866,7 +12069,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2021-02-22"
+    "added": "2021-02-22",
+    "tint": "#cf6930"
   },
   {
     "id": "tt0103874",
@@ -11922,7 +12126,8 @@
       "dreamy",
       "romantic"
     ],
-    "added": "2021-03-04"
+    "added": "2021-03-04",
+    "tint": null
   },
   {
     "id": "tt0478988",
@@ -11989,7 +12194,8 @@
       "puzzling",
       "dread"
     ],
-    "added": "2021-03-05"
+    "added": "2021-03-05",
+    "tint": null
   },
   {
     "id": "tt0318871",
@@ -12057,7 +12263,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2021-03-05"
+    "added": "2021-03-05",
+    "tint": "#cf6130"
   },
   {
     "id": "tt0237534",
@@ -12112,7 +12319,8 @@
       "puzzling",
       "epic"
     ],
-    "added": "2021-03-09"
+    "added": "2021-03-09",
+    "tint": "#3090cf"
   },
   {
     "id": "tt0112682",
@@ -12170,7 +12378,8 @@
       "absurd",
       "dreamy"
     ],
-    "added": "2021-03-13"
+    "added": "2021-03-13",
+    "tint": "#cf9a30"
   },
   {
     "id": "tt0348121",
@@ -12224,7 +12433,8 @@
     "moods": [
       "epic"
     ],
-    "added": "2021-03-13"
+    "added": "2021-03-13",
+    "tint": "#cf9930"
   },
   {
     "id": "tt0347149",
@@ -12285,7 +12495,8 @@
       "dreamy",
       "romantic"
     ],
-    "added": "2021-03-13"
+    "added": "2021-03-13",
+    "tint": "#3087cf"
   },
   {
     "id": "tt0117500",
@@ -12352,7 +12563,8 @@
       "tense",
       "epic"
     ],
-    "added": "2021-03-13"
+    "added": "2021-03-13",
+    "tint": "#cf7630"
   },
   {
     "id": "tt0363282",
@@ -12413,7 +12625,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2021-03-14"
+    "added": "2021-03-14",
+    "tint": "#cf9430"
   },
   {
     "id": "tt0104850",
@@ -12456,7 +12669,8 @@
       "tense",
       "funny"
     ],
-    "added": "2021-03-14"
+    "added": "2021-03-14",
+    "tint": "#3071cf"
   },
   {
     "id": "tt1190536",
@@ -12500,7 +12714,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2021-03-14"
+    "added": "2021-03-14",
+    "tint": "#cf9030"
   },
   {
     "id": "tt1742683",
@@ -12548,7 +12763,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2021-05-02"
+    "added": "2021-05-02",
+    "tint": "#cf5e30"
   },
   {
     "id": "tt1340800",
@@ -12604,7 +12820,8 @@
       "puzzling",
       "slow-and-quiet"
     ],
-    "added": "2021-05-19"
+    "added": "2021-05-19",
+    "tint": "#30a2cf"
   },
   {
     "id": "tt0101587",
@@ -12651,7 +12868,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2021-05-26"
+    "added": "2021-05-26",
+    "tint": "#cf3049"
   },
   {
     "id": "tt0393109",
@@ -12721,7 +12939,8 @@
       "gritty",
       "puzzling"
     ],
-    "added": "2021-09-14"
+    "added": "2021-09-14",
+    "tint": "#306fcf"
   },
   {
     "id": "tt1051906",
@@ -12781,7 +13000,8 @@
       "tense",
       "dread"
     ],
-    "added": "2021-09-27"
+    "added": "2021-09-27",
+    "tint": "#306ccf"
   },
   {
     "id": "tt2209764",
@@ -12840,7 +13060,8 @@
     "moods": [
       "thought-provoking"
     ],
-    "added": "2021-09-27"
+    "added": "2021-09-27",
+    "tint": "#309ccf"
   },
   {
     "id": "tt0104348",
@@ -12903,7 +13124,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2021-09-29"
+    "added": "2021-09-29",
+    "tint": "#cf6f30"
   },
   {
     "id": "tt2575988",
@@ -12945,7 +13167,8 @@
       "funny",
       "satirical"
     ],
-    "added": "2021-09-29"
+    "added": "2021-09-29",
+    "tint": "#30a2cf"
   },
   {
     "id": "tt0080274",
@@ -12997,7 +13220,8 @@
       "epic",
       "romantic"
     ],
-    "added": "2021-11-02"
+    "added": "2021-11-02",
+    "tint": "#cfaf30"
   },
   {
     "id": "tt0053291",
@@ -13063,7 +13287,8 @@
       "funny",
       "romantic"
     ],
-    "added": "2022-01-24"
+    "added": "2022-01-24",
+    "tint": "#cf3040"
   },
   {
     "id": "tt0095631",
@@ -13116,7 +13341,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2022-02-03"
+    "added": "2022-02-03",
+    "tint": "#308ccf"
   },
   {
     "id": "tt0090728",
@@ -13172,7 +13398,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2022-02-07"
+    "added": "2022-02-07",
+    "tint": "#cf9530"
   },
   {
     "id": "tt10986410",
@@ -13227,7 +13454,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2022-04-25"
+    "added": "2022-04-25",
+    "tint": "#cf6530"
   },
   {
     "id": "tt0115964",
@@ -13293,7 +13521,8 @@
       "dread",
       "thought-provoking"
     ],
-    "added": "2022-05-18"
+    "added": "2022-05-18",
+    "tint": "#306dcf"
   },
   {
     "id": "tt5215952",
@@ -13355,7 +13584,8 @@
       "puzzling",
       "dread"
     ],
-    "added": "2022-05-21"
+    "added": "2022-05-21",
+    "tint": "#3072cf"
   },
   {
     "id": "tt0113409",
@@ -13418,7 +13648,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2022-06-08"
+    "added": "2022-06-08",
+    "tint": "#cf4530"
   },
   {
     "id": "tt3235888",
@@ -13479,7 +13710,8 @@
       "tense",
       "dread"
     ],
-    "added": "2022-09-06"
+    "added": "2022-09-06",
+    "tint": "#30b5cf"
   },
   {
     "id": "tt0080360",
@@ -13540,7 +13772,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2022-09-18"
+    "added": "2022-09-18",
+    "tint": "#30cfa6"
   },
   {
     "id": "tt6048596",
@@ -13589,7 +13822,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2022-10-28"
+    "added": "2022-10-28",
+    "tint": "#30a8cf"
   },
   {
     "id": "tt7322224",
@@ -13650,7 +13884,8 @@
       "funny",
       "satirical"
     ],
-    "added": "2023-01-01"
+    "added": "2023-01-01",
+    "tint": "#cf6730"
   },
   {
     "id": "tt0416320",
@@ -13708,7 +13943,8 @@
       "tense",
       "romantic"
     ],
-    "added": "2023-01-13"
+    "added": "2023-01-13",
+    "tint": "#cf9830"
   },
   {
     "id": "tt0102266",
@@ -13772,7 +14008,8 @@
       "gritty",
       "funny"
     ],
-    "added": "2023-01-14"
+    "added": "2023-01-14",
+    "tint": "#cfab30"
   },
   {
     "id": "tt5362988",
@@ -13835,7 +14072,8 @@
       "puzzling",
       "heartbreaking"
     ],
-    "added": "2023-01-20"
+    "added": "2023-01-20",
+    "tint": "#3078cf"
   },
   {
     "id": "tt0278504",
@@ -13903,7 +14141,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2023-01-20"
+    "added": "2023-01-20",
+    "tint": "#cf5e30"
   },
   {
     "id": "tt0112461",
@@ -13958,7 +14197,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2023-01-24"
+    "added": "2023-01-24",
+    "tint": null
   },
   {
     "id": "tt0044741",
@@ -14024,7 +14264,8 @@
       "thought-provoking",
       "heartbreaking"
     ],
-    "added": "2023-01-25"
+    "added": "2023-01-25",
+    "tint": null
   },
   {
     "id": "tt1038988",
@@ -14083,7 +14324,8 @@
       "tense",
       "dread"
     ],
-    "added": "2023-02-07"
+    "added": "2023-02-07",
+    "tint": "#cfa430"
   },
   {
     "id": "tt0190590",
@@ -14144,7 +14386,8 @@
       "absurd",
       "feel-good"
     ],
-    "added": "2023-03-01"
+    "added": "2023-03-01",
+    "tint": "#cf9730"
   },
   {
     "id": "tt0420223",
@@ -14204,7 +14447,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2023-03-09"
+    "added": "2023-03-09",
+    "tint": "#3087cf"
   },
   {
     "id": "tt6710474",
@@ -14274,7 +14518,8 @@
       "absurd",
       "bittersweet"
     ],
-    "added": "2023-03-13"
+    "added": "2023-03-13",
+    "tint": "#cfa630"
   },
   {
     "id": "tt1615147",
@@ -14326,7 +14571,8 @@
       "tense",
       "thought-provoking"
     ],
-    "added": "2023-03-15"
+    "added": "2023-03-15",
+    "tint": "#cf5f30"
   },
   {
     "id": "tt0373469",
@@ -14379,7 +14625,8 @@
       "puzzling",
       "funny"
     ],
-    "added": "2023-03-21"
+    "added": "2023-03-21",
+    "tint": "#cf304d"
   },
   {
     "id": "tt0087884",
@@ -14438,7 +14685,8 @@
       "heartbreaking",
       "slow-and-quiet"
     ],
-    "added": "2023-03-25"
+    "added": "2023-03-25",
+    "tint": "#3093cf"
   },
   {
     "id": "tt1343727",
@@ -14497,7 +14745,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2023-05-07"
+    "added": "2023-05-07",
+    "tint": "#305fcf"
   },
   {
     "id": "tt7660850",
@@ -14550,7 +14799,8 @@
       "funny",
       "satirical"
     ],
-    "added": "2023-05-27"
+    "added": "2023-05-27",
+    "tint": "#cf6630"
   },
   {
     "id": "tt1211837",
@@ -14606,7 +14856,8 @@
       "mind-bending",
       "epic"
     ],
-    "added": "2023-07-30"
+    "added": "2023-07-30",
+    "tint": "#306acf"
   },
   {
     "id": "tt11280740",
@@ -14653,7 +14904,8 @@
       "puzzling",
       "mind-bending"
     ],
-    "added": "2023-09-01"
+    "added": "2023-09-01",
+    "tint": "#309dcf"
   },
   {
     "id": "tt1596363",
@@ -14710,7 +14962,8 @@
       "satirical",
       "true-story"
     ],
-    "added": "2023-09-01"
+    "added": "2023-09-01",
+    "tint": "#cf5b30"
   },
   {
     "id": "tt1645089",
@@ -14770,7 +15023,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2023-09-01"
+    "added": "2023-09-01",
+    "tint": null
   },
   {
     "id": "tt0320691",
@@ -14826,7 +15080,8 @@
     "moods": [
       "epic"
     ],
-    "added": "2023-09-01"
+    "added": "2023-09-01",
+    "tint": "#306acf"
   },
   {
     "id": "tt0120201",
@@ -14886,7 +15141,8 @@
       "satirical",
       "epic"
     ],
-    "added": "2023-09-16"
+    "added": "2023-09-16",
+    "tint": "#cf5930"
   },
   {
     "id": "tt0116922",
@@ -14961,7 +15217,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2023-09-16"
+    "added": "2023-09-16",
+    "tint": "#cf4b30"
   },
   {
     "id": "tt0151804",
@@ -15016,7 +15273,8 @@
       "funny",
       "satirical"
     ],
-    "added": "2023-09-20"
+    "added": "2023-09-20",
+    "tint": "#cfb230"
   },
   {
     "id": "tt0106364",
@@ -15081,7 +15339,8 @@
       "puzzling",
       "bittersweet"
     ],
-    "added": "2023-09-20"
+    "added": "2023-09-20",
+    "tint": "#306fcf"
   },
   {
     "id": "tt0401792",
@@ -15133,7 +15392,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2023-09-20"
+    "added": "2023-09-20",
+    "tint": "#30b1cf"
   },
   {
     "id": "tt0077651",
@@ -15186,7 +15446,8 @@
       "tense",
       "dread"
     ],
-    "added": "2023-09-20"
+    "added": "2023-09-20",
+    "tint": "#cf4930"
   },
   {
     "id": "tt0117589",
@@ -15233,7 +15494,8 @@
       "bittersweet",
       "heartbreaking"
     ],
-    "added": "2023-10-16"
+    "added": "2023-10-16",
+    "tint": "#cf8f30"
   },
   {
     "id": "tt3416744",
@@ -15282,7 +15544,8 @@
       "thought-provoking",
       "true-story"
     ],
-    "added": "2023-10-19"
+    "added": "2023-10-19",
+    "tint": "#3077cf"
   },
   {
     "id": "tt0468489",
@@ -15338,7 +15601,8 @@
       "gritty",
       "bittersweet"
     ],
-    "added": "2023-10-22"
+    "added": "2023-10-22",
+    "tint": "#cf8e30"
   },
   {
     "id": "tt7587876",
@@ -15399,7 +15663,8 @@
       "heartbreaking",
       "slow-and-quiet"
     ],
-    "added": "2023-11-04"
+    "added": "2023-11-04",
+    "tint": "#30cfb0"
   },
   {
     "id": "tt21100682",
@@ -15438,7 +15703,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2023-11-08"
+    "added": "2023-11-08",
+    "tint": "#306acf"
   },
   {
     "id": "tt0853153",
@@ -15485,7 +15751,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2023-11-09"
+    "added": "2023-11-09",
+    "tint": "#b4cf30"
   },
   {
     "id": "tt0099487",
@@ -15556,7 +15823,8 @@
       "dreamy",
       "romantic"
     ],
-    "added": "2023-11-17"
+    "added": "2023-11-17",
+    "tint": "#308acf"
   },
   {
     "id": "tt0319061",
@@ -15614,7 +15882,8 @@
       "bittersweet",
       "dreamy"
     ],
-    "added": "2023-11-17"
+    "added": "2023-11-17",
+    "tint": "#cfc330"
   },
   {
     "id": "tt13957560",
@@ -15689,7 +15958,8 @@
       "satirical",
       "true-story"
     ],
-    "added": "2023-12-24"
+    "added": "2023-12-24",
+    "tint": "#cfa730"
   },
   {
     "id": "tt1483831",
@@ -15728,7 +15998,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2023-12-25"
+    "added": "2023-12-25",
+    "tint": "#aecf30"
   },
   {
     "id": "tt2852406",
@@ -15770,7 +16041,8 @@
       "tense",
       "heartbreaking"
     ],
-    "added": "2023-12-26"
+    "added": "2023-12-26",
+    "tint": "#3090cf"
   },
   {
     "id": "tt17009710",
@@ -15832,7 +16104,8 @@
       "tense",
       "puzzling"
     ],
-    "added": "2024-01-14"
+    "added": "2024-01-14",
+    "tint": "#3092cf"
   },
   {
     "id": "tt3606888",
@@ -15885,7 +16158,8 @@
       "feel-good",
       "true-story"
     ],
-    "added": "2024-01-21"
+    "added": "2024-01-21",
+    "tint": "#cf5930"
   },
   {
     "id": "tt15791034",
@@ -15937,7 +16211,8 @@
       "tense",
       "dread"
     ],
-    "added": "2024-01-28"
+    "added": "2024-01-28",
+    "tint": "#cf3130"
   },
   {
     "id": "tt0113627",
@@ -15997,7 +16272,8 @@
       "heartbreaking",
       "romantic"
     ],
-    "added": "2024-02-06"
+    "added": "2024-02-06",
+    "tint": "#cf5f30"
   },
   {
     "id": "tt26737616",
@@ -16052,7 +16328,8 @@
       "puzzling",
       "thought-provoking"
     ],
-    "added": "2024-02-15"
+    "added": "2024-02-15",
+    "tint": "#cf303f"
   },
   {
     "id": "tt13309742",
@@ -16105,7 +16382,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2024-02-15"
+    "added": "2024-02-15",
+    "tint": "#cf4930"
   },
   {
     "id": "tt7160372",
@@ -16162,7 +16440,8 @@
       "true-story",
       "slow-and-quiet"
     ],
-    "added": "2024-03-11"
+    "added": "2024-03-11",
+    "tint": "#308fcf"
   },
   {
     "id": "tt4846232",
@@ -16222,7 +16501,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2024-03-24"
+    "added": "2024-03-24",
+    "tint": "#30b7cf"
   },
   {
     "id": "tt3460252",
@@ -16280,7 +16560,8 @@
       "gritty",
       "puzzling"
     ],
-    "added": "2024-04-23"
+    "added": "2024-04-23",
+    "tint": null
   },
   {
     "id": "tt27503384",
@@ -16334,7 +16615,8 @@
       "bittersweet",
       "slow-and-quiet"
     ],
-    "added": "2024-04-25"
+    "added": "2024-04-25",
+    "tint": "#cf6630"
   },
   {
     "id": "tt14230458",
@@ -16411,7 +16693,8 @@
       "satirical",
       "dreamy"
     ],
-    "added": "2024-05-08"
+    "added": "2024-05-08",
+    "tint": "#30a9cf"
   },
   {
     "id": "tt1306980",
@@ -16465,7 +16748,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2024-05-27"
+    "added": "2024-05-27",
+    "tint": "#cf8c30"
   },
   {
     "id": "tt21064584",
@@ -16538,7 +16822,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2024-06-02"
+    "added": "2024-06-02",
+    "tint": "#cf6430"
   },
   {
     "id": "tt1707386",
@@ -16613,7 +16898,8 @@
       "epic",
       "romantic"
     ],
-    "added": "2024-07-14"
+    "added": "2024-07-14",
+    "tint": "#cf5330"
   },
   {
     "id": "tt4364194",
@@ -16667,7 +16953,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2024-09-25"
+    "added": "2024-09-25",
+    "tint": "#cfa630"
   },
   {
     "id": "tt0765010",
@@ -16715,7 +17002,8 @@
       "tense",
       "heartbreaking"
     ],
-    "added": "2024-10-05"
+    "added": "2024-10-05",
+    "tint": "#cf9730"
   },
   {
     "id": "tt0076276",
@@ -16762,7 +17050,8 @@
       "satirical",
       "bittersweet"
     ],
-    "added": "2024-10-11"
+    "added": "2024-10-11",
+    "tint": "#cf8a30"
   },
   {
     "id": "tt10640346",
@@ -16825,7 +17114,8 @@
       "satirical",
       "epic"
     ],
-    "added": "2024-12-08"
+    "added": "2024-12-08",
+    "tint": "#cf5930"
   },
   {
     "id": "tt4633690",
@@ -16885,7 +17175,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2024-12-11"
+    "added": "2024-12-11",
+    "tint": "#30a2cf"
   },
   {
     "id": "tt22408160",
@@ -16943,7 +17234,8 @@
       "dread",
       "absurd"
     ],
-    "added": "2024-12-20"
+    "added": "2024-12-20",
+    "tint": "#cf7330"
   },
   {
     "id": "tt0283283",
@@ -16994,7 +17286,8 @@
       "bittersweet",
       "dreamy"
     ],
-    "added": "2024-12-27"
+    "added": "2024-12-27",
+    "tint": "#cf4b30"
   },
   {
     "id": "tt2076220",
@@ -17063,7 +17356,8 @@
       "mind-bending",
       "dreamy"
     ],
-    "added": "2024-12-27"
+    "added": "2024-12-27",
+    "tint": "#30b8cf"
   },
   {
     "id": "tt0102511",
@@ -17112,7 +17406,8 @@
       "mind-bending",
       "absurd"
     ],
-    "added": "2024-12-27"
+    "added": "2024-12-27",
+    "tint": null
   },
   {
     "id": "tt1587707",
@@ -17166,7 +17461,8 @@
       "funny",
       "true-story"
     ],
-    "added": "2024-12-27"
+    "added": "2024-12-27",
+    "tint": null
   },
   {
     "id": "tt0039192",
@@ -17214,7 +17510,8 @@
       "tense",
       "dreamy"
     ],
-    "added": "2024-12-28"
+    "added": "2024-12-28",
+    "tint": "#cf4f30"
   },
   {
     "id": "tt11563598",
@@ -17268,7 +17565,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2024-12-29"
+    "added": "2024-12-29",
+    "tint": null
   },
   {
     "id": "tt0320661",
@@ -17328,7 +17626,8 @@
     "moods": [
       "epic"
     ],
-    "added": "2024-12-31"
+    "added": "2024-12-31",
+    "tint": "#308dcf"
   },
   {
     "id": "tt0120263",
@@ -17377,7 +17676,8 @@
       "absurd",
       "satirical"
     ],
-    "added": "2024-12-31"
+    "added": "2024-12-31",
+    "tint": "#3073cf"
   },
   {
     "id": "tt0374546",
@@ -17438,7 +17738,8 @@
       "thought-provoking",
       "slow-and-quiet"
     ],
-    "added": "2024-12-31"
+    "added": "2024-12-31",
+    "tint": "#cfbd30"
   },
   {
     "id": "tt4263482",
@@ -17503,7 +17804,8 @@
       "dread",
       "slow-and-quiet"
     ],
-    "added": "2025-01-02"
+    "added": "2025-01-02",
+    "tint": "#30a4cf"
   },
   {
     "id": "tt0082348",
@@ -17567,7 +17869,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2025-01-02"
+    "added": "2025-01-02",
+    "tint": "#cf4530"
   },
   {
     "id": "tt9243804",
@@ -17627,7 +17930,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2025-01-03"
+    "added": "2025-01-03",
+    "tint": "#cf3330"
   },
   {
     "id": "tt0100998",
@@ -17689,7 +17993,8 @@
       "thought-provoking",
       "dreamy"
     ],
-    "added": "2025-01-03"
+    "added": "2025-01-03",
+    "tint": "#308ccf"
   },
   {
     "id": "tt11937680",
@@ -17740,7 +18045,8 @@
       "true-story",
       "slow-and-quiet"
     ],
-    "added": "2025-01-03"
+    "added": "2025-01-03",
+    "tint": "#30afcf"
   },
   {
     "id": "tt28015403",
@@ -17794,7 +18100,8 @@
       "tense",
       "dread"
     ],
-    "added": "2025-01-03"
+    "added": "2025-01-03",
+    "tint": "#cf7230"
   },
   {
     "id": "tt0218043",
@@ -17837,7 +18144,8 @@
       "heartbreaking",
       "true-story"
     ],
-    "added": "2025-01-03"
+    "added": "2025-01-03",
+    "tint": "#cf4930"
   },
   {
     "id": "tt1104001",
@@ -17894,7 +18202,8 @@
       "epic",
       "dreamy"
     ],
-    "added": "2025-01-04"
+    "added": "2025-01-04",
+    "tint": "#30adcf"
   },
   {
     "id": "tt0368721",
@@ -17936,7 +18245,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2025-01-16"
+    "added": "2025-01-16",
+    "tint": "#cfc430"
   },
   {
     "id": "tt1721677",
@@ -17981,7 +18291,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2025-01-16"
+    "added": "2025-01-16",
+    "tint": "#cfae30"
   },
   {
     "id": "tt11126994",
@@ -18040,7 +18351,8 @@
       "heartbreaking",
       "epic"
     ],
-    "added": "2025-01-27"
+    "added": "2025-01-27",
+    "tint": "#3065cf"
   },
   {
     "id": "tt6763664",
@@ -18092,7 +18404,8 @@
       "dread",
       "heartbreaking"
     ],
-    "added": "2025-01-27"
+    "added": "2025-01-27",
+    "tint": "#3095cf"
   },
   {
     "id": "tt4236770",
@@ -18142,7 +18455,8 @@
       "gritty",
       "epic"
     ],
-    "added": "2025-01-28"
+    "added": "2025-01-28",
+    "tint": "#cf5630"
   },
   {
     "id": "tt28607951",
@@ -18221,7 +18535,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2025-03-10"
+    "added": "2025-03-10",
+    "tint": "#cf6e30"
   },
   {
     "id": "tt31193180",
@@ -18294,7 +18609,8 @@
       "dread",
       "epic"
     ],
-    "added": "2025-04-30"
+    "added": "2025-04-30",
+    "tint": "#cf5230"
   },
   {
     "id": "tt0333766",
@@ -18353,7 +18669,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2025-05-15"
+    "added": "2025-05-15",
+    "tint": "#3097cf"
   },
   {
     "id": "tt0340377",
@@ -18397,7 +18714,8 @@
       "funny",
       "bittersweet"
     ],
-    "added": "2025-09-28"
+    "added": "2025-09-28",
+    "tint": "#a8cf30"
   },
   {
     "id": "tt0191133",
@@ -18442,7 +18760,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2025-10-09"
+    "added": "2025-10-09",
+    "tint": "#cf5830"
   },
   {
     "id": "tt0389722",
@@ -18494,7 +18813,8 @@
       "tense",
       "dread"
     ],
-    "added": "2025-10-09"
+    "added": "2025-10-09",
+    "tint": "#3071cf"
   },
   {
     "id": "tt0070511",
@@ -18551,7 +18871,8 @@
       "epic",
       "true-story"
     ],
-    "added": "2025-10-28"
+    "added": "2025-10-28",
+    "tint": "#309bcf"
   },
   {
     "id": "tt22202452",
@@ -18604,7 +18925,8 @@
       "mind-bending",
       "thought-provoking"
     ],
-    "added": "2025-11-11"
+    "added": "2025-11-11",
+    "tint": "#3097cf"
   },
   {
     "id": "tt3673480",
@@ -18653,7 +18975,8 @@
       "satirical",
       "true-story"
     ],
-    "added": "2025-11-12"
+    "added": "2025-11-12",
+    "tint": "#cfa030"
   },
   {
     "id": "tt0093509",
@@ -18716,7 +19039,8 @@
       "gritty",
       "true-story"
     ],
-    "added": "2025-12-07"
+    "added": "2025-12-07",
+    "tint": "#30cfa0"
   },
   {
     "id": "tt0353969",
@@ -18781,7 +19105,8 @@
       "puzzling",
       "true-story"
     ],
-    "added": "2025-12-21"
+    "added": "2025-12-21",
+    "tint": "#6bcf30"
   },
   {
     "id": "tt1024648",
@@ -18836,7 +19161,8 @@
       "tense",
       "true-story"
     ],
-    "added": "2026-01-10"
+    "added": "2026-01-10",
+    "tint": "#cf3037"
   },
   {
     "id": "tt0098536",
@@ -18887,7 +19213,8 @@
       "funny",
       "feel-good"
     ],
-    "added": "2026-01-10"
+    "added": "2026-01-10",
+    "tint": "#cf6330"
   },
   {
     "id": "tt3718778",
@@ -18940,7 +19267,8 @@
       "bittersweet",
       "dreamy"
     ],
-    "added": "2026-01-14"
+    "added": "2026-01-14",
+    "tint": "#cf9430"
   },
   {
     "id": "tt0092048",
@@ -19001,7 +19329,8 @@
       "funny",
       "absurd"
     ],
-    "added": "2026-01-28"
+    "added": "2026-01-28",
+    "tint": "#cf6230"
   },
   {
     "id": "tt32916440",
@@ -19067,7 +19396,8 @@
       "tense",
       "funny"
     ],
-    "added": "2026-02-02"
+    "added": "2026-02-02",
+    "tint": "#cf5630"
   },
   {
     "id": "tt1210166",
@@ -19122,7 +19452,8 @@
       "feel-good",
       "true-story"
     ],
-    "added": "2026-02-06"
+    "added": "2026-02-06",
+    "tint": "#30abcf"
   },
   {
     "id": "tt26581740",
@@ -19185,7 +19516,8 @@
       "puzzling",
       "dread"
     ],
-    "added": "2026-03-08"
+    "added": "2026-03-08",
+    "tint": "#3095cf"
   },
   {
     "id": "tt10370710",
@@ -19240,7 +19572,8 @@
       "bittersweet",
       "romantic"
     ],
-    "added": "2026-03-11"
+    "added": "2026-03-11",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt6053438",
@@ -19316,7 +19649,8 @@
       "thought-provoking",
       "slow-and-quiet"
     ],
-    "added": "2026-03-25"
+    "added": "2026-03-25",
+    "tint": "#cf5830"
   },
   {
     "id": "tt2582782",
@@ -19373,7 +19707,8 @@
       "tense",
       "gritty"
     ],
-    "added": "2026-08-06"
+    "added": "2026-08-06",
+    "tint": "#cf6d30"
   },
   {
     "id": "tt13406094",
@@ -19435,7 +19770,8 @@
       "puzzling",
       "satirical"
     ],
-    "added": "2026-08-07"
+    "added": "2026-08-07",
+    "tint": "#cf9630"
   },
   {
     "id": "tt1887785",
@@ -19477,7 +19813,8 @@
       "absurd",
       "dreamy"
     ],
-    "added": "2026-08-08"
+    "added": "2026-08-08",
+    "tint": null
   },
   {
     "id": "tt1430144",
@@ -19522,7 +19859,8 @@
       "mind-bending",
       "funny"
     ],
-    "added": "2026-08-12"
+    "added": "2026-08-12",
+    "tint": "#30afcf"
   },
   {
     "id": "tt0230600",
@@ -19585,7 +19923,8 @@
       "dread",
       "mind-bending"
     ],
-    "added": "2026-08-22"
+    "added": "2026-08-22",
+    "tint": "#cf5f30"
   },
   {
     "id": "tt1020773",
@@ -19630,7 +19969,8 @@
       "puzzling",
       "romantic"
     ],
-    "added": "2026-09-02"
+    "added": "2026-09-02",
+    "tint": "#cf6c30"
   },
   {
     "id": "tt33095251",
@@ -19693,7 +20033,8 @@
       "bittersweet",
       "true-story"
     ],
-    "added": "2026-09-08"
+    "added": "2026-09-08",
+    "tint": "#cf9b30"
   },
   {
     "id": "tt7395114",
@@ -19751,6 +20092,7 @@
       "gritty",
       "dread"
     ],
-    "added": "2026-09-12"
+    "added": "2026-09-12",
+    "tint": "#3097cf"
   }
 ]

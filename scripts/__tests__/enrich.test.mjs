@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,10 +18,11 @@ function fakeTmdb() {
     tile: vi.fn(async () => {}),
   };
 }
+const fakeTint = vi.fn(async () => "#cf3040");
 
 function setup() {
   const dir = mkdtempSync(join(tmpdir(), "enrich-"));
-  return { csvPath: fx("rows.csv"), outPath: join(dir, "titles.json"), imgDir: join(dir, "img"), tagsPath: join(dir, "mood-tags.json"), log: () => {} };
+  return { csvPath: fx("rows.csv"), outPath: join(dir, "titles.json"), imgDir: join(dir, "img"), tagsPath: join(dir, "mood-tags.json"), tint: fakeTint, log: () => {} };
 }
 
 test("writes all titles, reports unmatched, downloads images", async () => {
@@ -87,4 +88,22 @@ test("added merges from the CSV on every run, including skipped titles", async (
   expect(again.find).not.toHaveBeenCalled();
   const addedOf = Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.added]));
   expect(addedOf).toEqual({ tt0051378: "2017-06-17", tt6207098: "2017-11-01", tt5753856: "2018-02-11" });
+});
+
+test("tint comes from the small still on disk, and backfills outputs that lack it", async () => {
+  const opts = setup();
+  await main({ ...opts, tmdb: fakeTmdb() });
+  const out = JSON.parse(readFileSync(opts.outPath, "utf8"));
+  // Fake tmdb downloads nothing, so no still exists yet: null, not a crash.
+  expect(out.map((t) => t.tint)).toEqual([null, null, null]);
+
+  mkdirSync(join(opts.imgDir, "backdrop-sm"), { recursive: true });
+  writeFileSync(join(opts.imgDir, "backdrop-sm", "tt0051378.webp"), "");
+  writeFileSync(opts.outPath, JSON.stringify(out.map(({ tint: _tint, ...t }) => t)));
+  const tint = vi.fn(async () => "#3095cf");
+  await main({ ...opts, tmdb: fakeTmdb(), tint });
+  expect(tint).toHaveBeenCalledTimes(1);
+  expect(tint).toHaveBeenCalledWith(join(opts.imgDir, "backdrop-sm", "tt0051378.webp"));
+  const tintOf = Object.fromEntries(JSON.parse(readFileSync(opts.outPath, "utf8")).map((t) => [t.id, t.tint]));
+  expect(tintOf).toEqual({ tt0051378: "#3095cf", tt5753856: null, tt6207098: null });
 });

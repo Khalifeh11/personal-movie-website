@@ -84,6 +84,12 @@ export function Backdrop({ title, upcoming, onStillLoaded }: BackdropProps) {
       <div className="absolute inset-0 bg-linear-to-r from-black/45 to-transparent to-60%" />
       {/* Phones: the still is short and the title sits on its lower edge, so fade the bottom third into the page. */}
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 via-30% to-transparent to-65% md:hidden" />
+      {/* Ambient glow in the still's own colour, over the shades so it pools behind the title; the colour tweens between stills. */}
+      <div
+        data-testid="glow"
+        className="glow absolute inset-0 transition-[background-color] duration-(--duration-bg) ease-out"
+        style={{ backgroundColor: "var(--tint)" }}
+      />
       <div className="grain absolute inset-0" />
     </div>
   );

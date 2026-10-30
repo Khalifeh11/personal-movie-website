@@ -32,6 +32,8 @@ export interface Title {
   backdropSmall: string | null;
   poster: string | null;
   trailerKey: string | null;
+  /** Dominant colourful hue of the still as hex, for the ambient glow; null for monochrome stills. */
+  tint: string | null;
   tmdbRating: number | null;
   tmdbVotes: number | null;
   rtScore: number | null;

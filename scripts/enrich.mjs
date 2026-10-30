@@ -6,13 +6,14 @@ import { fileURLToPath } from "node:url";
 import { readWatchlist } from "./lib/csv.mjs";
 import { applyMoods } from "./lib/moods.mjs";
 import { isoDate, toTitle } from "./lib/transform.mjs";
+import { tintOf } from "./lib/tint.mjs";
 import { makeTmdb } from "./lib/tmdb.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const vocab = JSON.parse(readFileSync(join(root, "src/data/moods.json"), "utf8"));
 const readJson = (path, fallback) => (existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : fallback);
 
-export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, force = false, limit, log = console.log }) {
+export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, tint = tintOf, force = false, limit, log = console.log }) {
   const rows = readWatchlist(csvPath);
   const existing = readJson(outPath, []);
   const byId = new Map(existing.map((t) => [t.id, t]));
@@ -49,6 +50,13 @@ export async function main({ csvPath, outPath, imgDir, tagsPath, tmdb, force = f
   for (const row of rows) {
     const t = byId.get(row.Const);
     if (t) t.added = isoDate(row.Created);
+  }
+
+  // The still's tint is derived from the file on disk, so older outputs gain it on the next run too.
+  for (const t of byId.values()) {
+    if (t.tint !== undefined && !force) continue;
+    const file = t.backdropSmall && join(imgDir, t.backdropSmall.replace(/^\/img\//, ""));
+    t.tint = file && existsSync(file) ? await tint(file) : null;
   }
 
   // Keep CSV order for everything we have. Moods merge on every run so tag edits apply without --force.

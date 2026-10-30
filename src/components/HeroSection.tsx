@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { tintOf } from "../lib/tint";
 import type { Title } from "../lib/types";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import type { DeckAction, DeckState } from "../state/deck";
@@ -72,16 +73,17 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
   );
 
   const hasDeck = state.deck.length > 0;
+  const tint = { "--tint": tintOf(current) } as CSSProperties;
   // Advance first so the store's rebuild keeps us on the next film instead of jumping to the start.
   const onWatched = (w: boolean) => w && state.filters.hideWatched && dispatch({ type: "next" });
 
   if (!wide) {
     return (
-      <section ref={section} aria-label="Tonight's film" className="relative">
+      <section ref={section} aria-label="Tonight's film" className="relative" style={tint}>
         {/* svh, not dvh: the still must not resize when the browser bar hides on scroll. */}
         <div ref={still} data-testid="still" className="relative h-[64svh] overflow-hidden">
           <Backdrop title={current} upcoming={upcoming} />
-          <span data-testid="counter" className="absolute right-5 top-20 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em]">
+          <span data-testid="counter" className="absolute right-5 top-20 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em] text-(--tint) transition-colors duration-(--duration-bg)">
             {count}
           </span>
           {current && (
@@ -110,7 +112,7 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
   }
 
   return (
-    <section ref={section} aria-label="Tonight's film" className="relative min-h-dvh overflow-hidden">
+    <section ref={section} aria-label="Tonight's film" className="relative min-h-dvh overflow-hidden" style={tint}>
       <Backdrop title={current} upcoming={upcoming} onStillLoaded={() => setHeroReady(true)} />
       <span className="pointer-events-none absolute left-[30px] top-1/2 z-(--z-ui) origin-left -translate-y-1/2 -rotate-90 whitespace-nowrap font-ui text-[10px] uppercase tracking-[0.35em] text-fg-3">
         Swipe or press → for the next one
@@ -128,7 +130,7 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
           <EmptyState hint="Loosen the filters." />
         )}
       </div>
-      <span data-testid="counter" className="absolute bottom-[120px] right-11 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em]">
+      <span data-testid="counter" className="absolute bottom-[120px] right-11 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em] text-(--tint) transition-colors duration-(--duration-bg)">
         {count}
       </span>
       <div className="absolute bottom-10 right-11 z-(--z-ui)">

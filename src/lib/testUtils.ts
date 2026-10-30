@@ -24,6 +24,7 @@ export function mk(partial: Partial<Title> = {}): Title {
     backdropSmall: null,
     poster: null,
     trailerKey: null,
+    tint: null,
     tmdbRating: null,
     tmdbVotes: null,
     rtScore: null,

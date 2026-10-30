@@ -52,6 +52,18 @@
 
 /* One-offs the theme can't express */
 html, body { background: var(--color-bg); color: var(--color-fg); }
+/* Ambient tint; the hero and title card override it per title, everything else glows white. */
+html { --tint: var(--color-fg); }
+
+/* The ambient glow: a soft pool of the still's colour, low-left on desktop (under the title), bottom on phones. */
+.glow {
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  mask-image: radial-gradient(ellipse 70% 60% at 25% 100%, #000 0%, transparent 100%);
+}
+@media (max-width: 767px) {
+  .glow { mask-image: radial-gradient(ellipse 110% 55% at 50% 100%, #000 0%, transparent 100%); }
+}
 
 .grain {
   opacity: 0.07;
