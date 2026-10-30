@@ -85,3 +85,11 @@ test("phones load only the small hero stills", async ({ page }) => {
   await page.waitForTimeout(1000);
   expect(full).toEqual([]);
 });
+
+test("grid is two-up with no horizontal scroll", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: "Grid view" }).click();
+  const cols = await page.getByTestId("grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+  expect(cols).toBe(2);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

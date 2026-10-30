@@ -263,3 +263,27 @@ test("Back after a reload lands at defaults without error", async ({ page }) => 
   await expect(page.getByRole("button", { name: "Sort: IMDb rating" })).toBeVisible();
   expect(await page.evaluate(() => scrollY)).toBe(0);
 });
+
+test("grid view shows posters with a caption and persists across reload", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: "Grid view" }).click();
+  await expect(rows(page)).toHaveCount(0);
+  const cells = page.getByTestId("grid").getByRole("button");
+  await expect(cells).toHaveCount(86);
+  await expect(cells.first()).toHaveAccessibleName("Chernobyl");
+  await expect(cells.first()).toContainText("2019 · Series · IMDb 9.3");
+  await expect(cells.first()).not.toContainText("Chernobyl");
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Grid view" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("grid")).toBeVisible();
+  await page.getByRole("button", { name: "List view" }).click();
+  await expect(rows(page)).toHaveCount(86);
+});
+
+test("grid cell without a poster renders a placeholder box", async ({ page }) => {
+  await page.goto("/#/mood/dreamy");
+  await page.getByRole("button", { name: "Grid view" }).click();
+  const cell = page.getByTestId("grid").getByRole("button", { name: "Pink Floyd: Shine on You Crazy Diamond" });
+  await expect(cell).toBeVisible();
+  await expect(cell.locator("img")).toHaveCount(0);
+});

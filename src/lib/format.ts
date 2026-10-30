@@ -20,3 +20,8 @@ export function ratingText(t: Title): string {
 export function feelsLine(t: Title): string {
   return t.moods.map(moodLabel).join(" · ");
 }
+
+/** The one line under a grid poster: "2019 · Series · IMDb 9.3". */
+export function gridCaption(t: Title): string {
+  return `${t.year ?? "—"} · ${t.type} · IMDb ${ratingText(t)}`;
+}

@@ -4,14 +4,17 @@ import { matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
 import { moodAccent } from "../lib/moods";
 import type { Filters, Title } from "../lib/types";
+import { usePersistedState } from "../state/usePersistedState";
 import { useUserData } from "../state/useUserData";
 import { loadView, saveView } from "../state/viewState";
 import { EmptyState } from "./EmptyState";
+import { FilmGrid } from "./FilmGrid";
 import { FilmRow } from "./FilmRow";
 import { SortMenu } from "./SortMenu";
 import { UserControls } from "./UserControls";
 import { MoodDot } from "./ui/MoodDot";
 import { Pill } from "./ui/Pill";
+import { VIEW_KEY, ViewToggle, type View } from "./ui/ViewToggle";
 
 interface BrowsePageProps {
   scope: Scope;
@@ -36,6 +39,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
   const [sort, setSort] = useState<SortKey>(saved?.sort ?? "imdb");
   const [dir, setDir] = useState<SortDir>(saved?.dir ?? defaultDir("imdb"));
   const [query, setQuery] = useState(saved?.query ?? "");
+  const [layout, setLayout] = usePersistedState<View>(VIEW_KEY, "list");
   const latest = useRef({ sort, dir, query });
   latest.current = { sort, dir, query };
   useLayoutEffect(() => {
@@ -77,6 +81,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <ViewToggle value={layout} onChange={setLayout} />
           <SortMenu
             value={sort}
             onChange={(key) => {
@@ -109,6 +114,8 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
       </header>
       {rows.length === 0 ? (
         <EmptyState hint="Clear the search or loosen the filters." />
+      ) : layout === "grid" ? (
+        <FilmGrid titles={rows} entries={entries} accent={accent} onOpen={() => {}} />
       ) : (
         rows.map((t, i) => (
           <FilmRow
