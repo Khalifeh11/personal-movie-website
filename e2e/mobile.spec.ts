@@ -75,3 +75,13 @@ test("the menu closes when the page changes", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
   await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "false");
 });
+
+test("phones load only the small hero stills", async ({ page }) => {
+  const full: string[] = [];
+  page.on("request", (r) => /\/img\/backdrop\//.test(r.url()) && full.push(r.url()));
+  await page.goto("/");
+  await page.locator("h1").waitFor();
+  await page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "Next" }).tap();
+  await page.waitForTimeout(1000);
+  expect(full).toEqual([]);
+});

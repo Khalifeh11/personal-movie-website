@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MOODS as VOCAB } from "../lib/moods";
 import type { Route } from "../lib/route";
 import type { MoodFilter } from "../lib/types";
+import { MoodDot } from "./ui/MoodDot";
 
 interface NavProps {
   route: Route;
@@ -70,8 +71,9 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
           type="button"
           role="menuitem"
           onClick={() => goMood(m.slug)}
-          className={`${item} text-left md:whitespace-nowrap ${route.name === "mood" && route.mood === m.slug ? "text-fg" : ""}`}
+          className={`${item} inline-flex items-center gap-2 text-left md:whitespace-nowrap ${route.name === "mood" && route.mood === m.slug ? "text-fg" : ""}`}
         >
+          <MoodDot slug={m.slug} />
           {m.label}
         </button>
       ))}

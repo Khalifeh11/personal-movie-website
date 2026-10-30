@@ -2,13 +2,14 @@ import { useMemo, useState } from "react";
 import { defaultDir, searchTitles, sortTitles, type SortDir, type SortKey } from "../lib/browse";
 import { inMood, matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
-import { moodLabel } from "../lib/moods";
+import { moodAccent, moodLabel } from "../lib/moods";
 import type { Filters, MoodFilter, Title } from "../lib/types";
 import { useUserData } from "../state/useUserData";
 import { EmptyState } from "./EmptyState";
 import { FilmRow } from "./FilmRow";
 import { SortMenu } from "./SortMenu";
 import { UserControls } from "./UserControls";
+import { MoodDot } from "./ui/MoodDot";
 import { Pill } from "./ui/Pill";
 
 interface MoodPageProps {
@@ -29,6 +30,7 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
   const [sort, setSort] = useState<SortKey>("imdb");
   const [dir, setDir] = useState<SortDir>(defaultDir("imdb"));
   const [query, setQuery] = useState("");
+  const accent = moodAccent(mood);
 
   // Titles marked watched during this visit stay listed (dimmed) so rows don't jump under the cursor.
   // The page is keyed by mood; a new filter, sort or search starts a fresh view.
@@ -43,11 +45,20 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
   }, [titles, mood, filters, entries, query, sort, dir, kept.ids]);
 
   return (
-    <main className="px-5 pb-16 pt-24 md:px-11 md:pt-32">
-      <header className="mb-6 flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
-        <div>
+    <main className="overflow-x-clip px-5 pb-16 pt-24 md:px-11 md:pt-32">
+      <header className="relative mb-6 flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-end md:justify-between">
+        {/* The mood's hue, bleeding in from the page's top-left corner. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-x-5 -top-24 bottom-0 md:-inset-x-11 md:-top-32"
+          style={{ background: `radial-gradient(60% 100% at 0% 100%, color-mix(in srgb, ${accent} 22%, transparent), transparent)` }}
+        />
+        <div className="relative">
           <h1 className="font-display text-5xl uppercase leading-[0.9] md:text-7xl">{moodLabel(mood)}</h1>
-          <p className="mt-3 font-ui text-[11px] uppercase tracking-ui text-fg-3">{countLabel(rows.length)}</p>
+          <p className="mt-3 flex items-center gap-2 font-ui text-[11px] uppercase tracking-ui text-fg-3">
+            <MoodDot slug={mood} />
+            {countLabel(rows.length)}
+          </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <SortMenu

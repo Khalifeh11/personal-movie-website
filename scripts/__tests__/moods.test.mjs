@@ -7,8 +7,8 @@ const t = (id) => ({ id, title: id });
 
 test("vocabulary: 17 moods, tense first, slow-and-quiet last", () => {
   expect(vocab).toHaveLength(17);
-  expect(vocab[0]).toEqual({ slug: "tense", label: "Tense" });
-  expect(vocab.at(-1)).toEqual({ slug: "slow-and-quiet", label: "Slow & quiet" });
+  expect(vocab[0]).toMatchObject({ slug: "tense", label: "Tense" });
+  expect(vocab.at(-1)).toMatchObject({ slug: "slow-and-quiet", label: "Slow & quiet" });
 });
 
 test("merges tags in vocabulary order; reports untagged and stray ids", () => {

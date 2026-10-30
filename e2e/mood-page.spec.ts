@@ -186,3 +186,15 @@ test("Back closes an open trailer", async ({ page }) => {
   await page.goBack();
   await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toHaveCount(0);
 });
+
+test("row posters fade in", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await expect(rows(page).first().locator("img")).toHaveAttribute("data-loaded", "true");
+});
+
+test("mood page carries its accent", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  const dot = page.getByTestId("mood-accent");
+  await expect(dot).toBeVisible();
+  await expect(dot).toHaveCSS("background-color", "rgb(224, 78, 58)");
+});

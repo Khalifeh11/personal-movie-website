@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Title } from "../lib/types";
+import { FadeImg } from "./ui/FadeImg";
 
 interface Layer {
   key: string;
@@ -8,7 +9,9 @@ interface Layer {
   blurred: boolean;
 }
 
-const toLayer = (t: Title | undefined): Layer => ({
+const SMALL_SCREEN = "(max-width: 760px)";
+
+const toLayer =(t: Title | undefined): Layer => ({
   key: t?.id ?? "none",
   src: t?.backdrop ?? null,
   srcSmall: t?.backdropSmall ?? null,
@@ -18,6 +21,7 @@ const toLayer = (t: Title | undefined): Layer => ({
 /**
  * Full-bleed still. The new still fades in over the previous one (kept underneath),
  * with a slow Ken-Burns zoom, then the shade and grain layers.
+ * Each still blurs up: the small image shows at once, the full one fades in over it when loaded.
  */
 export function Backdrop({ title, upcoming }: { title: Title | undefined; upcoming: Title[] }) {
   const [layers, setLayers] = useState<Layer[]>(() => [toLayer(title)]);
@@ -28,10 +32,10 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
 
   // Warm the cache for the next couple of stills.
   useEffect(() => {
-    const small = matchMedia("(max-width: 760px)").matches;
+    const small = matchMedia(SMALL_SCREEN).matches;
     for (const t of upcoming) {
-      const src = small ? t.backdropSmall : t.backdrop;
-      if (src) new Image().src = src;
+      const srcs = small ? [t.backdropSmall ?? t.backdrop] : [t.backdropSmall, t.backdrop];
+      for (const src of srcs) if (src) new Image().src = src;
     }
   }, [upcoming]);
 
@@ -39,14 +43,16 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
     <div className="absolute inset-0 overflow-hidden bg-bg" aria-hidden>
       {layers.map((l, i) =>
         l.src ? (
-          <picture key={l.key} className={`absolute inset-0 ${i === layers.length - 1 && layers.length > 1 ? "animate-fadein" : ""}`}>
-            {l.srcSmall && <source media="(max-width: 760px)" srcSet={l.srcSmall} />}
-            <img
-              src={l.src}
-              alt=""
-              className={`h-full w-full animate-kenburns object-cover ${l.blurred ? "scale-110 blur-xl" : ""}`}
-            />
-          </picture>
+          <div key={l.key} className={`absolute inset-0 ${i === layers.length - 1 && layers.length > 1 ? "animate-fadein" : ""}`}>
+            <div className={`absolute inset-0 animate-kenburns ${l.blurred ? "scale-110 blur-xl" : ""}`}>
+              {l.srcSmall && <img src={l.srcSmall} alt="" className="absolute inset-0 h-full w-full scale-105 object-cover blur-md" />}
+              {/* Phones get the small still here too: it's already cached, so the top image is complete at once. */}
+              <picture>
+                {l.srcSmall && <source media={SMALL_SCREEN} srcSet={l.srcSmall} />}
+                <FadeImg src={l.src} alt="" className="absolute inset-0 h-full w-full object-cover transition-opacity duration-(--duration-bg)" />
+              </picture>
+            </div>
+          </div>
         ) : (
           <div key={l.key} className="absolute inset-0 bg-bg" />
         ),

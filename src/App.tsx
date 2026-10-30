@@ -41,7 +41,7 @@ function Site() {
     setTrailerRoute(route);
     setTrailerFor(null);
   }
-  const tiles = useMemo(() => moodTiles(state.deck), [state.deck]);
+  const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
 
   return (
     <div className="min-h-dvh bg-bg font-ui text-fg">

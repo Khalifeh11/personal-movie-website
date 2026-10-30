@@ -96,3 +96,47 @@ test("arrow keys do nothing to the hero while the trailer is open", async ({ pag
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("counter")).toHaveText(counter!);
 });
+
+test("mood tiles show a backdrop still, distinct per tile", async ({ page }) => {
+  const imgs = page.locator("#moods").getByRole("button").locator("img");
+  await expect(imgs).toHaveCount(18);
+  const srcs = await imgs.evaluateAll((els) => els.map((e) => (e as HTMLImageElement).getAttribute("src")));
+  expect(new Set(srcs).size).toBe(18);
+  expect(srcs.every((s) => s?.startsWith("/img/backdrop"))).toBe(true);
+});
+
+test("tile stills become visible, also from cache after reload", async ({ page }) => {
+  const first = page.locator("#moods img").first();
+  await first.scrollIntoViewIfNeeded();
+  await expect(first).toHaveAttribute("data-loaded", "true");
+  await expect(first).toHaveCSS("opacity", "1");
+  await page.reload();
+  await page.locator("#moods img").first().scrollIntoViewIfNeeded();
+  await expect(page.locator("#moods img").first()).toHaveAttribute("data-loaded", "true");
+});
+
+test("hero Feels shows one accent dot per mood", async ({ page }) => {
+  const feels = page.locator("section[aria-label=\"Tonight's film\"]").getByTestId("feels");
+  const dots = feels.locator("[data-testid=mood-accent]");
+  expect(await dots.count()).toBeGreaterThanOrEqual(1);
+  expect(await dots.count()).toBeLessThanOrEqual(3);
+});
+
+test("tile stills animate scale and filter on hover, over 500ms", async ({ page }) => {
+  const img = page.locator("#moods img").first();
+  const [prop, dur] = await img.evaluate((el) => [getComputedStyle(el).transitionProperty, getComputedStyle(el).transitionDuration]);
+  expect(prop).toContain("scale");
+  expect(prop).toContain("filter");
+  expect(dur.split(",")[0].trim()).toBe("0.5s");
+});
+
+test("the hero still fades in over the background duration", async ({ page }) => {
+  const img = page.locator("section[aria-label=\"Tonight's film\"] img[data-loaded]").first();
+  expect(await img.evaluate((el) => getComputedStyle(el).transitionDuration)).toBe("0.7s");
+});
+
+test("a focused tile shows a focus ring", async ({ page }) => {
+  const tile = page.locator("#moods").getByRole("button").first();
+  await tile.focus();
+  await expect.poll(() => tile.evaluate((el) => getComputedStyle(el).boxShadow)).not.toBe("none");
+});

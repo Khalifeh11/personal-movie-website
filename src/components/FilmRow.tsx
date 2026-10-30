@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { formatRuntime } from "../lib/filters";
 import { feelsLine, genreLine, ratingText } from "../lib/format";
 import type { Title } from "../lib/types";
+import { FadeImg } from "./ui/FadeImg";
 
 interface FilmRowProps {
   n: number;
@@ -21,7 +22,7 @@ export function FilmRow({ n, title: t, dimmed, actions }: FilmRowProps) {
     >
       <span className="w-7 flex-none font-display text-xl leading-none text-fg-3 md:w-10 md:text-3xl">{pad(n)}</span>
       {t.poster ? (
-        <img src={t.poster} alt="" loading="lazy" className="h-[72px] w-12 flex-none rounded-sm object-cover md:h-[93px] md:w-[62px]" />
+        <FadeImg src={t.poster} alt="" loading="lazy" className="h-[72px] w-12 flex-none rounded-sm bg-white/5 object-cover transition-opacity duration-300 md:h-[93px] md:w-[62px]" />
       ) : (
         <div className="h-[72px] w-12 flex-none rounded-sm bg-white/5 md:h-[93px] md:w-[62px]" />
       )}
