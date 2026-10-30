@@ -55,7 +55,13 @@ function Site() {
   const [today] = useState(() => new Date());
   const why = current ? whyThis(current, { titles, deck: state.deck, today }) : null;
   const scope: Scope | null =
-    route.name === "mood" ? { kind: "mood", mood: route.mood } : route.name === "director" ? { kind: "director", name: route.director } : null;
+    route.name === "mood"
+      ? { kind: "mood", mood: route.mood }
+      : route.name === "director"
+        ? { kind: "director", name: route.director }
+        : route.name === "shelf"
+          ? { kind: "shelf", shelf: route.shelf }
+          : null;
 
   return (
     <div className="min-h-dvh bg-bg font-ui text-fg">

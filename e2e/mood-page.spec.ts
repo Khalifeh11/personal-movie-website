@@ -360,3 +360,12 @@ test("each row has one tab stop for opening the card", async ({ page }) => {
   await expect(row.locator("button[aria-hidden]")).toHaveAttribute("tabindex", "-1");
   await expect(row.getByRole("heading", { level: 2 })).toHaveAccessibleName("Chernobyl");
 });
+
+test("shelf pages: waiting sorts by Added, short by Runtime", async ({ page }) => {
+  await page.goto("/#/shelf/waiting");
+  await expect(page.locator("h1")).toHaveText("Waiting the longest");
+  await expect(page.getByRole("button", { name: "Sort: Added" })).toBeVisible();
+  await page.goto("/#/shelf/short");
+  await expect(page.locator("h1")).toHaveText("Under 90 minutes");
+  await expect(page.getByRole("button", { name: "Sort: Runtime" })).toBeVisible();
+});

@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { defaultDir, scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
+import { defaultDir, defaultSort, scopeKey, scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
 import { mk, U } from "./testUtils";
 
 const a = mk({ id: "a", title: "Brazil", year: 1985, runtime: 132, imdbRating: 7.9 });
@@ -61,4 +61,17 @@ test("scopeTitles narrows by mood or by exact director", () => {
 test("scopeLabel", () => {
   expect(scopeLabel({ kind: "mood", mood: "slow-and-quiet" })).toBe("Slow & quiet");
   expect(scopeLabel({ kind: "director", name: "Billy Wilder" })).toBe("Billy Wilder");
+});
+
+test("shelf scopes list the shelf's set, label with its heading and pick its default sort", () => {
+  const ts = [mk({ id: "a", runtime: 95, added: "2015-01-01" }), mk({ id: "b", type: "Series", runtime: 60, added: "2013-01-01" }), mk({ id: "c", runtime: 85, added: null })];
+  expect(ids(scopeTitles(ts, { kind: "shelf", shelf: "short" }))).toEqual(["c"]);
+  expect(ids(scopeTitles(ts, { kind: "shelf", shelf: "waiting" }))).toEqual(["b", "a"]);
+  expect(scopeLabel({ kind: "shelf", shelf: "short" })).toBe("Under 90 minutes");
+  expect(scopeLabel({ kind: "shelf", shelf: "waiting" })).toBe("Waiting the longest");
+  expect(scopeKey({ kind: "shelf", shelf: "short" })).toBe("shelf:short");
+  expect(defaultSort({ kind: "shelf", shelf: "waiting" })).toBe("added");
+  expect(defaultSort({ kind: "shelf", shelf: "short" })).toBe("runtime");
+  expect(defaultSort({ kind: "mood", mood: "all" })).toBe("imdb");
+  expect(defaultSort({ kind: "director", name: "X" })).toBe("imdb");
 });

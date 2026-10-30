@@ -3,7 +3,7 @@ import { parseQuery, serializeQuery, type QueryFilters } from "./hash";
 import { MOODS } from "./moods";
 import type { Filters, MoodFilter } from "./types";
 
-import type { ShelfId } from "./shelves";
+import { SHELF_HEADINGS, type ShelfId } from "./shelves";
 
 export type Route =
   | { name: "home" }
@@ -12,10 +12,11 @@ export type Route =
   | { name: "shelf"; shelf: ShelfId };
 
 const SLUGS = new Set<string>(["all", ...MOODS.map((m) => m.slug)]);
+const SHELVES = new Set<string>(Object.keys(SHELF_HEADINGS));
 const HOME: Route = { name: "home" };
 
 /**
- * `#/`, `#/mood/<slug>`, `#/director/<slug>`, each with an optional `?type=…&rt=…`. Anything else is
+ * `#/`, `#/mood/<slug>`, `#/director/<slug>`, `#/shelf/<id>`, each with an optional `?type=…&rt=…`. Anything else is
  * home with `redirect: true`; a legacy query-only hash (`#mood=x&type=Movie`) keeps its valid filters.
  * Director slugs resolve against `directors` (original names); the first match wins on collision.
  */
@@ -31,6 +32,8 @@ export function parseRoute(
   if (path === "" || path === "/") return { route: HOME, filters, redirect: false };
   const m = path.match(/^\/mood\/([^/]+)$/);
   if (m && SLUGS.has(m[1])) return { route: { name: "mood", mood: m[1] as MoodFilter }, filters, redirect: false };
+  const s = path.match(/^\/shelf\/([^/]+)$/);
+  if (s && SHELVES.has(s[1])) return { route: { name: "shelf", shelf: s[1] as ShelfId }, filters, redirect: false };
   const d = path.match(/^\/director\/([^/]+)$/);
   if (d) {
     const director = directors.find((name) => slugify(name) === d[1]);
@@ -41,7 +44,13 @@ export function parseRoute(
 
 export function serializeRoute(route: Route, f: Filters): string {
   const path =
-    route.name === "mood" ? `/mood/${route.mood}` : route.name === "director" ? `/director/${slugify(route.director)}` : "/";
+    route.name === "mood"
+      ? `/mood/${route.mood}`
+      : route.name === "director"
+        ? `/director/${slugify(route.director)}`
+        : route.name === "shelf"
+          ? `/shelf/${route.shelf}`
+          : "/";
   const query = serializeQuery(f);
   return `#${path}${query ? `?${query}` : ""}`;
 }

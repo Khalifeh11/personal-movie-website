@@ -60,3 +60,9 @@ test("director route round trip", () => {
   expect(serializeRoute(r, F({ type: "Series" }))).toBe("#/director/milos-forman?type=Series");
   expect(parseRoute(serializeRoute(r, F()), DIRS).route).toEqual(r);
 });
+
+test("shelf route parses, keeps filters, rejects unknown ids, round-trips", () => {
+  expect(parseRoute("#/shelf/waiting?type=Movie")).toEqual({ route: { name: "shelf", shelf: "waiting" }, filters: { type: "Movie" }, redirect: false });
+  expect(parseRoute("#/shelf/zzz")).toEqual({ route: home, filters: {}, redirect: true });
+  expect(serializeRoute({ name: "shelf", shelf: "short" }, F())).toBe("#/shelf/short");
+});

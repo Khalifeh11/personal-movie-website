@@ -1,23 +1,36 @@
 import { titlesBy } from "./directors";
 import { inMood } from "./filters";
 import { moodLabel } from "./moods";
+import { SHELF_HEADINGS, shelfTitles, type ShelfId } from "./shelves";
 import type { MoodFilter, Title, UserEntry } from "./types";
 
-/** What a browse page lists: everything in a mood, or everything by a director. */
-export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string };
+/** What a browse page lists: everything in a mood, everything by a director, or a home shelf's set. */
+export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId };
 
 export function scopeTitles(titles: Title[], scope: Scope): Title[] {
-  return scope.kind === "mood" ? titles.filter((t) => inMood(t, scope.mood)) : titlesBy(titles, scope.name);
+  if (scope.kind === "mood") return titles.filter((t) => inMood(t, scope.mood));
+  if (scope.kind === "director") return titlesBy(titles, scope.name);
+  return shelfTitles(titles, scope.shelf);
 }
 
 /** The page's h1. */
 export function scopeLabel(scope: Scope): string {
-  return scope.kind === "mood" ? moodLabel(scope.mood) : scope.name;
+  if (scope.kind === "mood") return moodLabel(scope.mood);
+  if (scope.kind === "director") return scope.name;
+  return SHELF_HEADINGS[scope.shelf];
 }
 
-/** Stable identity for a scope (React key): `"mood:tense"`, `"director:Billy Wilder"`. */
+/** Stable identity for a scope (React key): `"mood:tense"`, `"director:Billy Wilder"`, `"shelf:short"`. */
 export function scopeKey(scope: Scope): string {
-  return scope.kind === "mood" ? `mood:${scope.mood}` : `director:${scope.name}`;
+  if (scope.kind === "mood") return `mood:${scope.mood}`;
+  if (scope.kind === "director") return `director:${scope.name}`;
+  return `shelf:${scope.shelf}`;
+}
+
+/** The sort a page starts with when nothing is saved for it: shelves sort by what defines them. */
+export function defaultSort(scope: Scope): SortKey {
+  if (scope.kind !== "shelf") return "imdb";
+  return scope.shelf === "waiting" ? "added" : "runtime";
 }
 
 export type SortKey = "imdb" | "year" | "runtime" | "added" | "title" | "mine";
