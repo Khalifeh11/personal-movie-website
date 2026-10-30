@@ -22,7 +22,7 @@ const action =
 const control =
   "rounded-full border border-white/25 bg-transparent px-3.5 py-2 font-ui text-xs text-fg-2 outline-none focus:border-fg";
 
-export function MoodPage({ mood, titles, filters, onFilters }: MoodPageProps) {
+export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPageProps) {
   const { entries } = useUserData();
   const [sort, setSort] = useState<SortKey>("imdb");
   const [query, setQuery] = useState("");
@@ -67,7 +67,12 @@ export function MoodPage({ mood, titles, filters, onFilters }: MoodPageProps) {
             n={i + 1}
             title={t}
             dimmed={Boolean(entries[t.id]?.watched)}
-            actions={<a href={t.imdbUrl} target="_blank" rel="noreferrer" className={action}>IMDb ↗</a>}
+            actions={
+              <>
+                {t.trailerKey && <button type="button" onClick={() => onTrailer(t)} className={action}>▶ Trailer</button>}
+                <a href={t.imdbUrl} target="_blank" rel="noreferrer" className={action}>IMDb ↗</a>
+              </>
+            }
           />
         ))
       )}

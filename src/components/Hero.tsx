@@ -6,7 +6,7 @@ import { Label } from "./ui/Label";
 const heroAction =
   "rounded-full border border-white/25 px-3.5 py-2 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg";
 
-export function Hero({ title }: { title: Title }) {
+export function Hero({ title, onTrailer }: { title: Title; onTrailer: () => void }) {
   const by = byline(title);
   return (
     <section key={title.id} className="max-w-[900px] animate-rise">
@@ -22,6 +22,7 @@ export function Hero({ title }: { title: Title }) {
       </Label>
       <FactsRow title={title} />
       <div className="mt-5 flex flex-wrap gap-2">
+        {title.trailerKey && <button type="button" onClick={onTrailer} className={heroAction}>▶ Trailer</button>}
         <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>
       </div>
       {title.overview && (

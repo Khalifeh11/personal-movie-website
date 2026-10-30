@@ -5,6 +5,7 @@ import { HeroSection } from "./components/HeroSection";
 import { MoodPage } from "./components/MoodPage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
+import { TrailerOverlay } from "./components/TrailerOverlay";
 import { Label } from "./components/ui/Label";
 import titlesJson from "./data/titles.json";
 import { moodTiles } from "./lib/moodTiles";
@@ -29,6 +30,8 @@ function Site() {
   const { store, entries } = useUserData();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const closeFilters = useCallback(() => setFiltersOpen(false), []);
+  const [trailerFor, setTrailerFor] = useState<Title | null>(null);
+  const closeTrailer = useCallback(() => setTrailerFor(null), []);
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
   const { route, navigate } = useRoute(state.filters);
@@ -39,7 +42,7 @@ function Site() {
       <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
       {route.name === "home" && (
         <>
-          <HeroSection state={state} current={current} count={count} dispatch={dispatch} active />
+          <HeroSection state={state} current={current} count={count} dispatch={dispatch} active onTrailer={setTrailerFor} />
           <section id="moods" className="scroll-mt-20 px-5 py-16 md:px-11 md:py-24">
             <Label as="div" muted className="mb-6 tracking-wide">How do you want to feel?</Label>
             <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
@@ -54,9 +57,10 @@ function Site() {
           titles={titles}
           filters={state.filters}
           onFilters={setFilters}
-          onTrailer={() => {}}
+          onTrailer={setTrailerFor}
         />
       )}
+      <TrailerOverlay title={trailerFor} onClose={closeTrailer} />
       <FiltersDrawer
         open={filtersOpen}
         onClose={closeFilters}

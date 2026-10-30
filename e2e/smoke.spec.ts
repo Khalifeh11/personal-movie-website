@@ -56,3 +56,13 @@ test("mood tiles: one per mood plus All; empty mood reads 0 titles; click opens 
   await page.getByRole("button", { name: /^On edge, \d+ titles?$/ }).click();
   await expect(page).toHaveURL(/#\/mood\/on-edge$/);
 });
+
+test("hero trailer opens in place and Esc closes it", async ({ page }) => {
+  const trailer = page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "▶ Trailer" });
+  for (let i = 0; i < 20 && !(await trailer.isVisible()); i++) await page.keyboard.press("ArrowRight");
+  await trailer.click();
+  const frame = page.locator('iframe[src*="youtube-nocookie.com/embed/"]');
+  await expect(frame).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(frame).toHaveCount(0);
+});

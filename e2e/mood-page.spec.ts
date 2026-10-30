@@ -64,3 +64,18 @@ test("a title with no poster renders a placeholder, not a broken image", async (
   await expect(row).toHaveCount(1);
   await expect(row.locator("img")).toHaveCount(0);
 });
+
+test("row trailer opens and the close button closes it", async ({ page }) => {
+  await page.goto("/#/mood/on-edge");
+  await rows(page).first().getByRole("button", { name: "▶ Trailer" }).click();
+  const frame = page.locator('iframe[src*="youtube-nocookie.com/embed/"]');
+  await expect(frame).toBeVisible();
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(frame).toHaveCount(0);
+});
+
+test("a title without a trailer has no Trailer button", async ({ page }) => {
+  await page.goto("/#/mood/transported");
+  await expect(rows(page).filter({ hasText: "Pink Floyd" }).getByRole("button", { name: "▶ Trailer" })).toHaveCount(0);
+  await expect(rows(page).filter({ hasText: "Samurai Champloo" }).getByRole("button", { name: "▶ Trailer" })).toHaveCount(1);
+});
