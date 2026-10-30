@@ -18,6 +18,8 @@ export interface Shelf {
 
 export const SHELF_LIMIT = 12;
 const SHORT_MAX = 90;
+/** A one-poster "More from" shelf looks thin; it needs at least this many. */
+const DIRECTOR_MIN = 2;
 
 export const SHELF_HEADINGS: Record<ShelfId, string> = { short: "Under 90 minutes", waiting: "Waiting the longest" };
 
@@ -50,7 +52,7 @@ export function homeShelves(deck: Title[], current: Title | undefined): Shelf[] 
     const others = deck
       .filter((t) => t.id !== current.id && t.directors.includes(director))
       .sort((x, y) => (y.year ?? -Infinity) - (x.year ?? -Infinity));
-    out.push(shelf("director", `More from ${director}`, others, yearRuntime, { name: "director", director }));
+    if (others.length >= DIRECTOR_MIN) out.push(shelf("director", `More from ${director}`, others, yearRuntime, { name: "director", director }));
   }
   return out.filter((s): s is Shelf => s != null);
 }

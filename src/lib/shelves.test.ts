@@ -55,6 +55,13 @@ test("director shelf follows the hero, excludes it, newest first", () => {
   expect(shelves.map((s) => s.id)).toEqual(["short", "waiting", "director"]);
 });
 
+test("director shelf needs at least two other titles", () => {
+  // hero + long share a director: one other title is too thin a shelf.
+  expect(byId(homeShelves(deck, hero), "director")).toBeUndefined();
+  const older = mk({ id: "older", year: 1993, directors: ["Richard Linklater"] });
+  expect(byId(homeShelves([...deck, older], hero), "director")?.count).toBe(2);
+});
+
 test("director shelf omitted without other titles, without directors, or without a hero", () => {
   const lone = mk({ id: "lone", directors: ["Nobody Else"] });
   expect(byId(homeShelves([...deck, lone], lone), "director")).toBeUndefined();

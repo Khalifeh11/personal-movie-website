@@ -156,8 +156,8 @@ title. `Shelf = { id: ShelfId; heading: string; count: number; items: Title[]; m
 | `director` | More from {Director} | other titles in `deck` by `current.directors[0]`, excluding `current` | year desc | "2014 · 165 min" | `#/director/{slug}` |
 
 Order on the page: short, waiting, director. The director shelf uses the first
-director only and is omitted when `current` is undefined or has no other films in
-the deck. It changes when the hero flips; the other two don't.
+director only and is omitted when `current` is undefined or has fewer than **two**
+other films in the deck (owner's call 2026-10-30: a one-poster shelf looks thin). It changes when the hero flips; the other two don't.
 
 Note the shelf threshold is 90 minutes (the owner's words), not the 100 of the
 `short` runtime band. Don't unify them. Series are excluded from the short shelf
