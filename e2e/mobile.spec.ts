@@ -32,15 +32,28 @@ test("mood page menu lists the moods", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
 });
 
-test("swiping the hero changes the film", async ({ page }) => {
+test("swiping the still changes the film", async ({ page }) => {
   const h1 = page.locator("h1");
   const first = await h1.textContent();
-  await page.locator("section[aria-label=\"Tonight's film\"]").evaluate((el) => {
+  await page.getByTestId("still").evaluate((el) => {
     const touch = (x: number) => new Touch({ identifier: 1, target: el, clientX: x, clientY: 400 });
     el.dispatchEvent(new TouchEvent("touchstart", { touches: [touch(300)], changedTouches: [touch(300)], bubbles: true }));
     el.dispatchEvent(new TouchEvent("touchend", { touches: [], changedTouches: [touch(150)], bubbles: true }));
   });
   await expect(h1).not.toHaveText(first!);
+});
+
+test("hero is a short still with the title on it and the details below", async ({ page }) => {
+  const still = (await page.getByTestId("still").boundingBox())!;
+  expect(still.height).toBeLessThan(844 * 0.7);
+  const h1 = (await page.locator("h1").boundingBox())!;
+  expect(h1.y + h1.height).toBeLessThanOrEqual(still.y + still.height + 1);
+  const counter = (await page.getByTestId("counter").boundingBox())!;
+  expect(h1.y).toBeGreaterThan(counter.y + counter.height);
+  const why = (await page.getByTestId("why-this").boundingBox())!;
+  expect(why.y).toBeGreaterThan(still.y + still.height);
+  await expect(page.getByRole("button", { name: "Previous" })).toBeVisible();
+  expect(await noHorizontalScroll(page)).toBe(true);
 });
 
 test("tiles sit two per row", async ({ page }) => {

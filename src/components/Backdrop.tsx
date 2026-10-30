@@ -59,8 +59,8 @@ export function Backdrop({ title, upcoming }: { title: Title | undefined; upcomi
       )}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(0_0_0/0.5),rgb(0_0_0/0.05)_35%,rgb(0_0_0/0.35)_60%,rgb(0_0_0/0.94))]" />
       <div className="absolute inset-0 bg-linear-to-r from-black/45 to-transparent to-60%" />
-      {/* Phones: the hero covers most of the screen, so darken more of it for legibility. */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/65 via-55% to-transparent md:hidden" />
+      {/* Phones: the still is short and the title sits on its lower edge, so fade the bottom third into the page. */}
+      <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 via-30% to-transparent to-65% md:hidden" />
       <div className="grain absolute inset-0" />
     </div>
   );

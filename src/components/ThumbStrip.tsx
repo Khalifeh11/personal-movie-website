@@ -5,7 +5,7 @@ export function ThumbStrip({ deck, index, onJump }: { deck: Title[]; index: numb
   const count = Math.min(5, deck.length);
   const items = Array.from({ length: count }, (_, k) => deck[(index + k) % deck.length]);
   return (
-    <div className="hidden gap-[7px] md:flex">
+    <div className="flex gap-[7px]">
       {items.map((t, k) => (
         <button
           key={t.id}

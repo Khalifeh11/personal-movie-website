@@ -1,14 +1,18 @@
 import { useEffect, useMemo, useRef } from "react";
 import type { Title } from "../lib/types";
+import { useMediaQuery } from "../lib/useMediaQuery";
 import type { DeckAction, DeckState } from "../state/deck";
 import { Backdrop } from "./Backdrop";
 import { EmptyState } from "./EmptyState";
-import { Hero } from "./Hero";
+import { FactsRow } from "./FactsRow";
+import { Hero, HeroDetails, HeroTitle } from "./Hero";
 import { ThumbStrip } from "./ThumbStrip";
 import { anyOverlayOpen } from "./ui/overlayStack";
 import { RoundButton } from "./ui/RoundButton";
 
 const SWIPE_MIN_PX = 60;
+/** Phones: quiet arrows on the still; the swipe is the main gesture, these just hint at it. */
+const ghostArrow = "size-9! border-white/20 text-base text-fg-2";
 
 interface HeroSectionProps {
   state: DeckState;
@@ -23,7 +27,9 @@ interface HeroSectionProps {
 
 export function HeroSection({ state, current, why, count, dispatch, active, onTrailer }: HeroSectionProps) {
   const section = useRef<HTMLElement>(null);
+  const still = useRef<HTMLDivElement>(null);
   const touchX = useRef<number | null>(null);
+  const wide = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     if (!active) return;
@@ -39,9 +45,9 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
     return () => removeEventListener("keydown", onKey);
   }, [active, dispatch]);
 
-  // Swipe only on the hero itself, so the rest of the page scrolls normally.
+  // Swipe on the hero only (desktop) or the still only (phones), so the rest of the page scrolls normally.
   useEffect(() => {
-    const el = section.current;
+    const el = wide ? section.current : still.current;
     if (!el) return;
     const onTouchStart = (e: TouchEvent) => (touchX.current = e.touches[0].clientX);
     const onTouchEnd = (e: TouchEvent) => {
@@ -56,38 +62,71 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
       el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchend", onTouchEnd);
     };
-  }, [dispatch]);
+  }, [dispatch, wide]);
 
   const upcoming = useMemo(
     () => (state.deck.length > 1 ? [1, 2].map((k) => state.deck[(state.index + k) % state.deck.length]) : []),
     [state.deck, state.index],
   );
 
+  const hasDeck = state.deck.length > 0;
+  // Advance first so the store's rebuild keeps us on the next film instead of jumping to the start.
+  const onWatched = (w: boolean) => w && state.filters.hideWatched && dispatch({ type: "next" });
+
+  if (!wide) {
+    return (
+      <section ref={section} aria-label="Tonight's film" className="relative">
+        {/* svh, not dvh: the still must not resize when the browser bar hides on scroll. */}
+        <div ref={still} data-testid="still" className="relative h-[64svh] overflow-hidden">
+          <Backdrop title={current} upcoming={upcoming} />
+          <span data-testid="counter" className="absolute right-5 top-20 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em]">
+            {count}
+          </span>
+          {current && (
+            // pb-4 leaves room for the title's 12px rise-in so it isn't clipped at the still's edge.
+            <div className="absolute inset-x-5 bottom-0 z-(--z-ui) pb-4">
+              <HeroTitle title={current} bylineClassName="pr-24" />
+              <FactsRow title={current} />
+            </div>
+          )}
+          {hasDeck && (
+            <div className="absolute bottom-3 right-5 z-(--z-ui) flex gap-1.5">
+              <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className={ghostArrow}>←</RoundButton>
+              <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className={ghostArrow}>→</RoundButton>
+            </div>
+          )}
+        </div>
+        <div className="px-5 pb-10 pt-6">
+          {current ? (
+            <HeroDetails title={current} why={why} onTrailer={() => onTrailer(current)} onWatched={onWatched} facts={false} rise={false} />
+          ) : (
+            <EmptyState hint="Loosen the filters." />
+          )}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section ref={section} aria-label="Tonight's film" className="relative min-h-dvh overflow-hidden">
       <Backdrop title={current} upcoming={upcoming} />
-      <span className="pointer-events-none absolute left-[30px] top-1/2 z-(--z-ui) hidden origin-left -translate-y-1/2 -rotate-90 whitespace-nowrap font-ui text-[10px] uppercase tracking-[0.35em] text-fg-3 md:block">
+      <span className="pointer-events-none absolute left-[30px] top-1/2 z-(--z-ui) origin-left -translate-y-1/2 -rotate-90 whitespace-nowrap font-ui text-[10px] uppercase tracking-[0.35em] text-fg-3">
         Swipe or press → for the next one
       </span>
-      {state.deck.length > 0 && (
+      {hasDeck && (
         <>
-          <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className="absolute left-11 top-1/2 z-(--z-ui) hidden -translate-y-1/2 md:flex">←</RoundButton>
-          <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className="absolute bottom-5 right-5 z-(--z-ui) md:bottom-auto md:right-11 md:top-1/2 md:-translate-y-1/2">→</RoundButton>
+          <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className="absolute left-11 top-1/2 z-(--z-ui) -translate-y-1/2">←</RoundButton>
+          <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className="absolute right-11 top-1/2 z-(--z-ui) -translate-y-1/2">→</RoundButton>
         </>
       )}
-      <div className="absolute inset-x-5 bottom-[88px] z-(--z-ui) md:bottom-10 md:left-[84px] md:right-[300px]">
-        {current ? <Hero
-            title={current}
-            why={why}
-            onTrailer={() => onTrailer(current)}
-            // Advance first so the store's rebuild keeps us on the next film instead of jumping to the start.
-            onWatched={(w) => w && state.filters.hideWatched && dispatch({ type: "next" })}
-          /> : <EmptyState hint="Loosen the filters." />}
+      <div className="absolute bottom-10 left-[84px] right-[300px] z-(--z-ui)">
+        {current ? (
+          <Hero title={current} why={why} onTrailer={() => onTrailer(current)} onWatched={onWatched} />
+        ) : (
+          <EmptyState hint="Loosen the filters." />
+        )}
       </div>
-      <span
-        data-testid="counter"
-        className="absolute right-5 top-20 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em] md:bottom-[120px] md:right-11 md:top-auto"
-      >
+      <span data-testid="counter" className="absolute bottom-[120px] right-11 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em]">
         {count}
       </span>
       <div className="absolute bottom-10 right-11 z-(--z-ui)">

@@ -18,11 +18,11 @@ interface HeroProps {
   onWatched: (watched: boolean) => void;
 }
 
-export function Hero({ title, why, onTrailer, onWatched }: HeroProps) {
+/** Year, title, byline. On phones this sits over the still; on desktop it tops the full hero. */
+export function HeroTitle({ title, bylineClassName = "" }: { title: Title; bylineClassName?: string }) {
   const by = byline(title);
-  const accent = title.moods[0] ? moodAccent(title.moods[0]) : "var(--color-fg-2)";
   return (
-    <section key={title.id} className="max-w-[900px] animate-rise">
+    <div key={title.id} className="animate-rise">
       {title.year && <div className="mb-2 text-xl tracking-[0.12em] text-fg-2">{title.year}</div>}
       <h1
         className="mb-4 font-display uppercase leading-[0.9] text-fg [text-shadow:0_10px_50px_rgb(0_0_0/0.7)]"
@@ -30,7 +30,7 @@ export function Hero({ title, why, onTrailer, onWatched }: HeroProps) {
       >
         {title.title}
       </h1>
-      <Label as="div" className="tracking-wide">
+      <Label as="div" className={`tracking-wide ${bylineClassName}`}>
         {by.lead}{" "}
         {title.directors.map((d, i) => (
           <Fragment key={d}>
@@ -39,20 +39,42 @@ export function Hero({ title, why, onTrailer, onWatched }: HeroProps) {
           </Fragment>
         ))}
       </Label>
-      <FactsRow title={title} />
+    </div>
+  );
+}
+
+interface HeroDetailsProps extends HeroProps {
+  /** Phones put the facts row on the still and skip the entrance animation (it reads as the still flashing). */
+  facts?: boolean;
+  rise?: boolean;
+}
+
+/** Facts, actions, overview, "why this". */
+export function HeroDetails({ title, why, onTrailer, onWatched, facts = true, rise = true }: HeroDetailsProps) {
+  const accent = title.moods[0] ? moodAccent(title.moods[0]) : "var(--color-fg-2)";
+  return (
+    <div key={title.id} className={rise ? "animate-rise" : ""}>
+      {facts && <FactsRow title={title} />}
+      <div className={`flex flex-wrap gap-2 ${facts ? "mt-5" : ""}`}>
+        {title.trailerKey && <button type="button" onClick={onTrailer} className={heroAction}>▶ Trailer</button>}
+        <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>
+        <UserControls id={title.id} onWatched={onWatched} />
+      </div>
+      {title.overview && <p className="mt-5 max-w-[520px] text-sm leading-relaxed text-fg-2">{title.overview}</p>}
       {why && (
         <p data-testid="why-this" className="mt-4 max-w-[520px] text-sm italic leading-relaxed" style={{ color: accent }}>
           Why this: {why}
         </p>
       )}
-      <div className="mt-5 flex flex-wrap gap-2">
-        {title.trailerKey && <button type="button" onClick={onTrailer} className={heroAction}>▶ Trailer</button>}
-        <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>
-        <UserControls id={title.id} onWatched={onWatched} />
-      </div>
-      {title.overview && (
-        <p className="mt-5 line-clamp-5 max-w-[520px] text-sm leading-relaxed text-fg-2 md:line-clamp-none">{title.overview}</p>
-      )}
+    </div>
+  );
+}
+
+export function Hero(props: HeroProps) {
+  return (
+    <section className="max-w-[900px]">
+      <HeroTitle title={props.title} />
+      <HeroDetails {...props} />
     </section>
   );
 }
