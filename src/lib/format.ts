@@ -1,0 +1,16 @@
+import type { Title } from "./types";
+
+/** "A film by Louis Malle" split so the name can be bolded; "A series" when no director. */
+export function byline(t: Title): { lead: string; name: string | null } {
+  const kind = t.type === "Series" ? "series" : "film";
+  if (t.directors.length === 0) return { lead: `A ${kind}`, name: null };
+  return { lead: `A ${kind} by`, name: t.directors.join(" & ") };
+}
+
+export function genreLine(t: Title): string {
+  return t.genres.length ? t.genres.slice(0, 3).join(" · ") : "—";
+}
+
+export function ratingText(t: Title): string {
+  return t.imdbRating == null ? "—" : t.imdbRating.toFixed(1);
+}
