@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { searchTitles, sortTitles } from "./browse";
+import { scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
 import { mk, U } from "./testUtils";
 
 const a = mk({ id: "a", title: "Brazil", year: 1985, runtime: 132, imdbRating: 7.9 });
@@ -44,4 +44,16 @@ test("search matches genre, mood, keyword and year; every word must match", () =
   expect(ids(searchTitles(ts, "1995"))).toEqual(["e"]);
   expect(ids(searchTitles(ts, "mann heist"))).toEqual(["e"]);
   expect(ids(searchTitles(ts, "mann alien"))).toEqual([]);
+});
+
+test("scopeTitles narrows by mood or by exact director", () => {
+  const ts = [mk({ id: "a", moods: ["tense"], directors: ["X"] }), mk({ id: "b", moods: ["dread"], directors: ["X", "Y"] }), mk({ id: "c", moods: ["tense"], directors: [] })];
+  expect(scopeTitles(ts, { kind: "mood", mood: "tense" }).map((t) => t.id)).toEqual(["a", "c"]);
+  expect(scopeTitles(ts, { kind: "mood", mood: "all" }).length).toBe(3);
+  expect(scopeTitles(ts, { kind: "director", name: "X" }).map((t) => t.id)).toEqual(["a", "b"]);
+});
+
+test("scopeLabel", () => {
+  expect(scopeLabel({ kind: "mood", mood: "slow-and-quiet" })).toBe("Slow & quiet");
+  expect(scopeLabel({ kind: "director", name: "Billy Wilder" })).toBe("Billy Wilder");
 });

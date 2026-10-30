@@ -211,3 +211,18 @@ test("co-directors are linked separately", async ({ page }) => {
   await expect(row.getByRole("link", { name: "Jaume Balagueró" })).toBeVisible();
   await expect(row.getByRole("link", { name: "Paco Plaza" })).toBeVisible();
 });
+
+test("director page lists that director's titles, best rated first", async ({ page }) => {
+  await page.goto("/#/director/bong-joon-ho");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Bong Joon Ho");
+  await expect(page.getByText("3 titles", { exact: true })).toBeVisible();
+  await expect(rows(page)).toHaveCount(3);
+  await expect(rows(page).first()).toContainText("Parasite");
+  await expect(page.getByTestId("mood-accent")).toHaveCount(0);
+});
+
+test("director page honours the type filter from the URL", async ({ page }) => {
+  await page.goto("about:blank"); // a fresh load: filters are read from the URL only on load
+  await page.goto("/#/director/billy-wilder?type=Series");
+  await expect(page.getByText("Nothing matches")).toBeVisible();
+});

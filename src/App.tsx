@@ -2,12 +2,13 @@ import { useCallback, useMemo, useState } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
-import { MoodPage } from "./components/MoodPage";
+import { BrowsePage } from "./components/BrowsePage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
 import { TrailerOverlay } from "./components/TrailerOverlay";
 import { Label } from "./components/ui/Label";
 import titlesJson from "./data/titles.json";
+import { scopeKey, type Scope } from "./lib/browse";
 import { directorsOf } from "./lib/directors";
 import { moodTiles } from "./lib/moodTiles";
 import type { Title } from "./lib/types";
@@ -44,6 +45,8 @@ function Site() {
     setTrailerFor(null);
   }
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
+  const scope: Scope | null =
+    route.name === "mood" ? { kind: "mood", mood: route.mood } : route.name === "director" ? { kind: "director", name: route.director } : null;
 
   return (
     <div className="min-h-dvh bg-bg font-ui text-fg">
@@ -61,10 +64,10 @@ function Site() {
           <Footer />
         </>
       )}
-      {route.name === "mood" && (
-        <MoodPage
-          key={route.mood}
-          mood={route.mood}
+      {scope && (
+        <BrowsePage
+          key={scopeKey(scope)}
+          scope={scope}
           titles={titles}
           filters={state.filters}
           onFilters={setFilters}

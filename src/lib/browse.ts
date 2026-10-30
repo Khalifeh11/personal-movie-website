@@ -1,5 +1,24 @@
+import { titlesBy } from "./directors";
+import { inMood } from "./filters";
 import { moodLabel } from "./moods";
-import type { Title, UserEntry } from "./types";
+import type { MoodFilter, Title, UserEntry } from "./types";
+
+/** What a browse page lists: everything in a mood, or everything by a director. */
+export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string };
+
+export function scopeTitles(titles: Title[], scope: Scope): Title[] {
+  return scope.kind === "mood" ? titles.filter((t) => inMood(t, scope.mood)) : titlesBy(titles, scope.name);
+}
+
+/** The page's h1. */
+export function scopeLabel(scope: Scope): string {
+  return scope.kind === "mood" ? moodLabel(scope.mood) : scope.name;
+}
+
+/** Stable identity for a scope (React key): `"mood:tense"`, `"director:Billy Wilder"`. */
+export function scopeKey(scope: Scope): string {
+  return scope.kind === "mood" ? `mood:${scope.mood}` : `director:${scope.name}`;
+}
 
 export type SortKey = "imdb" | "year" | "runtime" | "title" | "mine";
 export type SortDir = "asc" | "desc";
