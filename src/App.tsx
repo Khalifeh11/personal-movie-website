@@ -13,6 +13,7 @@ import { directorsOf } from "./lib/directors";
 import { moodTiles } from "./lib/moodTiles";
 import type { Title } from "./lib/types";
 import { LocalStorageUserData } from "./lib/userData";
+import { whyThis } from "./lib/whyThis";
 import { useDeck } from "./state/useDeck";
 import { useRoute } from "./state/useRoute";
 import { routeKey } from "./state/viewState";
@@ -50,6 +51,9 @@ function Site() {
     if (route.name === "home") scrollTo(0, 0);
   }, [route]);
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
+  // Fixed for the session: "today" only gates multi-year thresholds.
+  const [today] = useState(() => new Date());
+  const why = current ? whyThis(current, { titles, deck: state.deck, today }) : null;
   const scope: Scope | null =
     route.name === "mood" ? { kind: "mood", mood: route.mood } : route.name === "director" ? { kind: "director", name: route.director } : null;
 
@@ -58,7 +62,7 @@ function Site() {
       <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
       {route.name === "home" && (
         <>
-          <HeroSection state={state} current={current} count={count} dispatch={dispatch}
+          <HeroSection state={state} current={current} why={why} count={count} dispatch={dispatch}
             active={!trailerFor && !filtersOpen}
             onTrailer={setTrailerFor}
           />

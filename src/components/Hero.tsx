@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { byline } from "../lib/format";
+import { moodAccent } from "../lib/moods";
 import type { Title } from "../lib/types";
 import { FactsRow } from "./FactsRow";
 import { DirectorLink } from "./ui/DirectorLink";
@@ -11,12 +12,15 @@ const heroAction =
 
 interface HeroProps {
   title: Title;
+  /** The data-built reason for tonight's pick (`whyThis`); null hides the line. */
+  why: string | null;
   onTrailer: () => void;
   onWatched: (watched: boolean) => void;
 }
 
-export function Hero({ title, onTrailer, onWatched }: HeroProps) {
+export function Hero({ title, why, onTrailer, onWatched }: HeroProps) {
   const by = byline(title);
+  const accent = title.moods[0] ? moodAccent(title.moods[0]) : "var(--color-fg-2)";
   return (
     <section key={title.id} className="max-w-[900px] animate-rise">
       {title.year && <div className="mb-2 text-xl tracking-[0.12em] text-fg-2">{title.year}</div>}
@@ -36,6 +40,11 @@ export function Hero({ title, onTrailer, onWatched }: HeroProps) {
         ))}
       </Label>
       <FactsRow title={title} />
+      {why && (
+        <p data-testid="why-this" className="mt-4 max-w-[520px] text-sm italic leading-relaxed" style={{ color: accent }}>
+          Why this: {why}
+        </p>
+      )}
       <div className="mt-5 flex flex-wrap gap-2">
         {title.trailerKey && <button type="button" onClick={onTrailer} className={heroAction}>▶ Trailer</button>}
         <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>

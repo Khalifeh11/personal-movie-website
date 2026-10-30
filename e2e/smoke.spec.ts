@@ -150,3 +150,10 @@ test("hero byline links the director", async ({ page }) => {
   await link.first().click();
   await expect(page).toHaveURL(/#\/director\//);
 });
+
+test("hero explains the pick", async ({ page }) => {
+  const why = page.getByTestId("why-this");
+  // A film with no applicable reason renders no line; flip past it (at most 5 times).
+  for (let i = 0; i < 5 && (await why.count()) === 0; i++) await page.keyboard.press("ArrowRight");
+  await expect(why).toHaveText(/^Why this: .+\.$/);
+});
