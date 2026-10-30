@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #000;
+  --color-fg: #fff;
+  --color-fg-2: #bbb;
+  --color-fg-3: #777;
+
+  --font-display: "Anton", sans-serif;
+  --font-counter: "Bebas Neue", sans-serif;
+  --font-ui: "Space Grotesk", sans-serif;
+
+  --tracking-ui: 0.26em;
+  --tracking-wide: 0.3em;
+
+  --duration-bg: 700ms;
+  --duration-title: 350ms;
+
+  --z-shade: 1;
+  --z-ui: 2;
+  --z-overlay: 5;
+  --z-drawer: 9;
+
+  --animate-kenburns: kenburns 8s linear forwards;
+  @keyframes kenburns {
+    from { transform: scale(1.04); }
+    to { transform: scale(1.12); }
+  }
+}
+
+/* One-offs the theme can't express */
+html, body { background: var(--color-bg); color: var(--color-fg); }
+
+.grain {
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
