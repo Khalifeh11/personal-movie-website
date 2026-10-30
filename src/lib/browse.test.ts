@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
+import { defaultDir, scopeLabel, scopeTitles, searchTitles, sortTitles } from "./browse";
 import { mk, U } from "./testUtils";
 
 const a = mk({ id: "a", title: "Brazil", year: 1985, runtime: 132, imdbRating: 7.9 });
@@ -17,6 +17,11 @@ test("year: desc, nulls last", () => {
 });
 test("runtime: asc, nulls last", () => {
   expect(ids(sortTitles(all, "runtime", {}))).toEqual(["d", "c", "a", "b"]);
+});
+test("added: asc, nulls last", () => {
+  const ts = [mk({ id: "a", added: "2017-06-17" }), mk({ id: "b", added: null }), mk({ id: "c", added: "2013-12-14" })];
+  expect(ids(sortTitles(ts, "added", {}))).toEqual(["c", "a", "b"]);
+  expect(defaultDir("added")).toBe("asc");
 });
 test("title: asc", () => {
   expect(ids(sortTitles(all, "title", {}))).toEqual(["b", "a", "d", "c"]);

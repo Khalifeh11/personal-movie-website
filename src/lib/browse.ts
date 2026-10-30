@@ -20,13 +20,14 @@ export function scopeKey(scope: Scope): string {
   return scope.kind === "mood" ? `mood:${scope.mood}` : `director:${scope.name}`;
 }
 
-export type SortKey = "imdb" | "year" | "runtime" | "title" | "mine";
+export type SortKey = "imdb" | "year" | "runtime" | "added" | "title" | "mine";
 export type SortDir = "asc" | "desc";
 
 export const SORTS: { key: SortKey; label: string; dir: SortDir }[] = [
   { key: "imdb", label: "IMDb rating", dir: "desc" },
   { key: "year", label: "Year", dir: "desc" },
   { key: "runtime", label: "Runtime", dir: "asc" },
+  { key: "added", label: "Added", dir: "asc" },
   { key: "title", label: "Title", dir: "asc" },
   { key: "mine", label: "Your rating", dir: "desc" },
 ];
@@ -40,6 +41,7 @@ const NUMERIC: Record<Exclude<SortKey, "title">, (t: Title, u: User) => number |
   imdb: (t) => t.imdbRating,
   year: (t) => t.year,
   runtime: (t) => t.runtime,
+  added: (t) => (t.added ? Date.parse(t.added) : null),
   mine: (t, u) => u[t.id]?.rating ?? null,
 };
 
