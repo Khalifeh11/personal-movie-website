@@ -1,27 +1,11 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { isTopOverlay, popOverlay, pushOverlay } from "./overlayStack";
 
 interface OverlayProps {
   open: boolean;
   onClose: () => void;
   label: string;
   children: ReactNode;
-}
-
-/** Open overlays, bottom to top: only the topmost one answers Esc (e.g. trailer above the title card). */
-const stack: symbol[] = [];
-let bodyOverflow = "";
-
-/** Page scroll is locked while any overlay is open and restored when the last one closes, whatever the order. */
-function push(id: symbol) {
-  if (stack.length === 0) {
-    bodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-  }
-  stack.push(id);
-}
-function pop(id: symbol) {
-  stack.splice(stack.indexOf(id), 1);
-  if (stack.length === 0) document.body.style.overflow = bodyOverflow;
 }
 
 /** Full-screen modal: ✕, Esc or a click on the backdrop closes; focus returns to the opener; page scroll locked. */
@@ -37,13 +21,13 @@ export function Overlay({ open, onClose, label, children }: OverlayProps) {
   useEffect(() => {
     if (!open) return;
     const me = id.current;
-    push(me);
+    pushOverlay(me);
     const opener = document.activeElement as HTMLElement | null;
     panel.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && stack.at(-1) === me && close.current();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && isTopOverlay(me) && close.current();
     addEventListener("keydown", onKey);
     return () => {
-      pop(me);
+      popOverlay(me);
       removeEventListener("keydown", onKey);
       opener?.focus();
     };

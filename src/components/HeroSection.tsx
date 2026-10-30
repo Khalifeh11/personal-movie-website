@@ -5,6 +5,7 @@ import { Backdrop } from "./Backdrop";
 import { EmptyState } from "./EmptyState";
 import { Hero } from "./Hero";
 import { ThumbStrip } from "./ThumbStrip";
+import { anyOverlayOpen } from "./ui/overlayStack";
 import { RoundButton } from "./ui/RoundButton";
 
 const SWIPE_MIN_PX = 60;
@@ -29,6 +30,8 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
     const onKey = (e: KeyboardEvent) => {
       // defaultPrevented: a focused control (e.g. the rating slider) already used the key.
       if (e.defaultPrevented || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      // A title card (opened from a shelf) is modal; inside a poster rail the arrows scroll the rail.
+      if (anyOverlayOpen() || (e.target instanceof Element && e.target.closest("[data-testid=rail]"))) return;
       if (e.key === "ArrowRight") dispatch({ type: "next" });
       if (e.key === "ArrowLeft") dispatch({ type: "prev" });
     };

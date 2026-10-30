@@ -52,3 +52,19 @@ test("the wordmark still opens home at the top", async ({ page }) => {
   await page.getByRole("link", { name: "Not Tonight" }).click();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
 });
+
+test("arrow keys leave the hero alone while a shelf card is open or a rail poster has focus", async ({ page }) => {
+  const h1 = page.locator("h1");
+  const first = await h1.textContent();
+  const cell = posters(shelf(page, "Under 90 minutes")).first();
+  await cell.scrollIntoViewIfNeeded();
+  await cell.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(h1).toHaveText(first!);
+  await cell.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(h1).toHaveText(first!);
+});
