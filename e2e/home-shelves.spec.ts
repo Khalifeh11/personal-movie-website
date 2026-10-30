@@ -1,4 +1,36 @@
+import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
+
+type Row = { title: string; added?: string };
+const rows: Row[] = JSON.parse(readFileSync("src/data/titles.json", "utf8"));
+const DAY = 86_400_000;
+const YEAR = 2026;
+const doy = (m: number, d: number) => Math.round((Date.UTC(2001, m, d) - Date.UTC(2001, 0, 1)) / DAY);
+/** Mirror of the shelf rule: signed month-day distance, wrapping across Jan 1. */
+function offset(m: number, d: number, iso: string): number {
+  const a = new Date(iso);
+  const diff = doy(a.getUTCMonth(), a.getUTCDate()) - doy(m, d);
+  return diff - 365 * Math.round(diff / 365);
+}
+/** Titles added in an earlier year within 3 days of month/day (0-based month), shelf order. */
+function around(m: number, d: number): Row[] {
+  return rows
+    .filter((r) => r.added && Number(r.added.slice(0, 4)) < YEAR && Math.abs(offset(m, d, r.added)) <= 3)
+    .sort((x, y) => Math.abs(offset(m, d, x.added!)) - Math.abs(offset(m, d, y.added!)) || x.added!.localeCompare(y.added!) || x.title.localeCompare(y.title));
+}
+// Local noon so the app's UTC month-day matches the local one.
+const noon = (m: number, d: number) => new Date(YEAR, m, d, 12);
+const firstAdded = new Date(rows.find((r) => r.added)!.added!);
+const hit = { m: firstAdded.getUTCMonth(), d: firstAdded.getUTCDate() };
+let miss: { m: number; d: number } | undefined;
+for (let m = 0; m < 12 && !miss; m++) {
+  for (let d = 1; d <= new Date(YEAR, m + 1, 0).getDate(); d++) {
+    if (!around(m, d).length) {
+      miss = { m, d };
+      break;
+    }
+  }
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -67,4 +99,33 @@ test("arrow keys leave the hero alone while a shelf card is open or a rail poste
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(h1).toHaveText(first!);
+});
+
+test.describe("This week, years ago", () => {
+  test("shows on a matching day, leads with the closest-added title, See all sorts by Added", async ({ page }) => {
+    const expected = around(hit.m, hit.d);
+    expect(expected.length).toBeGreaterThan(0);
+    await page.clock.setFixedTime(noon(hit.m, hit.d));
+    await page.goto("/");
+    await page.locator("h1").waitFor();
+    const region = shelf(page, "This week, years ago");
+    await region.scrollIntoViewIfNeeded();
+    await expect(region).toBeVisible();
+    await expect(posters(region).first()).toHaveAttribute("aria-label", expected[0].title);
+    await region.getByRole("button", { name: "See all →" }).click();
+    await expect(page).toHaveURL(/#\/shelf\/around/);
+    await expect(page.locator("h1")).toHaveText("This week, years ago");
+    await expect(page.getByRole("button", { name: "Sort: Added" })).toBeVisible();
+  });
+
+  test("hides on a day with nothing nearby and the shelf page is an empty state", async ({ page }) => {
+    test.skip(!miss, "every day of the year has a match in the catalogue");
+    await page.clock.setFixedTime(noon(miss!.m, miss!.d));
+    await page.goto("/");
+    await page.locator("h1").waitFor();
+    await expect(shelf(page, "Under 90 minutes")).toBeVisible();
+    await expect(shelf(page, "This week, years ago")).toHaveCount(0);
+    await page.goto("/#/shelf/around");
+    await expect(page.getByText("Nothing matches")).toBeVisible();
+  });
 });
