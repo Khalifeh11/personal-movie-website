@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { searchTitles, SORTS, sortTitles, type SortKey } from "../lib/browse";
+import { defaultDir, searchTitles, sortTitles, type SortDir, type SortKey } from "../lib/browse";
 import { inMood, matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
 import { moodLabel } from "../lib/moods";
@@ -7,6 +7,7 @@ import type { Filters, MoodFilter, Title } from "../lib/types";
 import { useUserData } from "../state/useUserData";
 import { EmptyState } from "./EmptyState";
 import { FilmRow } from "./FilmRow";
+import { SortMenu } from "./SortMenu";
 import { UserControls } from "./UserControls";
 import { Pill } from "./ui/Pill";
 
@@ -26,19 +27,20 @@ const control =
 export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPageProps) {
   const { entries } = useUserData();
   const [sort, setSort] = useState<SortKey>("imdb");
+  const [dir, setDir] = useState<SortDir>(defaultDir("imdb"));
   const [query, setQuery] = useState("");
 
   // Titles marked watched during this visit stay listed (dimmed) so rows don't jump under the cursor.
   // The page is keyed by mood; a new filter, sort or search starts a fresh view.
-  const [kept, setKept] = useState<{ view: unknown[]; ids: Set<string> }>({ view: [filters, sort, query], ids: new Set() });
-  const view = [filters, sort, query];
+  const [kept, setKept] = useState<{ view: unknown[]; ids: Set<string> }>({ view: [filters, sort, dir, query], ids: new Set() });
+  const view = [filters, sort, dir, query];
   if (view.some((v, i) => v !== kept.view[i])) setKept({ view, ids: new Set() });
   const keep = (id: string) => setKept((k) => ({ ...k, ids: new Set(k.ids).add(id) }));
 
   const rows = useMemo(() => {
     const pool = titles.filter((t) => inMood(t, mood) && (matches(t, filters, entries) || kept.ids.has(t.id)));
-    return sortTitles(searchTitles(pool, query), sort, entries);
-  }, [titles, mood, filters, entries, query, sort, kept.ids]);
+    return sortTitles(searchTitles(pool, query), sort, entries, dir);
+  }, [titles, mood, filters, entries, query, sort, dir, kept.ids]);
 
   return (
     <main className="px-5 pb-16 pt-24 md:px-11 md:pt-32">
@@ -48,18 +50,30 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
           <p className="mt-3 font-ui text-[11px] uppercase tracking-ui text-fg-3">{countLabel(rows.length)}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <select aria-label="Sort" value={sort} onChange={(e) => setSort(e.target.value as SortKey)} className={control}>
-            {SORTS.map((s) => (
-              <option key={s.key} value={s.key} className="bg-bg">{s.label}</option>
-            ))}
-          </select>
+          <SortMenu
+            value={sort}
+            onChange={(key) => {
+              setSort(key);
+              setDir(defaultDir(key));
+            }}
+            className={control}
+          />
+          <button
+            type="button"
+            aria-label={dir === "asc" ? "Ascending" : "Descending"}
+            title={dir === "asc" ? "Ascending" : "Descending"}
+            onClick={() => setDir(dir === "asc" ? "desc" : "asc")}
+            className={`${control} hover:border-fg hover:text-fg`}
+          >
+            {dir === "asc" ? "↑" : "↓"}
+          </button>
           <input
             type="search"
             aria-label="Search"
-            placeholder="Search"
+            placeholder="Title, director, genre…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className={`${control} w-44`}
+            className={`${control} w-52`}
           />
           <Pill active={filters.hideWatched} onClick={() => onFilters({ hideWatched: !filters.hideWatched })}>
             Hide watched

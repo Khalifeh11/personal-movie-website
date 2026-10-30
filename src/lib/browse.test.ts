@@ -30,3 +30,18 @@ test("search is case- and diacritic-insensitive over title and director", () => 
   expect(ids(searchTitles(all, "MALLE"))).toEqual(["d"]);
   expect(ids(searchTitles(all, "  "))).toEqual(ids(all));
 });
+test("direction flips order; nulls stay last", () => {
+  expect(ids(sortTitles(all, "imdb", {}, "asc"))).toEqual(["a", "d", "c", "b"]);
+  expect(ids(sortTitles(all, "runtime", {}, "desc"))).toEqual(["a", "c", "d", "b"]);
+  expect(ids(sortTitles(all, "title", {}, "desc"))).toEqual(["c", "d", "a", "b"]);
+});
+test("search matches genre, mood, keyword and year; every word must match", () => {
+  const e = mk({ id: "e", title: "Heat", year: 1995, genres: ["Crime"], moods: ["tense"], keywords: ["heist"], directors: ["Michael Mann"] });
+  const ts = [...all, e];
+  expect(ids(searchTitles(ts, "crime"))).toEqual(["e"]);
+  expect(ids(searchTitles(ts, "Tense"))).toEqual(["e"]);
+  expect(ids(searchTitles(ts, "heist"))).toEqual(["e"]);
+  expect(ids(searchTitles(ts, "1995"))).toEqual(["e"]);
+  expect(ids(searchTitles(ts, "mann heist"))).toEqual(["e"]);
+  expect(ids(searchTitles(ts, "mann alien"))).toEqual([]);
+});

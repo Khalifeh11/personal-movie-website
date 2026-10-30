@@ -31,8 +31,42 @@ test("search narrows rows; no match shows the empty state", async ({ page }) => 
 
 test("sort by year puts the newest first", async ({ page }) => {
   await page.goto("/#/mood/tense");
-  await page.getByRole("combobox", { name: "Sort" }).selectOption("year");
+  await page.getByRole("button", { name: /^Sort:/ }).click();
+  await page.getByRole("option", { name: "Year" }).click();
+  await expect(page.getByRole("listbox")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Sort: Year" })).toBeVisible();
   await expect(rows(page).first()).toContainText("Marty Supreme");
+});
+
+test("direction toggle flips the sort", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: "Descending" }).click();
+  await expect(page.getByRole("button", { name: "Ascending" })).toBeVisible();
+  await expect(rows(page).first()).not.toContainText("Chernobyl");
+  await page.getByRole("button", { name: /^Sort:/ }).click();
+  await page.getByRole("option", { name: "Title" }).click();
+  await expect(page.getByRole("button", { name: "Ascending" })).toBeVisible();
+});
+
+test("search matches genres and keywords too", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("searchbox", { name: "Search" }).fill("history");
+  await expect(rows(page).filter({ hasText: "Chernobyl" })).toHaveCount(1);
+});
+
+test("sort menu works from the keyboard and closes on Escape", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  const trigger = page.getByRole("button", { name: /^Sort:/ });
+  await trigger.focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("option", { name: "IMDb rating" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("listbox")).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "Sort: Year" })).toBeVisible();
 });
 
 test("unknown mood redirects home", async ({ page }) => {
