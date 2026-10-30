@@ -38,3 +38,25 @@ test("serializeRoute and round trip", () => {
   expect(s).toBe("#/mood/feel-good?rt=long");
   expect(parseRoute(s)).toEqual({ route: r, filters: { runtime: "long" }, redirect: false });
 });
+
+const DIRS = ["Bong Joon Ho", "Miloš Forman"];
+
+test("director route resolves a slug to the name and keeps filters", () => {
+  expect(parseRoute("#/director/bong-joon-ho", DIRS)).toEqual({ route: { name: "director", director: "Bong Joon Ho" }, filters: {}, redirect: false });
+  expect(parseRoute("#/director/milos-forman?type=Movie", DIRS)).toEqual({
+    route: { name: "director", director: "Miloš Forman" },
+    filters: { type: "Movie" },
+    redirect: false,
+  });
+});
+
+test("unknown director slug redirects home; no directors list means no director routes", () => {
+  expect(parseRoute("#/director/nobody", DIRS)).toEqual({ route: home, filters: {}, redirect: true });
+  expect(parseRoute("#/director/bong-joon-ho")).toEqual({ route: home, filters: {}, redirect: true });
+});
+
+test("director route round trip", () => {
+  const r = { name: "director", director: "Miloš Forman" } as const;
+  expect(serializeRoute(r, F({ type: "Series" }))).toBe("#/director/milos-forman?type=Series");
+  expect(parseRoute(serializeRoute(r, F()), DIRS).route).toEqual(r);
+});

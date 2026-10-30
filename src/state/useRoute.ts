@@ -3,8 +3,8 @@ import { parseRoute, serializeRoute, type Route } from "../lib/route";
 import type { Filters } from "../lib/types";
 
 /** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL (read from it only on load). */
-export function useRoute(filters: Filters): { route: Route; navigate: (r: Route) => void } {
-  const [route, setRoute] = useState<Route>(() => parseRoute(location.hash).route);
+export function useRoute(filters: Filters, directors: readonly string[]): { route: Route; navigate: (r: Route) => void } {
+  const [route, setRoute] = useState<Route>(() => parseRoute(location.hash, directors).route);
   const latestFilters = useRef(filters);
   useEffect(() => {
     latestFilters.current = filters;
@@ -12,7 +12,7 @@ export function useRoute(filters: Filters): { route: Route; navigate: (r: Route)
 
   useEffect(() => {
     const onHash = () => {
-      const parsed = parseRoute(location.hash);
+      const parsed = parseRoute(location.hash, directors);
       // Filters are global: Back/forward only change the page, so re-mirror the current filters
       // over whatever the history entry had. Done here because the route may not change
       // (e.g. home → bad link), in which case the effect below wouldn't run.
@@ -23,7 +23,7 @@ export function useRoute(filters: Filters): { route: Route; navigate: (r: Route)
     };
     addEventListener("hashchange", onHash);
     return () => removeEventListener("hashchange", onHash);
-  }, []);
+  }, [directors]);
 
   useEffect(() => {
     const url = serializeRoute(route, filters);

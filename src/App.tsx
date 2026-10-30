@@ -8,6 +8,7 @@ import { Nav } from "./components/Nav";
 import { TrailerOverlay } from "./components/TrailerOverlay";
 import { Label } from "./components/ui/Label";
 import titlesJson from "./data/titles.json";
+import { directorsOf } from "./lib/directors";
 import { moodTiles } from "./lib/moodTiles";
 import type { Title } from "./lib/types";
 import { LocalStorageUserData } from "./lib/userData";
@@ -16,6 +17,7 @@ import { useRoute } from "./state/useRoute";
 import { UserDataContext, useUserData } from "./state/useUserData";
 
 const titles = titlesJson as Title[];
+const directors = directorsOf(titles);
 
 export default function App() {
   const store = useMemo(() => new LocalStorageUserData(localStorage), []);
@@ -34,7 +36,7 @@ function Site() {
   const closeTrailer = useCallback(() => setTrailerFor(null), []);
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
-  const { route, navigate } = useRoute(state.filters);
+  const { route, navigate } = useRoute(state.filters, directors);
   // A route change (incl. browser Back) closes the trailer rather than playing it over another page.
   const [trailerRoute, setTrailerRoute] = useState(route);
   if (trailerRoute !== route) {

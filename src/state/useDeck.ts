@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { directorsOf } from "../lib/directors";
 import { daySeed } from "../lib/shuffle";
 import type { Filters, Title, UserEntry } from "../lib/types";
 import { counterText, deckReducer, initDeck, resolveInitialFilters, type DeckAction, type DeckState } from "./deck";
@@ -7,6 +8,7 @@ import { readStored } from "./usePersistedState";
 export const FILTERS_KEY = "tonight.filters.v1";
 
 export function useDeck(titles: Title[], user: Record<string, UserEntry>) {
+  const directors = useMemo(() => directorsOf(titles), [titles]);
   // The latest user entries ride along in reducer state so the reducer stays pure.
   const [state, dispatch] = useReducer(
     (s: DeckState & { user: Record<string, UserEntry> }, a: DeckAction) => {
@@ -17,7 +19,7 @@ export function useDeck(titles: Title[], user: Record<string, UserEntry>) {
     () => ({
       ...initDeck(
         titles,
-        resolveInitialFilters(location.hash, readStored<Partial<Filters>>(FILTERS_KEY)),
+        resolveInitialFilters(location.hash, readStored<Partial<Filters>>(FILTERS_KEY), directors),
         user,
         daySeed(),
       ),

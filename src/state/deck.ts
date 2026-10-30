@@ -57,11 +57,15 @@ export function counterText(s: DeckState): string {
 }
 
 /** URL hash wins, then what was stored last time, then defaults. Invalid values are dropped. */
-export function resolveInitialFilters(hash: string, stored: Partial<Filters> | null): Filters {
+export function resolveInitialFilters(
+  hash: string,
+  stored: Partial<Filters> | null,
+  directors: readonly string[] = [],
+): Filters {
   const fromStored = stored
     ? parseQuery(String(new URLSearchParams({ type: String(stored.type ?? ""), rt: String(stored.runtime ?? "") })))
     : {};
   const hideWatched =
     typeof stored?.hideWatched === "boolean" ? stored.hideWatched : DEFAULT_FILTERS.hideWatched;
-  return { ...DEFAULT_FILTERS, ...fromStored, hideWatched, ...parseRoute(hash).filters };
+  return { ...DEFAULT_FILTERS, ...fromStored, hideWatched, ...parseRoute(hash, directors).filters };
 }
