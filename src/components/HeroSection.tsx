@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { tintOf } from "../lib/tint";
 import type { Title } from "../lib/types";
+import { useArrowKeys } from "../lib/useArrowKeys";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import type { DeckAction, DeckState } from "../state/deck";
 import { Backdrop } from "./Backdrop";
@@ -8,7 +9,6 @@ import { EmptyState } from "./EmptyState";
 import { FactsRow } from "./FactsRow";
 import { Hero, HeroDetails, HeroTitle } from "./Hero";
 import { ThumbStrip } from "./ThumbStrip";
-import { anyOverlayOpen } from "./ui/overlayStack";
 import { RoundButton } from "./ui/RoundButton";
 
 const SWIPE_MIN_PX = 60;
@@ -34,19 +34,7 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
   // Flips once the first still is in; the thumb strip's posters wait for it.
   const [heroReady, setHeroReady] = useState(false);
 
-  useEffect(() => {
-    if (!active) return;
-    const onKey = (e: KeyboardEvent) => {
-      // defaultPrevented: a focused control (e.g. the rating slider) already used the key.
-      if (e.defaultPrevented || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      // A title card (opened from a shelf) is modal; inside a poster rail the arrows scroll the rail.
-      if (anyOverlayOpen() || (e.target instanceof Element && e.target.closest("[data-testid=rail]"))) return;
-      if (e.key === "ArrowRight") dispatch({ type: "next" });
-      if (e.key === "ArrowLeft") dispatch({ type: "prev" });
-    };
-    addEventListener("keydown", onKey);
-    return () => removeEventListener("keydown", onKey);
-  }, [active, dispatch]);
+  useArrowKeys(active, () => dispatch({ type: "prev" }), () => dispatch({ type: "next" }));
 
   // Swipe on the hero only (desktop) or the still only (phones), so the rest of the page scrolls normally.
   useEffect(() => {
