@@ -1,6 +1,8 @@
+import { Fragment } from "react";
 import { byline } from "../lib/format";
 import type { Title } from "../lib/types";
 import { FactsRow } from "./FactsRow";
+import { DirectorLink } from "./ui/DirectorLink";
 import { Label } from "./ui/Label";
 import { UserControls } from "./UserControls";
 
@@ -25,7 +27,13 @@ export function Hero({ title, onTrailer, onWatched }: HeroProps) {
         {title.title}
       </h1>
       <Label as="div" className="tracking-wide">
-        {by.lead} {by.name && <b className="font-semibold tracking-[0.15em] text-fg">{by.name}</b>}
+        {by.lead}{" "}
+        {title.directors.map((d, i) => (
+          <Fragment key={d}>
+            {i > 0 && " & "}
+            <DirectorLink name={d} variant="hero" />
+          </Fragment>
+        ))}
       </Label>
       <FactsRow title={title} />
       <div className="mt-5 flex flex-wrap gap-2">

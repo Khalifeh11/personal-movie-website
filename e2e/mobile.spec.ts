@@ -50,10 +50,10 @@ test("tiles sit two per row", async ({ page }) => {
   expect(c!.y).toBeGreaterThan(a!.y);
 });
 
-test("row blurbs are clamped to two lines", async ({ page }) => {
+test("row blurbs are clamped to three lines", async ({ page }) => {
   await page.goto("/#/mood/tense");
   const clamp = await page.getByRole("article").first().locator("p").last().evaluate((el) => getComputedStyle(el).webkitLineClamp);
-  expect(clamp).toBe("2");
+  expect(clamp).toBe("3");
 });
 
 test("tile mood name and count never overlap", async ({ page }) => {

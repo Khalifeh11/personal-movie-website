@@ -140,3 +140,13 @@ test("a focused tile shows a focus ring", async ({ page }) => {
   await tile.focus();
   await expect.poll(() => tile.evaluate((el) => getComputedStyle(el).boxShadow)).not.toBe("none");
 });
+
+test("hero byline links the director", async ({ page }) => {
+  await page.goto("/");
+  const link = page.locator('h1 + * a[href^="#/director/"]');
+  // Series have no director; step the hero forward until one has a byline link (deck is seeded daily).
+  for (let i = 0; i < 12 && (await link.count()) === 0; i++) await page.keyboard.press("ArrowRight");
+  await expect(link.first()).toHaveAttribute("href", /^#\/director\/[a-z0-9-]+$/);
+  await link.first().click();
+  await expect(page).toHaveURL(/#\/director\//);
+});

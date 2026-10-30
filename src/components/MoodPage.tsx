@@ -21,7 +21,7 @@ interface MoodPageProps {
 }
 
 const action =
-  "rounded-full border border-white/25 px-3 py-1.5 font-ui text-[10px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg";
+  "rounded-full border border-white/25 px-3 py-1.5 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg md:text-xs";
 const control =
   "rounded-full border border-white/25 bg-transparent px-3.5 py-2 font-ui text-xs text-fg-2 outline-none focus:border-fg";
 
@@ -100,6 +100,7 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
             n={i + 1}
             title={t}
             dimmed={Boolean(entries[t.id]?.watched)}
+            onOpen={() => {}}
             actions={
               <>
                 {t.trailerKey && <button type="button" onClick={() => onTrailer(t)} className={action}>▶ Trailer</button>}

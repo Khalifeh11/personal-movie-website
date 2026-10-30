@@ -198,3 +198,16 @@ test("mood page carries its accent", async ({ page }) => {
   await expect(dot).toBeVisible();
   await expect(dot).toHaveCSS("background-color", "rgb(224, 78, 58)");
 });
+
+test("director name in a row links to the director page", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await rows(page).filter({ hasText: "Parasite" }).getByRole("link", { name: "Bong Joon Ho" }).click();
+  await expect(page).toHaveURL(/#\/director\/bong-joon-ho$/);
+});
+
+test("co-directors are linked separately", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  const row = rows(page).filter({ hasText: /REC/ }).first();
+  await expect(row.getByRole("link", { name: "Jaume Balagueró" })).toBeVisible();
+  await expect(row.getByRole("link", { name: "Paco Plaza" })).toBeVisible();
+});
