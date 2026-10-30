@@ -1,7 +1,7 @@
 # Not Tonight: "Why this" + Home Shelves (batch 3): Design
 
 Date: 2026-10-30
-Status: draft, pending owner sign-off
+Status: implemented 2026-10-30 (commits afb6232..a296a5b)
 Amends: `2026-10-30-home-and-mood-pages-design.md`, `2026-10-30-browse-refresh-design.md`.
 Anything not mentioned here stays as those specs say.
 
