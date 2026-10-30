@@ -20,7 +20,7 @@ export function pickTrailer(videos) {
 export function toTitle(row, found, details, bucketFor) {
   const id = row.Const;
   const hasBackdrop = Boolean(details?.backdrop_path);
-  const poster = details?.poster_path ? `/img/poster/${id}.jpg` : null;
+  const poster = details?.poster_path ? `/img/poster/${id}.webp` : null;
   return {
     id,
     title: row.Title,
@@ -38,8 +38,8 @@ export function toTitle(row, found, details, bucketFor) {
     themes: list(row["Broad themes"]),
     imdbUrl: row.URL,
     overview: details?.overview ?? "",
-    backdrop: hasBackdrop ? `/img/backdrop/${id}.jpg` : poster,
-    backdropSmall: hasBackdrop ? `/img/backdrop-sm/${id}.jpg` : poster,
+    backdrop: hasBackdrop ? `/img/backdrop/${id}.webp` : poster,
+    backdropSmall: hasBackdrop ? `/img/backdrop-sm/${id}.webp` : poster,
     poster,
     trailerKey: pickTrailer(details?.videos?.results),
     tmdbRating: found ? (details?.vote_average ?? null) : null,

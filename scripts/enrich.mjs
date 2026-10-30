@@ -39,11 +39,11 @@ export async function main({ csvPath, outPath, imgDir, tmdb, force = false, limi
     if (!found) unmatched.push(id);
 
     if (details?.backdrop_path) {
-      await tmdb.download(`/w1280${details.backdrop_path}`, join(imgDir, "backdrop", `${id}.jpg`));
-      await tmdb.download(`/w780${details.backdrop_path}`, join(imgDir, "backdrop-sm", `${id}.jpg`));
+      await tmdb.download(`/w1280${details.backdrop_path}`, join(imgDir, "backdrop", `${id}.webp`));
+      await tmdb.download(`/w780${details.backdrop_path}`, join(imgDir, "backdrop-sm", `${id}.webp`));
     }
     if (details?.poster_path) {
-      await tmdb.download(`/w500${details.poster_path}`, join(imgDir, "poster", `${id}.jpg`));
+      await tmdb.download(`/w500${details.poster_path}`, join(imgDir, "poster", `${id}.webp`));
     }
 
     byId.set(id, toTitle(row, found, details, bucketFor));

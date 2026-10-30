@@ -11,7 +11,7 @@ Filters ride along as a query: `#/mood/on-edge?type=Movie&rt=mid`. They are also
 
 ## Data
 
-`npm run enrich` reads `data/watchlist.csv`, looks each title up on TMDB and writes `src/data/titles.json` plus images under `public/img/`. It needs a `.env` with `TMDB_API_KEY` (see `.env.example`). Both outputs are committed so the site builds without the key. Pass `--force` to refetch titles already in the JSON.
+`npm run enrich` reads `data/watchlist.csv`, looks each title up on TMDB and writes `src/data/titles.json` plus images under `public/img/` (TMDB jpgs converted to webp). It needs a `.env` with `TMDB_API_KEY` (see `.env.example`) and `cwebp` on the PATH (`brew install webp`). Both outputs are committed so the site builds without the key. Pass `--force` to refetch titles already in the JSON.
 
 Watched, ratings and notes live in the browser (`localStorage`). Export/import them from the Filters drawer.
 

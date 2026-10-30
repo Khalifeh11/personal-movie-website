@@ -1,6 +1,8 @@
+import { execFile } from "node:child_process";
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
+import { promisify } from "node:util";
 
 const API = "https://api.themoviedb.org/3";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -35,12 +37,17 @@ export function makeTmdb({ apiKey, fetch = globalThis.fetch, imageBase = "https:
     details(media, id) {
       return get(`/${media}/${id}`, { append_to_response: "videos,images" });
     },
+    /** Saves the TMDB jpg next to destFile, then converts it to destFile (.webp) with cwebp. */
     async download(sizePath, destFile) {
       if (existsSync(destFile)) return;
-      const res = await fetch(imageBase + sizePath);
-      if (!res.ok) throw new Error(`Image ${res.status} for ${sizePath}`);
-      await mkdir(dirname(destFile), { recursive: true });
-      await writeFile(destFile, Buffer.from(await res.arrayBuffer()));
+      const jpg = destFile.replace(/\.webp$/, ".jpg");
+      if (!existsSync(jpg)) {
+        const res = await fetch(imageBase + sizePath);
+        if (!res.ok) throw new Error(`Image ${res.status} for ${sizePath}`);
+        await mkdir(dirname(jpg), { recursive: true });
+        await writeFile(jpg, Buffer.from(await res.arrayBuffer()));
+      }
+      await promisify(execFile)("cwebp", ["-quiet", "-q", "82", jpg, "-o", destFile]);
     },
   };
 }

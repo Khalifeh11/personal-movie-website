@@ -20,8 +20,8 @@ describe("toTitle", () => {
       mood: "Tense, gritty", moodBucket: "on-edge", themes: ["Justice", "morality"],
       imdbUrl: "https://www.imdb.com/title/tt0051378/",
       overview: movieDetails.overview,
-      backdrop: "/img/backdrop/tt0051378.jpg", backdropSmall: "/img/backdrop-sm/tt0051378.jpg",
-      poster: "/img/poster/tt0051378.jpg", trailerKey: "officialTrailerKey",
+      backdrop: "/img/backdrop/tt0051378.webp", backdropSmall: "/img/backdrop-sm/tt0051378.webp",
+      poster: "/img/poster/tt0051378.webp", trailerKey: "officialTrailerKey",
       tmdbRating: 7.6, tmdbVotes: 820, rtScore: null, metacritic: null,
     });
   });
@@ -30,7 +30,7 @@ describe("toTitle", () => {
     const t = toTitle(byId.tt5753856, { media: "tv", id: 2 }, tvDetails, bucketFor);
     expect(t).toMatchObject({
       type: "Series", directors: [], trailerKey: null,
-      poster: "/img/poster/tt5753856.jpg", backdrop: "/img/poster/tt5753856.jpg", backdropSmall: "/img/poster/tt5753856.jpg",
+      poster: "/img/poster/tt5753856.webp", backdrop: "/img/poster/tt5753856.webp", backdropSmall: "/img/poster/tt5753856.webp",
     });
   });
 

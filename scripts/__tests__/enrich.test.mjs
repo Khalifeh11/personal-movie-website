@@ -31,9 +31,9 @@ test("writes all titles, reports unmatched, downloads images", async () => {
   const out = JSON.parse(readFileSync(opts.outPath, "utf8"));
   expect(out.map((t) => t.id).sort()).toEqual(["tt0051378", "tt5753856", "tt6207098"]);
   // movie: backdrop w1280 + w780 + poster w500; tv: poster only
-  expect(tmdb.download).toHaveBeenCalledWith("/w1280/elevatorBackdrop.jpg", join(opts.imgDir, "backdrop", "tt0051378.jpg"));
-  expect(tmdb.download).toHaveBeenCalledWith("/w780/elevatorBackdrop.jpg", join(opts.imgDir, "backdrop-sm", "tt0051378.jpg"));
-  expect(tmdb.download).toHaveBeenCalledWith("/w500/darkPoster.jpg", join(opts.imgDir, "poster", "tt5753856.jpg"));
+  expect(tmdb.download).toHaveBeenCalledWith("/w1280/elevatorBackdrop.jpg", join(opts.imgDir, "backdrop", "tt0051378.webp"));
+  expect(tmdb.download).toHaveBeenCalledWith("/w780/elevatorBackdrop.jpg", join(opts.imgDir, "backdrop-sm", "tt0051378.webp"));
+  expect(tmdb.download).toHaveBeenCalledWith("/w500/darkPoster.jpg", join(opts.imgDir, "poster", "tt5753856.webp"));
   expect(tmdb.download).toHaveBeenCalledTimes(4);
 });
 
