@@ -11,7 +11,9 @@ import { EmptyState } from "./EmptyState";
 import { FilmGrid } from "./FilmGrid";
 import { FilmRow } from "./FilmRow";
 import { SortMenu } from "./SortMenu";
+import { TitleCard } from "./TitleCard";
 import { UserControls } from "./UserControls";
+import { action } from "./ui/actionClass";
 import { MoodDot } from "./ui/MoodDot";
 import { Pill } from "./ui/Pill";
 import { VIEW_KEY, ViewToggle, type View } from "./ui/ViewToggle";
@@ -26,8 +28,6 @@ interface BrowsePageProps {
   onTrailer: (t: Title) => void;
 }
 
-const action =
-  "rounded-full border border-white/25 px-3 py-1.5 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg md:text-xs";
 const control =
   "rounded-full border border-white/25 bg-transparent px-3.5 py-2 font-ui text-xs text-fg-2 outline-none focus:border-fg";
 
@@ -40,6 +40,8 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
   const [dir, setDir] = useState<SortDir>(saved?.dir ?? defaultDir("imdb"));
   const [query, setQuery] = useState(saved?.query ?? "");
   const [layout, setLayout] = usePersistedState<View>(VIEW_KEY, "list");
+  // The title card: opened from a poster/title click or a grid cell; a route change unmounts the page and so closes it.
+  const [cardFor, setCardFor] = useState<Title | null>(null);
   const latest = useRef({ sort, dir, query });
   latest.current = { sort, dir, query };
   useLayoutEffect(() => {
@@ -115,7 +117,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
       {rows.length === 0 ? (
         <EmptyState hint="Clear the search or loosen the filters." />
       ) : layout === "grid" ? (
-        <FilmGrid titles={rows} entries={entries} accent={accent} onOpen={() => {}} />
+        <FilmGrid titles={rows} entries={entries} accent={accent} onOpen={setCardFor} />
       ) : (
         rows.map((t, i) => (
           <FilmRow
@@ -123,7 +125,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
             n={i + 1}
             title={t}
             dimmed={Boolean(entries[t.id]?.watched)}
-            onOpen={() => {}}
+            onOpen={setCardFor}
             actions={
               <>
                 {t.trailerKey && <button type="button" onClick={() => onTrailer(t)} className={action}>▶ Trailer</button>}
@@ -134,6 +136,7 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
           />
         ))
       )}
+      <TitleCard title={cardFor} onClose={() => setCardFor(null)} onTrailer={onTrailer} onWatched={(id, w) => w && keep(id)} />
     </main>
   );
 }

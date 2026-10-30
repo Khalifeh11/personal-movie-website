@@ -93,3 +93,14 @@ test("grid is two-up with no horizontal scroll", async ({ page }) => {
   expect(cols).toBe(2);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+test("title card is a scrollable bottom sheet", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("article").first().getByRole("button", { name: /^Open / }).first().tap();
+  const sheet = page.getByRole("dialog").getByTestId("card");
+  const box = (await sheet.boundingBox())!;
+  const vh = await page.evaluate(() => innerHeight);
+  expect(Math.round(box.y + box.height)).toBe(vh);
+  expect(box.width).toBe(390);
+  expect(await sheet.evaluate((el) => getComputedStyle(el).overflowY)).toBe("auto");
+});

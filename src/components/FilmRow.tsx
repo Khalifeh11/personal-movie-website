@@ -17,8 +17,15 @@ interface FilmRowProps {
 const pad = (n: number) => String(n).padStart(2, "0");
 const poster = "h-24 w-16 flex-none rounded-sm bg-white/5 md:h-[135px] md:w-[90px]";
 
+interface FactsProps {
+  title: Title;
+  className?: string;
+  /** Passed to each director link (e.g. close the card before navigating). */
+  onNavigate?: () => void;
+}
+
 /** year · director links · runtime · IMDb, each part optional, separated by " · ". */
-export function Facts({ title: t, className = "" }: { title: Title; className?: string }) {
+export function Facts({ title: t, className = "", onNavigate }: FactsProps) {
   const parts: ReactNode[] = [];
   if (t.year) parts.push(t.year);
   if (t.directors.length) {
@@ -26,7 +33,7 @@ export function Facts({ title: t, className = "" }: { title: Title; className?: 
       t.directors.map((d, i) => (
         <Fragment key={d}>
           {i > 0 && " & "}
-          <DirectorLink name={d} />
+          <DirectorLink name={d} onNavigate={onNavigate} />
         </Fragment>
       )),
     );

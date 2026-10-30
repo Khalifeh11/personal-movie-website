@@ -7,19 +7,26 @@ interface OverlayProps {
   children: ReactNode;
 }
 
+/** Open overlays, bottom to top: only the topmost one answers Esc (e.g. trailer above the title card). */
+const stack: symbol[] = [];
+
 /** Full-screen modal: ✕, Esc or a click on the backdrop closes; focus returns to the opener; page scroll locked. */
 export function Overlay({ open, onClose, label, children }: OverlayProps) {
   const panel = useRef<HTMLDivElement>(null);
+  const id = useRef(Symbol("overlay"));
 
   useEffect(() => {
     if (!open) return;
+    const me = id.current;
+    stack.push(me);
     const opener = document.activeElement as HTMLElement | null;
     panel.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && stack.at(-1) === me && onClose();
     addEventListener("keydown", onKey);
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
+      stack.splice(stack.indexOf(me), 1);
       removeEventListener("keydown", onKey);
       document.body.style.overflow = overflow;
       opener?.focus();

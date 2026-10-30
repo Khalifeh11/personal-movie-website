@@ -287,3 +287,36 @@ test("grid cell without a poster renders a placeholder box", async ({ page }) =>
   await expect(cell).toBeVisible();
   await expect(cell.locator("img")).toHaveCount(0);
 });
+
+test("poster click opens the title card; Esc closes it", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await rows(page).first().getByRole("button", { name: "Open Chernobyl" }).first().click();
+  const card = page.getByRole("dialog", { name: "Chernobyl" });
+  await expect(card).toBeVisible();
+  await expect(card.getByRole("heading", { level: 2 })).toHaveText("Chernobyl");
+  await expect(card).toContainText("The true story of one of the worst");
+  await expect(card.getByRole("button", { name: "Watched" })).toBeVisible();
+  await expect(card.getByText("Tense")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(card).toHaveCount(0);
+});
+
+test("card from the grid; trailer stacks above it and Esc closes only the trailer", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: "Grid view" }).click();
+  await page.getByTestId("grid").getByRole("button", { name: "Chernobyl" }).click();
+  const card = page.getByRole("dialog", { name: "Chernobyl" });
+  await card.getByRole("button", { name: "▶ Trailer" }).click();
+  await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toHaveCount(0);
+  await expect(card).toBeVisible();
+});
+
+test("director link in the card navigates and closes the card", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await rows(page).filter({ hasText: "Parasite" }).getByRole("button", { name: "Open Parasite" }).first().click();
+  await page.getByRole("dialog", { name: "Parasite" }).getByRole("link", { name: "Bong Joon Ho" }).click();
+  await expect(page).toHaveURL(/#\/director\/bong-joon-ho$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+});
