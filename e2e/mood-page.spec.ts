@@ -122,3 +122,23 @@ test("following a link to a mood page starts at the top", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("On edge");
   expect(await page.evaluate(() => scrollY)).toBe(0);
 });
+
+test("Back keeps a filter changed on a mood page", async ({ page }) => {
+  await page.goto("/#/?rt=mid");
+  await page.getByRole("button", { name: /^On edge, / }).click();
+  await page.getByRole("button", { name: "Filters", exact: true }).click();
+  await page.getByRole("dialog", { name: "Filters" }).getByRole("button", { name: "Any", exact: true }).click();
+  await page.keyboard.press("Escape");
+  await page.goBack();
+  await expect(page.locator("#moods")).toBeAttached();
+  await expect(page).toHaveURL(/#\/$/);
+});
+
+test("Back closes an open trailer", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /^On edge, / }).click();
+  await rows(page).first().getByRole("button", { name: "▶ Trailer" }).click();
+  await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toBeVisible();
+  await page.goBack();
+  await expect(page.locator('iframe[src*="youtube-nocookie.com/embed/"]')).toHaveCount(0);
+});

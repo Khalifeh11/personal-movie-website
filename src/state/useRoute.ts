@@ -2,11 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { parseRoute, serializeRoute, type Route } from "../lib/route";
 import type { Filters } from "../lib/types";
 
-/** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL. */
-export function useRoute(
-  filters: Filters,
-  onFilters: (f: Partial<Filters>) => void,
-): { route: Route; navigate: (r: Route) => void } {
+/** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL (read from it only on load). */
+export function useRoute(filters: Filters): { route: Route; navigate: (r: Route) => void } {
   const [route, setRoute] = useState<Route>(() => parseRoute(location.hash).route);
   const latestFilters = useRef(filters);
   useEffect(() => {
@@ -16,17 +13,17 @@ export function useRoute(
   useEffect(() => {
     const onHash = () => {
       const parsed = parseRoute(location.hash);
-      // A pasted or edited link may carry filters; apply them so the URL rewrite below keeps them.
-      const merged = { ...latestFilters.current, ...parsed.filters };
-      if (Object.keys(parsed.filters).length) onFilters(parsed.filters);
-      // The route may not change (e.g. home → bad link), so fix the URL here rather than in the effect below.
-      if (parsed.redirect) history.replaceState(null, "", serializeRoute(parsed.route, merged));
+      // Filters are global: Back/forward only change the page, so re-mirror the current filters
+      // over whatever the history entry had. Done here because the route may not change
+      // (e.g. home → bad link), in which case the effect below wouldn't run.
+      const url = serializeRoute(parsed.route, latestFilters.current);
+      if (location.hash !== url) history.replaceState(null, "", url);
       setRoute(parsed.route);
       scrollTo(0, 0);
     };
     addEventListener("hashchange", onHash);
     return () => removeEventListener("hashchange", onHash);
-  }, [onFilters]);
+  }, []);
 
   useEffect(() => {
     const url = serializeRoute(route, filters);

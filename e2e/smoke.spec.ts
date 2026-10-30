@@ -42,6 +42,7 @@ test("Moods scrolls to the mood section", async ({ page }) => {
 });
 
 test("legacy hash redirects home and keeps valid filters", async ({ page }) => {
+  await page.goto("about:blank"); // a fresh load: filters are read from the URL only on load
   await page.goto("/#mood=on-edge&type=Series");
   await expect(page).toHaveURL(/#\/\?type=Series$/);
 });
@@ -74,4 +75,24 @@ test("marking the hero film watched moves to the next one", async ({ page }) => 
   const first = await h1.textContent();
   await page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "Watched" }).click();
   await expect(h1).not.toHaveText(first!);
+});
+
+test("arrow keys on the hero rating change the rating, not the film", async ({ page }) => {
+  const h1 = page.locator("h1");
+  const first = await h1.textContent();
+  const stars = page.locator("section[aria-label=\"Tonight's film\"]").getByRole("slider", { name: "Your rating" });
+  await stars.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(stars).toHaveAttribute("aria-valuenow", "0.5");
+  await expect(h1).toHaveText(first!);
+});
+
+test("arrow keys do nothing to the hero while the trailer is open", async ({ page }) => {
+  const trailer = page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "▶ Trailer" });
+  for (let i = 0; i < 20 && !(await trailer.isVisible()); i++) await page.keyboard.press("ArrowRight");
+  const counter = await page.getByTestId("counter").textContent();
+  await trailer.click();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("counter")).toHaveText(counter!);
 });

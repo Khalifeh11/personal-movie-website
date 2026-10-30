@@ -14,7 +14,7 @@ interface HeroSectionProps {
   current: Title | undefined;
   count: string;
   dispatch: (a: DeckAction) => void;
-  /** Arrow keys flip only while the hero is on screen (home route). */
+  /** Arrow keys flip only while this is true (home route, nothing modal open). */
   active: boolean;
   onTrailer: (t: Title) => void;
 }
@@ -26,7 +26,8 @@ export function HeroSection({ state, current, count, dispatch, active, onTrailer
   useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      // defaultPrevented: a focused control (e.g. the rating slider) already used the key.
+      if (e.defaultPrevented || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.key === "ArrowRight") dispatch({ type: "next" });
       if (e.key === "ArrowLeft") dispatch({ type: "prev" });
     };

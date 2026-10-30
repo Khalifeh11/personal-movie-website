@@ -34,7 +34,13 @@ function Site() {
   const closeTrailer = useCallback(() => setTrailerFor(null), []);
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
-  const { route, navigate } = useRoute(state.filters, setFilters);
+  const { route, navigate } = useRoute(state.filters);
+  // A route change (incl. browser Back) closes the trailer rather than playing it over another page.
+  const [trailerRoute, setTrailerRoute] = useState(route);
+  if (trailerRoute !== route) {
+    setTrailerRoute(route);
+    setTrailerFor(null);
+  }
   const tiles = useMemo(() => moodTiles(state.deck), [state.deck]);
 
   return (
@@ -42,7 +48,10 @@ function Site() {
       <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
       {route.name === "home" && (
         <>
-          <HeroSection state={state} current={current} count={count} dispatch={dispatch} active onTrailer={setTrailerFor} />
+          <HeroSection state={state} current={current} count={count} dispatch={dispatch}
+            active={!trailerFor && !filtersOpen}
+            onTrailer={setTrailerFor}
+          />
           <section id="moods" className="scroll-mt-20 px-5 py-16 md:px-11 md:py-24">
             <Label as="div" muted className="mb-6 tracking-wide">How do you want to feel?</Label>
             <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
