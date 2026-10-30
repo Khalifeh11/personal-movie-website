@@ -49,7 +49,7 @@ function Site() {
     setTrailerFor(null);
   }
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
-  // Fixed for the session: "today" only gates multi-year thresholds.
+  // Fixed for the session: "today" gates multi-year thresholds and the "around this day" shelf.
   const [today] = useState(() => new Date());
   const why = current ? whyThis(current, { titles, deck: state.deck, today }) : null;
   const scope: Scope | null =
@@ -58,7 +58,7 @@ function Site() {
       : route.name === "director"
         ? { kind: "director", name: route.director }
         : route.name === "shelf"
-          ? { kind: "shelf", shelf: route.shelf }
+          ? { kind: "shelf", shelf: route.shelf, today }
           : null;
 
   return (
@@ -74,7 +74,7 @@ function Site() {
             <Label as="div" muted className="mb-6 tracking-wide">How do you want to feel?</Label>
             <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
           </section>
-          <HomeShelves deck={state.deck} current={current} onNavigate={navigate} onTrailer={setTrailerFor} />
+          <HomeShelves deck={state.deck} current={current} today={today} onNavigate={navigate} onTrailer={setTrailerFor} />
           <Footer />
         </Home>
       )}

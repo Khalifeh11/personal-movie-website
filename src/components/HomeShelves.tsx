@@ -11,14 +11,16 @@ interface HomeShelvesProps {
   deck: Title[];
   /** Tonight's pick, for the director shelf. */
   current: Title | undefined;
+  /** For the "around this day" shelf. */
+  today: Date;
   onNavigate: (r: Route) => void;
   onTrailer: (t: Title) => void;
 }
 
 /** The poster shelves below the mood tiles; owns the title card they open. */
-export function HomeShelves({ deck, current, onNavigate, onTrailer }: HomeShelvesProps) {
+export function HomeShelves({ deck, current, today, onNavigate, onTrailer }: HomeShelvesProps) {
   const { entries } = useUserData();
-  const shelves = useMemo(() => homeShelves(deck, current), [deck, current]);
+  const shelves = useMemo(() => homeShelves(deck, current, today), [deck, current, today]);
   const [cardFor, setCardFor] = useState<Title | null>(null);
   if (shelves.length === 0) return null;
   return (

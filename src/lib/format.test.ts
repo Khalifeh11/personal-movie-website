@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { byline, feelsLine, genreLine, gridCaption, ratingText } from "./format";
+import { byline, feelsLine, genreLine, gridCaption, ratingText, shortDate } from "./format";
 import { mk } from "./testUtils";
 
 test("byline: film / series with and without director", () => {
@@ -30,4 +30,9 @@ test("feelsLine: mood labels joined, empty when untagged", () => {
 test("gridCaption", () => {
   expect(gridCaption(mk({ year: 2019, type: "Series", imdbRating: 9.3 }))).toBe("2019 · Series · IMDb 9.3");
   expect(gridCaption(mk({ year: null, type: "Movie", imdbRating: null }))).toBe("— · Movie · IMDb —");
+});
+
+test("shortDate: en-US, UTC", () => {
+  expect(shortDate("2013-12-14")).toBe("Dec 14, 2013");
+  expect(shortDate("2014-01-01")).toBe("Jan 1, 2014");
 });

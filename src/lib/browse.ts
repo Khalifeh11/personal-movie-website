@@ -6,13 +6,13 @@ import { SHELF_HEADINGS, shelfTitles, type ShelfId } from "./shelves";
 import type { MoodFilter, Title, UserEntry } from "./types";
 
 /** What a browse page lists: everything in a mood, everything by a director, a home shelf's set, or a decade's titles. */
-export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId } | { kind: "decade"; decade: Decade };
+export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId; today: Date } | { kind: "decade"; decade: Decade };
 
 export function scopeTitles(titles: Title[], scope: Scope): Title[] {
   if (scope.kind === "mood") return titles.filter((t) => inMood(t, scope.mood));
   if (scope.kind === "director") return titlesBy(titles, scope.name);
   if (scope.kind === "decade") return decadeTitles(titles, scope.decade);
-  return shelfTitles(titles, scope.shelf);
+  return shelfTitles(titles, scope.shelf, scope.today);
 }
 
 /** The page's h1. */
@@ -35,7 +35,7 @@ export function scopeKey(scope: Scope): string {
 export function defaultSort(scope: Scope): SortKey {
   if (scope.kind === "decade") return "year";
   if (scope.kind !== "shelf") return "imdb";
-  return scope.shelf === "waiting" ? "added" : "runtime";
+  return scope.shelf === "short" ? "runtime" : "added";
 }
 
 export type SortKey = "imdb" | "year" | "runtime" | "added" | "title" | "mine";

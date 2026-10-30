@@ -25,3 +25,8 @@ export function feelsLine(t: Title): string {
 export function gridCaption(t: Title): string {
   return `${t.year ?? "—"} · ${t.type} · IMDb ${ratingText(t)}`;
 }
+
+/** "2013-12-14" → "Dec 14, 2013" (UTC, so the day never shifts with the viewer's zone). */
+export function shortDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+}
