@@ -48,3 +48,11 @@ test("footer shows TMDB attribution", async ({ page }) => {
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
   await expect(page.getByText("This product uses the TMDB API but is not endorsed or certified by TMDB.")).toBeVisible();
 });
+
+test("mood tiles: one per mood plus All; empty mood reads 0 titles; click opens the mood page", async ({ page }) => {
+  const tiles = page.locator("#moods").getByRole("button");
+  await expect(tiles).toHaveCount(8);
+  await expect(page.getByRole("button", { name: "Unsettling, 0 titles" })).toBeVisible();
+  await page.getByRole("button", { name: /^On edge, \d+ titles?$/ }).click();
+  await expect(page).toHaveURL(/#\/mood\/on-edge$/);
+});

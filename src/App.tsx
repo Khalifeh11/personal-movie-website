@@ -2,9 +2,11 @@ import { useCallback, useMemo, useState } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
+import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
 import { Label } from "./components/ui/Label";
 import titlesJson from "./data/titles.json";
+import { moodTiles } from "./lib/moodTiles";
 import type { Title } from "./lib/types";
 import { LocalStorageUserData } from "./lib/userData";
 import { useDeck } from "./state/useDeck";
@@ -29,6 +31,7 @@ function Site() {
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
   const { route, navigate } = useRoute(state.filters);
+  const tiles = useMemo(() => moodTiles(state.deck), [state.deck]);
 
   return (
     <div className="min-h-dvh bg-bg font-ui text-fg">
@@ -38,6 +41,7 @@ function Site() {
           <HeroSection state={state} current={current} count={count} dispatch={dispatch} active />
           <section id="moods" className="scroll-mt-20 px-5 py-16 md:px-11 md:py-24">
             <Label as="div" muted className="mb-6 tracking-wide">How do you want to feel?</Label>
+            <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
           </section>
           <Footer />
         </>
