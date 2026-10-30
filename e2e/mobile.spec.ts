@@ -140,19 +140,20 @@ test("shelves scroll sideways without widening the page", async ({ page }) => {
   expect(await noHorizontalScroll(page)).toBe(true);
 });
 
-test("dragging across the decade chart picks a decade without scrolling the page", async ({ page }) => {
+test("a horizontal touch drag across the decade chart picks a decade without scrolling the page", async ({ page }) => {
   await page.goto("/#/decades/2010");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("2010s");
-  const chart = page.getByTestId("decade-chart");
-  const box = (await chart.boundingBox())!;
+  expect(await page.evaluate(() => document.documentElement.scrollHeight > innerHeight)).toBe(true);
+  const box = (await page.getByTestId("decade-chart").boundingBox())!;
   const y = box.y + box.height / 2;
   const scrollBefore = await page.evaluate(() => scrollY);
-  await page.mouse.move(box.x + box.width * 0.1, y);
-  await page.mouse.down();
-  await page.mouse.move(box.x + box.width * 0.5, y, { steps: 8 });
-  // 1930..2026 is 97 years, so 90% still points at the 2010s; the 2020s start at ~93%.
-  await page.mouse.move(box.x + box.width * 0.96, y, { steps: 8 });
-  await page.mouse.up();
+  const cdp = await page.context().newCDPSession(page);
+  const touch = (type: "touchStart" | "touchMove" | "touchEnd", f?: number, dy = 0) =>
+    cdp.send("Input.dispatchTouchEvent", { type, touchPoints: f === undefined ? [] : [{ x: box.x + box.width * f, y: y + dy }] });
+  await touch("touchStart", 0.1);
+  // A little vertical drift, as a real finger has: pan-y would scroll on it if the gesture were free.
+  for (let i = 1; i <= 16; i++) await touch("touchMove", 0.1 + (0.86 * i) / 16, i);
+  await touch("touchEnd");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("2020s");
   expect(await page.evaluate(() => scrollY)).toBe(scrollBefore);
 });

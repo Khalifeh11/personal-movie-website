@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -8,8 +9,8 @@ test.beforeEach(async ({ page }) => {
   await page.locator("h1").waitFor();
 });
 
-const h1 = (page: import("@playwright/test").Page) => page.getByRole("heading", { level: 1 });
-const count = (page: import("@playwright/test").Page) => page.getByText(/^\d+ films?$/);
+const h1 = (page: Page) => page.getByRole("heading", { level: 1 });
+const count = (page: Page) => page.getByText(/^\d+ films?$/);
 
 test("#/decades lands on the busiest decade", async ({ page }) => {
   await page.goto("/#/decades");
@@ -57,6 +58,8 @@ test("an unknown decade redirects home", async ({ page }) => {
 });
 
 test("a decade emptied by Hide watched shows 0 films and keeps the chart", async ({ page }) => {
+  await page.goto("/#/decades/1930");
+  await expect(count(page)).toHaveText("1 film");
   await page.evaluate(() => {
     const entry = { watched: true, rating: null, note: "", updatedAt: "2026-10-30T00:00:00.000Z" };
     localStorage.setItem("tonight.userData.v1", JSON.stringify({ tt0020629: entry }));
