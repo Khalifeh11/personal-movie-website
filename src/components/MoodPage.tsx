@@ -7,6 +7,7 @@ import type { Filters, MoodFilter, Title } from "../lib/types";
 import { useUserData } from "../state/useUserData";
 import { EmptyState } from "./EmptyState";
 import { FilmRow } from "./FilmRow";
+import { UserControls } from "./UserControls";
 import { Pill } from "./ui/Pill";
 
 interface MoodPageProps {
@@ -27,10 +28,17 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
   const [sort, setSort] = useState<SortKey>("imdb");
   const [query, setQuery] = useState("");
 
+  // Titles marked watched during this visit stay listed (dimmed) so rows don't jump under the cursor.
+  // The page is keyed by mood; a new filter, sort or search starts a fresh view.
+  const [kept, setKept] = useState<{ view: unknown[]; ids: Set<string> }>({ view: [filters, sort, query], ids: new Set() });
+  const view = [filters, sort, query];
+  if (view.some((v, i) => v !== kept.view[i])) setKept({ view, ids: new Set() });
+  const keep = (id: string) => setKept((k) => ({ ...k, ids: new Set(k.ids).add(id) }));
+
   const rows = useMemo(() => {
-    const pool = titles.filter((t) => inMood(t, mood) && matches(t, filters, entries));
+    const pool = titles.filter((t) => inMood(t, mood) && (matches(t, filters, entries) || kept.ids.has(t.id)));
     return sortTitles(searchTitles(pool, query), sort, entries);
-  }, [titles, mood, filters, entries, query, sort]);
+  }, [titles, mood, filters, entries, query, sort, kept.ids]);
 
   return (
     <main className="px-5 pb-16 pt-24 md:px-11 md:pt-32">
@@ -71,6 +79,7 @@ export function MoodPage({ mood, titles, filters, onFilters, onTrailer }: MoodPa
               <>
                 {t.trailerKey && <button type="button" onClick={() => onTrailer(t)} className={action}>▶ Trailer</button>}
                 <a href={t.imdbUrl} target="_blank" rel="noreferrer" className={action}>IMDb ↗</a>
+                <UserControls id={t.id} onWatched={(w) => w && keep(t.id)} />
               </>
             }
           />

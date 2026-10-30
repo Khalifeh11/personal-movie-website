@@ -79,3 +79,35 @@ test("a title without a trailer has no Trailer button", async ({ page }) => {
   await expect(rows(page).filter({ hasText: "Pink Floyd" }).getByRole("button", { name: "▶ Trailer" })).toHaveCount(0);
   await expect(rows(page).filter({ hasText: "Samurai Champloo" }).getByRole("button", { name: "▶ Trailer" })).toHaveCount(1);
 });
+
+test("marking watched keeps the row until you leave the page", async ({ page }) => {
+  await page.goto("/#/mood/on-edge");
+  const first = rows(page).first();
+  await first.getByRole("button", { name: "Watched" }).click();
+  await expect(rows(page)).toHaveCount(5);
+  await expect(first).toHaveAttribute("data-dimmed", "true");
+  await expect(first.getByRole("button", { name: "✓ Watched" })).toBeVisible();
+  await page.getByRole("button", { name: "Moods", exact: true }).click();
+  await page.getByRole("menuitem", { name: "Moved" }).click();
+  await page.getByRole("button", { name: "Moods", exact: true }).click();
+  await page.getByRole("menuitem", { name: "On edge" }).click();
+  await expect(rows(page)).toHaveCount(4);
+});
+
+test("your rating persists across reload", async ({ page }) => {
+  await page.goto("/#/mood/on-edge");
+  const stars = rows(page).first().getByRole("slider", { name: "Your rating" });
+  await stars.focus();
+  for (let i = 0; i < 9; i++) await page.keyboard.press("ArrowRight");
+  await expect(stars).toHaveAttribute("aria-valuenow", "4.5");
+  await page.reload();
+  await expect(rows(page).first().getByRole("slider", { name: "Your rating" })).toHaveAttribute("aria-valuenow", "4.5");
+});
+
+test("a note saves on blur", async ({ page }) => {
+  await page.goto("/#/mood/on-edge");
+  await rows(page).first().getByRole("button", { name: "Note" }).click();
+  await page.getByRole("textbox", { name: "Note" }).fill("with popcorn");
+  await page.getByRole("heading", { level: 1 }).click();
+  await expect(rows(page).first().getByRole("button", { name: "Note •" })).toBeVisible();
+});

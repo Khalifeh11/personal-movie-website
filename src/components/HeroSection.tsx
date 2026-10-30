@@ -71,7 +71,12 @@ export function HeroSection({ state, current, count, dispatch, active, onTrailer
         </>
       )}
       <div className="absolute inset-x-5 bottom-[88px] z-(--z-ui) md:bottom-10 md:left-[84px] md:right-[300px]">
-        {current ? <Hero title={current} onTrailer={() => onTrailer(current)} /> : <EmptyState hint="Loosen the filters." />}
+        {current ? <Hero
+            title={current}
+            onTrailer={() => onTrailer(current)}
+            // Advance first so the store's rebuild keeps us on the next film instead of jumping to the start.
+            onWatched={(w) => w && state.filters.hideWatched && dispatch({ type: "next" })}
+          /> : <EmptyState hint="Loosen the filters." />}
       </div>
       <span
         data-testid="counter"

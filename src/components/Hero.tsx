@@ -2,11 +2,18 @@ import { byline } from "../lib/format";
 import type { Title } from "../lib/types";
 import { FactsRow } from "./FactsRow";
 import { Label } from "./ui/Label";
+import { UserControls } from "./UserControls";
 
 const heroAction =
   "rounded-full border border-white/25 px-3.5 py-2 font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:border-fg hover:text-fg";
 
-export function Hero({ title, onTrailer }: { title: Title; onTrailer: () => void }) {
+interface HeroProps {
+  title: Title;
+  onTrailer: () => void;
+  onWatched: (watched: boolean) => void;
+}
+
+export function Hero({ title, onTrailer, onWatched }: HeroProps) {
   const by = byline(title);
   return (
     <section key={title.id} className="max-w-[900px] animate-rise">
@@ -24,6 +31,7 @@ export function Hero({ title, onTrailer }: { title: Title; onTrailer: () => void
       <div className="mt-5 flex flex-wrap gap-2">
         {title.trailerKey && <button type="button" onClick={onTrailer} className={heroAction}>▶ Trailer</button>}
         <a href={title.imdbUrl} target="_blank" rel="noreferrer" className={heroAction}>IMDb ↗</a>
+        <UserControls id={title.id} onWatched={onWatched} />
       </div>
       {title.overview && (
         <p className="mt-5 line-clamp-5 max-w-[520px] text-sm leading-relaxed text-fg-2 md:line-clamp-none">{title.overview}</p>

@@ -66,3 +66,10 @@ test("hero trailer opens in place and Esc closes it", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(frame).toHaveCount(0);
 });
+
+test("marking the hero film watched moves to the next one", async ({ page }) => {
+  const h1 = page.locator("h1");
+  const first = await h1.textContent();
+  await page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "Watched" }).click();
+  await expect(h1).not.toHaveText(first!);
+});
