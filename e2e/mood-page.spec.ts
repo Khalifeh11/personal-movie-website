@@ -226,3 +226,40 @@ test("director page honours the type filter from the URL", async ({ page }) => {
   await page.goto("/#/director/billy-wilder?type=Series");
   await expect(page.getByText("Nothing matches")).toBeVisible();
 });
+
+test("Back from a director page restores sort, search and scroll", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: /^Sort:/ }).click();
+  await page.getByRole("option", { name: "Year" }).click();
+  await page.getByRole("searchbox", { name: "Search" }).fill("a");
+  const target = rows(page).nth(15);
+  await target.scrollIntoViewIfNeeded();
+  const y = await page.evaluate(() => scrollY);
+  expect(y).toBeGreaterThan(300);
+  await target.getByRole("link").first().click();
+  await expect(page).toHaveURL(/#\/director\//);
+  await expect(page.getByRole("heading", { level: 1 })).not.toHaveText("Tense");
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  await page.goBack();
+  await expect(page.getByRole("button", { name: "Sort: Year" })).toBeVisible();
+  await expect(page.getByRole("searchbox", { name: "Search" })).toHaveValue("a");
+  expect(Math.abs((await page.evaluate(() => scrollY)) - y)).toBeLessThan(40);
+});
+
+test("a fresh visit to the same mood page starts at defaults", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("searchbox", { name: "Search" }).fill("a");
+  await page.goto("/");
+  await page.getByRole("button", { name: /^Tense, / }).click();
+  await expect(page.getByRole("searchbox", { name: "Search" })).toHaveValue("");
+});
+
+test("Back after a reload lands at defaults without error", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("link", { name: "Bong Joon Ho" }).first().click();
+  await page.reload();
+  await page.goBack();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tense");
+  await expect(page.getByRole("button", { name: "Sort: IMDb rating" })).toBeVisible();
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+});

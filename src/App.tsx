@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
@@ -15,6 +15,7 @@ import type { Title } from "./lib/types";
 import { LocalStorageUserData } from "./lib/userData";
 import { useDeck } from "./state/useDeck";
 import { useRoute } from "./state/useRoute";
+import { routeKey } from "./state/viewState";
 import { UserDataContext, useUserData } from "./state/useUserData";
 
 const titles = titlesJson as Title[];
@@ -44,6 +45,10 @@ function Site() {
     setTrailerRoute(route);
     setTrailerFor(null);
   }
+  // Home always starts at the top; browse pages restore their own scroll (see BrowsePage).
+  useLayoutEffect(() => {
+    if (route.name === "home") scrollTo(0, 0);
+  }, [route]);
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
   const scope: Scope | null =
     route.name === "mood" ? { kind: "mood", mood: route.mood } : route.name === "director" ? { kind: "director", name: route.director } : null;
@@ -68,6 +73,7 @@ function Site() {
         <BrowsePage
           key={scopeKey(scope)}
           scope={scope}
+          viewKey={routeKey(route)}
           titles={titles}
           filters={state.filters}
           onFilters={setFilters}

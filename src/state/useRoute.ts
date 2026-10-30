@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { parseRoute, serializeRoute, type Route } from "../lib/route";
 import type { Filters } from "../lib/types";
-import { freshNavigate, loadView, routeKey } from "./viewState";
+import { freshNavigate, routeKey } from "./viewState";
 
 /** The hash route. Unknown routes are replaced by home; filters are mirrored into the URL (read from it only on load). */
 export function useRoute(filters: Filters, directors: readonly string[]): { route: Route; navigate: (r: Route) => void } {
@@ -24,18 +24,16 @@ export function useRoute(filters: Filters, directors: readonly string[]): { rout
       setRoute(parsed.route);
     };
     addEventListener("hashchange", onHash);
+    onHash(); // the hash may have changed (e.g. Back right after a reload) before this listener existed
     return () => removeEventListener("hashchange", onHash);
   }, [directors]);
 
   useEffect(() => {
+    // The hash may already point at another page (Back before our listener ran): leave it for onHash.
+    if (routeKey(parseRoute(location.hash, directors).route) !== routeKey(route)) return;
     const url = serializeRoute(route, filters);
     if (location.hash !== url) history.replaceState(null, "", url);
-  }, [route, filters]);
-
-  // Interim: a page with no saved view starts at the top. Pages take this over once they restore themselves.
-  useLayoutEffect(() => {
-    if (!loadView(routeKey(route))) scrollTo(0, 0);
-  }, [route]);
+  }, [route, filters, directors]);
 
   const navigate = useCallback((r: Route) => freshNavigate(serializeRoute(r, filters)), [filters]);
 

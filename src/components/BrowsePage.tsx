@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { defaultDir, scopeLabel, scopeTitles, searchTitles, sortTitles, type Scope, type SortDir, type SortKey } from "../lib/browse";
 import { matches } from "../lib/filters";
 import { countLabel } from "../lib/moodTiles";
 import { moodAccent } from "../lib/moods";
 import type { Filters, Title } from "../lib/types";
 import { useUserData } from "../state/useUserData";
+import { loadView, saveView } from "../state/viewState";
 import { EmptyState } from "./EmptyState";
 import { FilmRow } from "./FilmRow";
 import { SortMenu } from "./SortMenu";
@@ -14,6 +15,8 @@ import { Pill } from "./ui/Pill";
 
 interface BrowsePageProps {
   scope: Scope;
+  /** Route path (`routeKey`) under which sort, search and scroll are kept for Back/Forward. */
+  viewKey: string;
   titles: Title[];
   filters: Filters;
   onFilters: (f: Partial<Filters>) => void;
@@ -26,11 +29,20 @@ const control =
   "rounded-full border border-white/25 bg-transparent px-3.5 py-2 font-ui text-xs text-fg-2 outline-none focus:border-fg";
 
 /** A mood page or a director page: header, sort/search controls and the rows. Keyed by scope from App. */
-export function BrowsePage({ scope, titles, filters, onFilters, onTrailer }: BrowsePageProps) {
+export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrailer }: BrowsePageProps) {
   const { entries } = useUserData();
-  const [sort, setSort] = useState<SortKey>("imdb");
-  const [dir, setDir] = useState<SortDir>(defaultDir("imdb"));
-  const [query, setQuery] = useState("");
+  // Arriving by Back/Forward restores the view you left; a fresh navigation cleared it, so defaults.
+  const [saved] = useState(() => loadView(viewKey));
+  const [sort, setSort] = useState<SortKey>(saved?.sort ?? "imdb");
+  const [dir, setDir] = useState<SortDir>(saved?.dir ?? defaultDir("imdb"));
+  const [query, setQuery] = useState(saved?.query ?? "");
+  const latest = useRef({ sort, dir, query });
+  latest.current = { sort, dir, query };
+  useLayoutEffect(() => {
+    scrollTo(0, loadView(viewKey)?.scrollY ?? 0);
+    // Cleanup runs before the next page's layout effect, so scrollY is still this page's.
+    return () => saveView(viewKey, { ...latest.current, scrollY });
+  }, [viewKey]);
   const mood = scope.kind === "mood" ? scope.mood : null;
   const accent = mood ? moodAccent(mood) : "#FFFFFF";
 
