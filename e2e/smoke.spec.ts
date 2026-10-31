@@ -47,11 +47,6 @@ test("legacy hash redirects home and keeps valid filters", async ({ page }) => {
   await expect(page).toHaveURL(/#\/\?type=Series$/);
 });
 
-test("footer shows TMDB attribution", async ({ page }) => {
-  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  await expect(page.getByText("This product uses the TMDB API but is not endorsed or certified by TMDB.")).toBeVisible();
-});
-
 test("mood tiles: one per mood plus All; click opens the mood page", async ({ page }) => {
   const tiles = page.locator("#moods").getByRole("button");
   await expect(tiles).toHaveCount(18);

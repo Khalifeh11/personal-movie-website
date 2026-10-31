@@ -582,45 +582,6 @@
     "tint": "#6630cf"
   },
   {
-    "id": "tt6207098",
-    "title": "Pink Floyd: Shine on You Crazy Diamond",
-    "originalTitle": "Pink Floyd: Shine on You Crazy Diamond",
-    "year": 1975,
-    "type": "Movie",
-    "runtime": 8,
-    "imdbRating": 8.4,
-    "imdbVotes": 135,
-    "genres": [
-      "Animation",
-      "Music"
-    ],
-    "directors": [
-      "Gerald Scarfe"
-    ],
-    "category": "Animation & imaginative worlds",
-    "mood": "Imaginative, immersive",
-    "themes": [
-      "Fantasy",
-      "identity"
-    ],
-    "keywords": [],
-    "imdbUrl": "https://www.imdb.com/title/tt6207098/",
-    "overview": "",
-    "backdrop": null,
-    "backdropSmall": null,
-    "poster": null,
-    "trailerKey": null,
-    "tmdbRating": null,
-    "tmdbVotes": null,
-    "rtScore": null,
-    "metacritic": null,
-    "moods": [
-      "dreamy"
-    ],
-    "added": "2017-11-01",
-    "tint": null
-  },
-  {
     "id": "tt0064665",
     "title": "Midnight Cowboy",
     "originalTitle": "Midnight Cowboy",

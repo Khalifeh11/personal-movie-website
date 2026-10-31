@@ -105,13 +105,6 @@ test("nav Moods dropdown jumps between moods", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
 });
 
-test("a title with no poster renders a placeholder, not a broken image", async ({ page }) => {
-  await page.goto("/#/mood/all");
-  const row = rows(page).filter({ hasText: "Pink Floyd" });
-  await expect(row).toHaveCount(1);
-  await expect(row.locator("img")).toHaveCount(0);
-});
-
 test("row trailer opens and the close button closes it", async ({ page }) => {
   await page.goto("/#/mood/tense");
   await rows(page).first().getByRole("button", { name: "▶ Trailer" }).click();
@@ -278,14 +271,6 @@ test("grid view shows posters with a caption and persists across reload", async 
   await expect(page.getByTestId("grid")).toBeVisible();
   await page.getByRole("button", { name: "List view" }).click();
   await expect(rows(page)).toHaveCount(86);
-});
-
-test("grid cell without a poster renders a placeholder box", async ({ page }) => {
-  await page.goto("/#/mood/dreamy");
-  await page.getByRole("button", { name: "Grid view" }).click();
-  const cell = page.getByTestId("grid").getByRole("button", { name: "Pink Floyd: Shine on You Crazy Diamond" });
-  await expect(cell).toBeVisible();
-  await expect(cell.locator("img")).toHaveCount(0);
 });
 
 test("poster click opens the title card; Esc closes it", async ({ page }) => {

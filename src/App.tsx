@@ -1,6 +1,5 @@
 import { useCallback, useLayoutEffect, useMemo, useState, type ReactNode } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
-import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
 import { HomeShelves } from "./components/HomeShelves";
 import { BrowsePage } from "./components/BrowsePage";
@@ -75,7 +74,6 @@ function Site() {
             <MoodTiles tiles={tiles} onOpen={(mood) => navigate({ name: "mood", mood })} />
           </section>
           <HomeShelves deck={state.deck} current={current} today={today} onNavigate={navigate} onTrailer={setTrailerFor} />
-          <Footer />
         </Home>
       )}
       {route.name === "decades" && (
