@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { directorsOf } from "../lib/directors";
 import { daySeed } from "../lib/shuffle";
 import type { Filters, Title, UserEntry } from "../lib/types";
-import { counterText, deckReducer, initDeck, resolveInitialFilters, type DeckAction, type DeckState } from "./deck";
+import { deckReducer, initDeck, resolveInitialFilters, type DeckAction, type DeckState } from "./deck";
 import { readStored } from "./usePersistedState";
 
 export const FILTERS_KEY = "tonight.filters.v1";
@@ -44,7 +44,6 @@ export function useDeck(titles: Title[], user: Record<string, UserEntry>) {
   return {
     state,
     current: state.deck[state.index] as Title | undefined,
-    count: counterText(state),
     dispatch,
     setFilters,
   };

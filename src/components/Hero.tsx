@@ -19,7 +19,7 @@ interface HeroProps {
 }
 
 /** Year, title, byline. On phones this sits over the still; on desktop it tops the full hero. */
-export function HeroTitle({ title, bylineClassName = "" }: { title: Title; bylineClassName?: string }) {
+export function HeroTitle({ title }: { title: Title }) {
   const by = byline(title);
   return (
     <div key={title.id} className="animate-rise">
@@ -30,7 +30,7 @@ export function HeroTitle({ title, bylineClassName = "" }: { title: Title; bylin
       >
         {title.title}
       </h1>
-      <Label as="div" className={`tracking-wide ${bylineClassName}`}>
+      <Label as="div" className="tracking-wide">
         {by.lead}{" "}
         {title.directors.map((d, i) => (
           <Fragment key={d}>

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { F, mk, U } from "../lib/testUtils";
-import { counterText, deckReducer, initDeck, resolveInitialFilters } from "./deck";
+import { deckReducer, initDeck, resolveInitialFilters } from "./deck";
 
 const titles = [
   mk({ id: "a", runtime: 90 }),
@@ -53,11 +53,6 @@ describe("deckReducer", () => {
     s = deckReducer(titles, all, s, { type: "next" });
     expect(s.index).toBe(0);
   });
-});
-
-test("counterText pads to two digits; empty deck shows 00 / 00", () => {
-  expect(counterText(start())).toBe("01 / 05");
-  expect(counterText({ ...start(), deck: [], index: 0 })).toBe("00 / 00");
 });
 
 describe("resolveInitialFilters", () => {

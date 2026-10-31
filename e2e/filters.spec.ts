@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 const drawer = (page: Page) => page.getByRole("dialog", { name: "Filters" });
-const total = async (page: Page) => Number((await page.getByTestId("counter").textContent())!.split("/")[1]);
+const total = async (page: Page) => Number((await drawer(page).getByText(/titles? match/).textContent())!.split(" ")[0]);
 
 async function openFilters(page: Page) {
   await page.getByRole("button", { name: "Filters", exact: true }).click();
@@ -27,8 +27,8 @@ test("type filter writes the hash and persists across reload", async ({ page }) 
 });
 
 test("runtime filter shrinks the deck", async ({ page }) => {
-  const before = await total(page);
   await openFilters(page);
+  const before = await total(page);
   await drawer(page).getByRole("button", { name: "Under 100 min" }).click();
   await expect.poll(() => total(page)).toBeLessThan(before);
   await expect(page).toHaveURL(/rt=short/);
@@ -65,8 +65,8 @@ test("importing a bad file shows an error and keeps the drawer usable", async ({
 
 test("importing a valid file hides newly-watched titles", async ({ page }) => {
   const firstId = await page.evaluate(() => document.querySelector("a[href*='imdb.com/title/']")!.getAttribute("href")!.match(/tt\d+/)![0]);
-  const before = await total(page);
   await openFilters(page);
+  const before = await total(page);
   const file = { version: 1, entries: { [firstId]: { watched: true, rating: null, note: "", updatedAt: "2026-10-30T00:00:00.000Z" } } };
   await drawer(page).getByLabel("Import").setInputFiles({ name: "ok.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(file)) });
   await expect(drawer(page)).toContainText("Imported");

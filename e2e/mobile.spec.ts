@@ -48,8 +48,6 @@ test("hero is a short still with the title on it and the details below", async (
   expect(still.height).toBeLessThan(844 * 0.7);
   const h1 = (await page.locator("h1").boundingBox())!;
   expect(h1.y + h1.height).toBeLessThanOrEqual(still.y + still.height + 1);
-  const counter = (await page.getByTestId("counter").boundingBox())!;
-  expect(h1.y).toBeGreaterThan(counter.y + counter.height);
   const why = (await page.getByTestId("why-this").boundingBox())!;
   expect(why.y).toBeGreaterThan(still.y + still.height);
   await expect(page.getByRole("button", { name: "Previous" })).toBeVisible();

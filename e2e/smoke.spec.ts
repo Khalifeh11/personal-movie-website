@@ -8,16 +8,12 @@ test.beforeEach(async ({ page }) => {
   await page.locator("h1").waitFor();
 });
 
-const counter = (page: import("@playwright/test").Page) => page.getByTestId("counter");
-
 test("home shows a film and arrows move", async ({ page }) => {
   const h1 = page.locator("h1");
   await expect(h1).not.toHaveText("");
   const first = await h1.textContent();
-  await expect(counter(page)).toHaveText(/^01 \/ \d+$/);
   await page.keyboard.press("ArrowRight");
   await expect(h1).not.toHaveText(first!);
-  await expect(counter(page)).toHaveText(/^02 \//);
 });
 
 test("wheel scrolls the page instead of flipping", async ({ page }) => {
@@ -85,11 +81,11 @@ test("arrow keys on the hero rating change the rating, not the film", async ({ p
 test("arrow keys do nothing to the hero while the trailer is open", async ({ page }) => {
   const trailer = page.locator("section[aria-label=\"Tonight's film\"]").getByRole("button", { name: "▶ Trailer" });
   for (let i = 0; i < 20 && !(await trailer.isVisible()); i++) await page.keyboard.press("ArrowRight");
-  const counter = await page.getByTestId("counter").textContent();
+  const film = await page.locator("h1").textContent();
   await trailer.click();
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Escape");
-  await expect(page.getByTestId("counter")).toHaveText(counter!);
+  await expect(page.locator("h1")).toHaveText(film!);
 });
 
 test("mood tiles show a backdrop still, distinct per tile", async ({ page }) => {

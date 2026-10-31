@@ -89,12 +89,10 @@ test("Back from a mood page returns to the same hero film", async ({ page }) => 
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("ArrowRight");
   const h1 = await page.locator("h1").textContent();
-  const counter = await page.getByTestId("counter").textContent();
   await page.getByRole("button", { name: /^Tense, / }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tense");
   await page.goBack();
   await expect(page.locator("h1")).toHaveText(h1!);
-  await expect(page.getByTestId("counter")).toHaveText(counter!);
 });
 
 test("nav Moods dropdown jumps between moods", async ({ page }) => {

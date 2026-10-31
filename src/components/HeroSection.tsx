@@ -9,6 +9,7 @@ import { EmptyState } from "./EmptyState";
 import { FactsRow } from "./FactsRow";
 import { Hero, HeroDetails, HeroTitle } from "./Hero";
 import { ThumbStrip } from "./ThumbStrip";
+import { ArrowIcon } from "./ui/ArrowIcon";
 import { RoundButton } from "./ui/RoundButton";
 
 const SWIPE_MIN_PX = 60;
@@ -19,14 +20,13 @@ interface HeroSectionProps {
   state: DeckState;
   current: Title | undefined;
   why: string | null;
-  count: string;
   dispatch: (a: DeckAction) => void;
   /** Arrow keys flip only while this is true (home route, nothing modal open). */
   active: boolean;
   onTrailer: (t: Title) => void;
 }
 
-export function HeroSection({ state, current, why, count, dispatch, active, onTrailer }: HeroSectionProps) {
+export function HeroSection({ state, current, why, dispatch, active, onTrailer }: HeroSectionProps) {
   const section = useRef<HTMLElement>(null);
   const still = useRef<HTMLDivElement>(null);
   const touchX = useRef<number | null>(null);
@@ -71,20 +71,17 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
         {/* svh, not dvh: the still must not resize when the browser bar hides on scroll. */}
         <div ref={still} data-testid="still" className="relative h-[64svh] overflow-hidden">
           <Backdrop title={current} upcoming={upcoming} />
-          <span data-testid="counter" className="absolute right-5 top-20 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em] text-(--tint) transition-colors duration-(--duration-bg)">
-            {count}
-          </span>
           {current && (
             // pb-4 leaves room for the title's 12px rise-in so it isn't clipped at the still's edge.
             <div className="absolute inset-x-5 bottom-0 z-(--z-ui) pb-4">
-              <HeroTitle title={current} bylineClassName="pr-24" />
+              <HeroTitle title={current} />
               <FactsRow title={current} />
             </div>
           )}
           {hasDeck && (
             <div className="absolute bottom-3 right-5 z-(--z-ui) flex gap-1.5">
-              <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className={ghostArrow}>←</RoundButton>
-              <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className={ghostArrow}>→</RoundButton>
+              <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className={ghostArrow}><ArrowIcon dir="left" /></RoundButton>
+              <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className={ghostArrow}><ArrowIcon dir="right" /></RoundButton>
             </div>
           )}
         </div>
@@ -107,8 +104,8 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
       </span>
       {hasDeck && (
         <>
-          <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className="absolute left-11 top-1/2 z-(--z-ui) -translate-y-1/2">←</RoundButton>
-          <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className="absolute right-11 top-1/2 z-(--z-ui) -translate-y-1/2">→</RoundButton>
+          <RoundButton label="Previous" onClick={() => dispatch({ type: "prev" })} className="absolute left-11 top-1/2 z-(--z-ui) -translate-y-1/2"><ArrowIcon dir="left" /></RoundButton>
+          <RoundButton label="Next" onClick={() => dispatch({ type: "next" })} className="absolute right-11 top-1/2 z-(--z-ui) -translate-y-1/2"><ArrowIcon dir="right" /></RoundButton>
         </>
       )}
       <div className="absolute bottom-10 left-[84px] right-[300px] z-(--z-ui)">
@@ -118,9 +115,6 @@ export function HeroSection({ state, current, why, count, dispatch, active, onTr
           <EmptyState hint="Loosen the filters." />
         )}
       </div>
-      <span data-testid="counter" className="absolute bottom-[120px] right-11 z-(--z-ui) font-counter text-2xl leading-none tracking-[0.06em] text-(--tint) transition-colors duration-(--duration-bg)">
-        {count}
-      </span>
       <div className="absolute bottom-10 right-11 z-(--z-ui)">
         <ThumbStrip deck={state.deck} index={state.index} ready={heroReady} onJump={(id) => dispatch({ type: "jump", id })} />
       </div>

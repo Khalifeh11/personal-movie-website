@@ -51,11 +51,6 @@ export function deckReducer(titles: Title[], user: User, s: DeckState, a: DeckAc
   }
 }
 
-export function counterText(s: DeckState): string {
-  const pad = (x: number) => String(x).padStart(2, "0");
-  return s.deck.length ? `${pad(s.index + 1)} / ${pad(s.deck.length)}` : "00 / 00";
-}
-
 /** URL hash wins, then what was stored last time, then defaults. Invalid values are dropped. */
 export function resolveInitialFilters(
   hash: string,

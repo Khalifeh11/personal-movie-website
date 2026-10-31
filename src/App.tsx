@@ -39,7 +39,7 @@ function Site() {
   const [trailerFor, setTrailerFor] = useState<Title | null>(null);
   const closeTrailer = useCallback(() => setTrailerFor(null), []);
   // The deck lives for the whole session so the hero keeps its place across routes.
-  const { state, current, count, dispatch, setFilters } = useDeck(titles, entries);
+  const { state, current, dispatch, setFilters } = useDeck(titles, entries);
   const { route, navigate } = useRoute(state.filters, directors);
   // A route change (incl. browser Back) closes the trailer rather than playing it over another page.
   const [trailerRoute, setTrailerRoute] = useState(route);
@@ -65,7 +65,7 @@ function Site() {
       <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
       {route.name === "home" && (
         <Home>
-          <HeroSection state={state} current={current} why={why} count={count} dispatch={dispatch}
+          <HeroSection state={state} current={current} why={why} dispatch={dispatch}
             active={!trailerFor && !filtersOpen}
             onTrailer={setTrailerFor}
           />
