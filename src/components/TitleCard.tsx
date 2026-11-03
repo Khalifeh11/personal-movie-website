@@ -44,7 +44,8 @@ export function TitleCard({ title: t, onClose, onTrailer, onWatched }: TitleCard
               className="relative h-[180px] bg-cover bg-center md:h-[220px]"
               style={t.backdropSmall ? { backgroundImage: `url(${t.backdropSmall})` } : undefined}
             >
-              <FadeImg src={t.backdrop} alt="" className="h-full w-full object-cover transition-opacity duration-500" />
+              {/* absolute: a block img would dodge the floated phone ✕ and slide 44px down past the gradient. */}
+              <FadeImg src={t.backdrop} alt="" className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500" />
               <div aria-hidden className="glow absolute inset-0" style={{ backgroundColor: "var(--tint)" }} />
               <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,#0a0a0a,transparent_70%)]" />
             </div>
