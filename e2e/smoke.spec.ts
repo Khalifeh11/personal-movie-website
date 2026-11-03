@@ -32,9 +32,16 @@ test("nav goes solid after scrolling", async ({ page }) => {
   await expect(nav).toHaveAttribute("data-solid", "true");
 });
 
-test("Moods scrolls to the mood section", async ({ page }) => {
+test("nav is clear at the top of a mood page too", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tense");
+  await expect(page.getByRole("navigation", { name: "Site" })).toHaveAttribute("data-solid", "false");
+});
+
+test("Moods opens the mood list on home as on every page", async ({ page }) => {
   await page.getByRole("button", { name: "Moods", exact: true }).click();
-  await expect(page.locator("#moods")).toBeInViewport();
+  await page.getByRole("menuitem", { name: "Feel-good" }).click();
+  await expect(page).toHaveURL(/#\/mood\/feel-good$/);
 });
 
 test("legacy hash redirects home and keeps valid filters", async ({ page }) => {

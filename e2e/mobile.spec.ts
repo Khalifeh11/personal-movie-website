@@ -32,6 +32,23 @@ test("mood page menu lists the moods", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Feel-good");
 });
 
+test("menu Moods from a mood page lands on the home tiles", async ({ page }) => {
+  await page.goto("/#/mood/tense");
+  await page.getByRole("button", { name: "Menu" }).tap();
+  await page.getByRole("button", { name: "Moods", exact: true }).tap();
+  await expect(page).toHaveURL(/#\/(\?.*)?$/);
+  await expect(page.locator("#moods")).toBeInViewport();
+});
+
+test("the open menu locks page scroll and Esc closes it", async ({ page }) => {
+  const menu = page.getByRole("button", { name: "Menu" });
+  await menu.tap();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
+});
+
 test("swiping the still changes the film", async ({ page }) => {
   const h1 = page.locator("h1");
   const first = await h1.textContent();

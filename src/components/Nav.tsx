@@ -3,6 +3,7 @@ import { MOODS as VOCAB } from "../lib/moods";
 import type { Route } from "../lib/route";
 import type { MoodFilter } from "../lib/types";
 import { MoodDot } from "./ui/MoodDot";
+import { isTopOverlay, popOverlay, pushOverlay } from "./ui/overlayStack";
 
 interface NavProps {
   route: Route;
@@ -12,7 +13,9 @@ interface NavProps {
 
 const MOODS: { slug: MoodFilter; label: string }[] = [...VOCAB, { slug: "all", label: "All titles" }];
 
-const item = "font-ui text-[11px] uppercase tracking-ui text-fg-2 transition-colors hover:text-fg";
+const item = "font-ui text-[13px] uppercase tracking-ui transition-colors hover:text-fg";
+const big = "font-display text-[40px] uppercase leading-[1.1] transition-colors";
+const lit = (on: boolean) => (on ? "text-fg" : "text-fg-3");
 
 function useScrolled(threshold = 40) {
   const [scrolled, setScrolled] = useState(() => scrollY >= threshold);
@@ -24,11 +27,14 @@ function useScrolled(threshold = 40) {
   return scrolled;
 }
 
+/** One bar on every page: clear at the top, solid once scrolled. Phones get a full-screen menu behind a MENU pill. */
 export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
   const scrolled = useScrolled();
   const [menuOpen, setMenuOpen] = useState(false);
   const [moodsOpen, setMoodsOpen] = useState(false);
   const moodsRef = useRef<HTMLDivElement>(null);
+  // Set by the phone menu's Moods link when it leaves another page; home's tiles scroll in once mounted.
+  const toTiles = useRef(false);
   const onHome = route.name === "home";
 
   // Any route change (link, Back) closes open menus.
@@ -38,8 +44,13 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
     setMenuOpen(false);
     setMoodsOpen(false);
   }
-  // Home's hero and the Decades band sit under a clear nav until you scroll.
-  const solid = scrolled || !(onHome || route.name === "decades") || menuOpen;
+  const solid = scrolled || menuOpen;
+
+  useEffect(() => {
+    if (!onHome || !toTiles.current) return;
+    toTiles.current = false;
+    document.getElementById("moods")?.scrollIntoView();
+  }, [onHome]);
 
   // Dropdown closes on Esc or a click anywhere outside it.
   useEffect(() => {
@@ -54,103 +65,119 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
     };
   }, [moodsOpen]);
 
-  const onMoods = () => {
-    if (!onHome) return setMoodsOpen(!moodsOpen);
+  // The phone menu is an overlay: page scroll locked, hero arrows ignored, Esc closes.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const me = Symbol("menu");
+    pushOverlay(me);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && isTopOverlay(me) && setMenuOpen(false);
+    addEventListener("keydown", onKey);
+    return () => {
+      popOverlay(me);
+      removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
+  const go = (r: Route, opts?: { replace?: boolean }) => {
     setMenuOpen(false);
-    document.getElementById("moods")?.scrollIntoView({ behavior: "smooth" });
-  };
-  const goMood = (mood: MoodFilter) => {
     setMoodsOpen(false);
-    setMenuOpen(false);
-    onNavigate({ name: "mood", mood });
+    onNavigate(r, opts);
   };
-  const moodList = (
-    <div role="menu" aria-label="Moods" className="grid grid-cols-2 items-start justify-items-start gap-x-8 gap-y-3">
-      {MOODS.map((m) => (
-        <button
-          key={m.slug}
-          type="button"
-          role="menuitem"
-          onClick={() => goMood(m.slug)}
-          className={`${item} inline-flex items-center gap-2 text-left md:whitespace-nowrap ${route.name === "mood" && route.mood === m.slug ? "text-fg" : ""}`}
-        >
-          <MoodDot slug={m.slug} />
-          {m.label}
-        </button>
-      ))}
-    </div>
-  );
+  const goTiles = () => {
+    setMenuOpen(false);
+    if (onHome) return document.getElementById("moods")?.scrollIntoView({ behavior: "smooth" });
+    toTiles.current = true;
+    onNavigate({ name: "home" });
+  };
+  // Already on Decades: replace, so Back still leaves it.
+  const goDecades = () => go({ name: "decades", decade: null }, { replace: route.name === "decades" });
   const onFilters = () => {
     setMenuOpen(false);
     onOpenFilters();
   };
-
-  const filtersButton = <button type="button" onClick={onFilters} className={item}>Filters</button>;
-  const decadesButton = (
-    <button
-      type="button"
-      onClick={() => {
-        setMenuOpen(false);
-        // Already on the page: replace, so Back still leaves it.
-        onNavigate({ name: "decades", decade: null }, { replace: route.name === "decades" });
-      }}
-      className={`${item} ${route.name === "decades" ? "text-fg" : ""}`}
-    >
-      Decades
-    </button>
+  const moodList = (className: string) => (
+    <div role="menu" aria-label="Moods" className={`flex flex-wrap gap-2 ${className}`}>
+      {MOODS.map((m) => {
+        const current = route.name === "mood" && route.mood === m.slug;
+        return (
+          <button
+            key={m.slug}
+            type="button"
+            role="menuitem"
+            aria-current={current || undefined}
+            onClick={() => go({ name: "mood", mood: m.slug })}
+            className={`inline-flex min-h-9 items-center gap-2 rounded-full border px-3.5 font-ui text-[13px] transition-colors hover:border-white/40 hover:text-fg ${
+              current ? "border-white/60 text-fg" : "border-white/15 text-fg-2"
+            }`}
+          >
+            <MoodDot slug={m.slug} />
+            {m.label}
+          </button>
+        );
+      })}
+    </div>
   );
 
   return (
     <nav
       aria-label="Site"
       data-solid={solid}
-      className={`fixed inset-x-0 top-0 z-(--z-nav) border-b transition-colors duration-(--duration-title) ${
-        solid ? "border-white/10 bg-bg/90 backdrop-blur-md" : "border-transparent"
+      className={`fixed inset-x-0 top-0 z-(--z-nav) flex flex-col border-b transition-colors duration-(--duration-title) ${
+        menuOpen ? "bottom-0 border-white/10 bg-bg md:bottom-auto md:bg-bg/90" : solid ? "border-white/10 bg-bg/90 backdrop-blur-md" : "border-transparent"
       }`}
     >
-      <div className="flex items-center justify-between px-5 py-4 md:px-11 md:py-5">
+      <div className="flex items-center justify-between px-5 py-3 md:px-11 md:py-5">
         <a
           href="#/"
           onClick={(e) => {
             e.preventDefault();
-            setMenuOpen(false);
-            onNavigate({ name: "home" });
+            go({ name: "home" });
           }}
           className="font-display text-xl uppercase leading-none tracking-[0.04em] text-fg"
         >
           Not Tonight
         </a>
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-9 md:flex">
+          <button type="button" onClick={() => go({ name: "home" })} aria-current={onHome ? "page" : undefined} className={`${item} ${lit(onHome)}`}>
+            Home
+          </button>
           <div ref={moodsRef} className="relative">
-            <button type="button" onClick={onMoods} aria-expanded={onHome ? undefined : moodsOpen} className={item}>
+            <button type="button" onClick={() => setMoodsOpen(!moodsOpen)} aria-expanded={moodsOpen} className={`${item} ${lit(route.name === "mood" || moodsOpen)}`}>
               Moods
             </button>
             {moodsOpen && (
-              <div className="absolute right-0 top-full mt-4 w-max border border-white/10 bg-bg/95 px-5 py-4 backdrop-blur-md">
-                {moodList}
+              <div className="absolute right-0 top-full mt-5 w-[420px] border border-white/10 bg-bg/95 p-5 backdrop-blur-md">
+                {moodList("")}
               </div>
             )}
           </div>
-          {decadesButton}
-          {filtersButton}
+          <button type="button" onClick={goDecades} aria-current={route.name === "decades" ? "page" : undefined} className={`${item} ${lit(route.name === "decades")}`}>
+            Decades
+          </button>
+          <button type="button" onClick={onFilters} className={`${item} text-fg-3`}>Filters</button>
         </div>
         <button
           type="button"
           aria-label="Menu"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
-          className="flex size-9 flex-col items-center justify-center gap-[5px] md:hidden"
+          className="-mr-2 flex min-h-11 items-center px-2 md:hidden"
         >
-          <span className="h-px w-5 bg-fg" />
-          <span className="h-px w-5 bg-fg" />
-          <span className="h-px w-5 bg-fg" />
+          <span className="rounded-full border border-white/35 px-4 py-2 font-ui text-[11px] uppercase tracking-ui text-fg">
+            {menuOpen ? "Close" : "Menu"}
+          </span>
         </button>
       </div>
       {menuOpen && (
-        <div className="flex flex-col items-start gap-5 px-5 pb-6 md:hidden">
-          {onHome ? <button type="button" onClick={onMoods} className={item}>Moods</button> : moodList}
-          {decadesButton}
-          {filtersButton}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-10 pt-4 md:hidden">
+          <div className="flex flex-col items-start">
+            <button type="button" onClick={() => go({ name: "home" })} aria-current={onHome ? "page" : undefined} className={`${big} ${lit(onHome)}`}>Home</button>
+            <button type="button" onClick={goTiles} className={`${big} ${lit(route.name === "mood")}`}>Moods</button>
+            <button type="button" onClick={goDecades} aria-current={route.name === "decades" ? "page" : undefined} className={`${big} ${lit(route.name === "decades")}`}>Decades</button>
+            <button type="button" onClick={onFilters} className={`${big} text-fg-3`}>Filters</button>
+          </div>
+          <div className="mt-8 font-ui text-[11px] uppercase tracking-ui text-fg-3">Jump to a mood</div>
+          {moodList("mt-4")}
         </div>
       )}
     </nav>
