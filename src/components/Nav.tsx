@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { MOODS as VOCAB } from "../lib/moods";
 import type { Route } from "../lib/route";
 import type { MoodFilter } from "../lib/types";
-import { MoodDot } from "./ui/MoodDot";
 import { SearchIcon } from "./ui/SearchIcon";
 import { isTopOverlay, popOverlay, pushOverlay } from "./ui/overlayStack";
 
@@ -117,7 +116,6 @@ export function Nav({ route, onNavigate, onOpenFilters, onOpenSearch }: NavProps
               current ? "border-white/60 text-fg" : "border-white/15 text-fg-2"
             }`}
           >
-            <MoodDot slug={m.slug} />
             {m.label}
           </button>
         );

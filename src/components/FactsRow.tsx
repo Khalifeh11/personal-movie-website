@@ -4,16 +4,12 @@ import { genreLine, ratingText } from "../lib/format";
 import { moodLabel } from "../lib/moods";
 import type { Title } from "../lib/types";
 import { Label } from "./ui/Label";
-import { MoodDot } from "./ui/MoodDot";
 
 export function FactsRow({ title }: { title: Title }) {
   const feels = title.moods.length > 0 && (
     <span data-testid="feels" className="flex flex-wrap gap-x-3 gap-y-1">
       {title.moods.map((m) => (
-        <span key={m} className="inline-flex items-center gap-1.5">
-          <MoodDot slug={m} />
-          {moodLabel(m)}
-        </span>
+        <span key={m}>{moodLabel(m)}</span>
       ))}
     </span>
   );

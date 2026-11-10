@@ -3,7 +3,6 @@ import { countLabel, type Tile } from "../lib/moodTiles";
 import type { MoodFilter } from "../lib/types";
 import { FadeImg } from "./ui/FadeImg";
 import { Label } from "./ui/Label";
-import { MoodDot } from "./ui/MoodDot";
 
 const still =
   "absolute inset-0 h-full w-full object-cover brightness-60 transition-[opacity,filter,scale] duration-500 ease-in-out " +
@@ -30,10 +29,7 @@ export function MoodTiles({ tiles, onOpen }: { tiles: Tile[]; onOpen: (mood: Moo
           <span className={edge} />
           <span className="absolute inset-x-3 bottom-3 flex flex-col gap-1.5 md:inset-x-4 md:bottom-4">
             <span className="font-display text-lg uppercase leading-none md:text-2xl lg:text-3xl">{t.label}</span>
-            <span className="flex items-center gap-1.5">
-              <MoodDot slug={t.slug} />
-              <Label className="text-[10px]">{countLabel(t.count)}</Label>
-            </span>
+            <Label className="text-[10px]">{countLabel(t.count)}</Label>
           </span>
         </button>
       ))}
