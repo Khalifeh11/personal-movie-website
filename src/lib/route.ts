@@ -11,14 +11,15 @@ export type Route =
   | { name: "mood"; mood: MoodFilter }
   | { name: "director"; director: string }
   | { name: "shelf"; shelf: ShelfId }
-  | { name: "decades"; decade: Decade | null };
+  | { name: "decades"; decade: Decade | null }
+  | { name: "search"; q: string };
 
 const SLUGS = new Set<string>(["all", ...MOODS.map((m) => m.slug)]);
 const SHELVES = new Set<string>(Object.keys(SHELF_HEADINGS));
 const HOME: Route = { name: "home" };
 
 /**
- * `#/`, `#/mood/<slug>`, `#/director/<slug>`, `#/shelf/<id>`, `#/decades[/<decade>]`, each with an optional `?type=…&rt=…`. Anything else is
+ * `#/`, `#/mood/<slug>`, `#/director/<slug>`, `#/shelf/<id>`, `#/decades[/<decade>]`, `#/search/<query>`, each with an optional `?type=…&rt=…`. Anything else is
  * home with `redirect: true`; a legacy query-only hash (`#mood=x&type=Movie`) keeps its valid filters.
  * Director slugs resolve against `directors` (original names); the first match wins on collision.
  */
@@ -58,6 +59,11 @@ export function parseRoute(
       filters,
       redirect: false,
     };
+  const sq = path.match(/^\/search\/([^/]+)$/);
+  if (sq) {
+    const q = safeDecode(sq[1]).trim();
+    if (q) return { route: { name: "search", q }, filters, redirect: false };
+  }
   const d = path.match(/^\/director\/([^/]+)$/);
   if (d) {
     const director = directors.find((name) => slugify(name) === d[1]);
@@ -81,7 +87,17 @@ export function serializeRoute(route: Route, f: Filters): string {
           ? `/shelf/${route.shelf}`
           : route.name === "decades"
             ? `/decades${route.decade === null ? "" : `/${route.decade}`}`
-            : "/";
+            : route.name === "search"
+              ? `/search/${encodeURIComponent(route.q)}`
+              : "/";
   const query = serializeQuery(f);
   return `#${path}${query ? `?${query}` : ""}`;
+}
+
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return "";
+  }
 }

@@ -88,3 +88,11 @@ test("decade scope lists the decade year-ascending, labelled, keyed, sorted by y
   expect(defaultDirFor(scope, "year")).toBe("asc");
   expect(defaultDirFor({ kind: "mood", mood: "tense" }, "year")).toBe("desc");
 });
+
+test("search scope: ranked matches, quoted label, own key", () => {
+  const scope = { kind: "search", q: "mal" } as const;
+  expect(ids(scopeTitles(all, scope))).toEqual(["d"]);
+  expect(scopeLabel(scope)).toBe("“mal”");
+  expect(scopeKey(scope)).toBe("search:mal");
+  expect(defaultSort(scope)).toBe("imdb");
+});

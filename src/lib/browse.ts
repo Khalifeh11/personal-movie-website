@@ -2,16 +2,23 @@ import { decadeLabel, decadeTitles, type Decade } from "./decades";
 import { titlesBy } from "./directors";
 import { inMood } from "./filters";
 import { moodLabel } from "./moods";
+import { fold, rankTitles } from "./search";
 import { SHELF_HEADINGS, shelfTitles, type ShelfId } from "./shelves";
 import type { MoodFilter, Title, UserEntry } from "./types";
 
-/** What a browse page lists: everything in a mood, everything by a director, a home shelf's set, or a decade's titles. */
-export type Scope = { kind: "mood"; mood: MoodFilter } | { kind: "director"; name: string } | { kind: "shelf"; shelf: ShelfId; today: Date } | { kind: "decade"; decade: Decade };
+/** What a browse page lists: everything in a mood, everything by a director, a home shelf's set, a decade's titles, or a search's matches. */
+export type Scope =
+  | { kind: "mood"; mood: MoodFilter }
+  | { kind: "director"; name: string }
+  | { kind: "shelf"; shelf: ShelfId; today: Date }
+  | { kind: "decade"; decade: Decade }
+  | { kind: "search"; q: string };
 
 export function scopeTitles(titles: Title[], scope: Scope): Title[] {
   if (scope.kind === "mood") return titles.filter((t) => inMood(t, scope.mood));
   if (scope.kind === "director") return titlesBy(titles, scope.name);
   if (scope.kind === "decade") return decadeTitles(titles, scope.decade);
+  if (scope.kind === "search") return rankTitles(titles, scope.q);
   return shelfTitles(titles, scope.shelf, scope.today);
 }
 
@@ -20,6 +27,7 @@ export function scopeLabel(scope: Scope): string {
   if (scope.kind === "mood") return moodLabel(scope.mood);
   if (scope.kind === "director") return scope.name;
   if (scope.kind === "decade") return decadeLabel(scope.decade);
+  if (scope.kind === "search") return `“${scope.q}”`;
   return SHELF_HEADINGS[scope.shelf];
 }
 
@@ -28,6 +36,7 @@ export function scopeKey(scope: Scope): string {
   if (scope.kind === "mood") return `mood:${scope.mood}`;
   if (scope.kind === "director") return `director:${scope.name}`;
   if (scope.kind === "decade") return `decade:${scope.decade}`;
+  if (scope.kind === "search") return `search:${scope.q}`;
   return `shelf:${scope.shelf}`;
 }
 
@@ -79,8 +88,6 @@ export function sortTitles(ts: Title[], key: SortKey, user: User, dir: SortDir =
     return (a - b) * sign;
   });
 }
-
-const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 
 const haystack = (t: Title) =>
   fold([t.title, t.originalTitle, ...t.directors, ...t.genres, ...t.moods.map(moodLabel), ...t.keywords, t.year ?? ""].join("\n"));

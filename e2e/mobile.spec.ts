@@ -172,3 +172,21 @@ test("a horizontal touch drag across the decade chart picks a decade without scr
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("2020s");
   expect(await page.evaluate(() => scrollY)).toBe(scrollBefore);
 });
+
+test("search sits beside Menu and opens full screen", async ({ page }) => {
+  await page.getByRole("navigation", { name: "Site" }).getByRole("button", { name: "Search" }).tap();
+  const box = page.getByRole("combobox", { name: "Search titles" });
+  await expect(box).toBeFocused();
+  await box.fill("lanthimos");
+  await expect(page.getByRole("dialog", { name: "Search" }).getByRole("option").first()).toBeVisible();
+  expect(await noHorizontalScroll(page)).toBe(true);
+  await page.getByRole("dialog", { name: "Search" }).getByRole("button", { name: "Close" }).tap();
+  await expect(page.getByRole("dialog", { name: "Search" })).toHaveCount(0);
+});
+
+test("the phone menu's search field opens search", async ({ page }) => {
+  await page.getByRole("button", { name: "Menu" }).tap();
+  await page.getByRole("button", { name: "Search titles, directors, years" }).tap();
+  await expect(page.getByRole("combobox", { name: "Search titles" })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "false");
+});

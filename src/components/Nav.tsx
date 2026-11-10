@@ -3,12 +3,14 @@ import { MOODS as VOCAB } from "../lib/moods";
 import type { Route } from "../lib/route";
 import type { MoodFilter } from "../lib/types";
 import { MoodDot } from "./ui/MoodDot";
+import { SearchIcon } from "./ui/SearchIcon";
 import { isTopOverlay, popOverlay, pushOverlay } from "./ui/overlayStack";
 
 interface NavProps {
   route: Route;
   onNavigate: (r: Route, opts?: { replace?: boolean }) => void;
   onOpenFilters: () => void;
+  onOpenSearch: () => void;
 }
 
 const MOODS: { slug: MoodFilter; label: string }[] = [...VOCAB, { slug: "all", label: "All titles" }];
@@ -28,7 +30,7 @@ function useScrolled(threshold = 40) {
 }
 
 /** One bar on every page: clear at the top, solid once scrolled. Phones get a full-screen menu behind a MENU pill. */
-export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
+export function Nav({ route, onNavigate, onOpenFilters, onOpenSearch }: NavProps) {
   const scrolled = useScrolled();
   const [menuOpen, setMenuOpen] = useState(false);
   const [moodsOpen, setMoodsOpen] = useState(false);
@@ -95,6 +97,11 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
     setMenuOpen(false);
     onOpenFilters();
   };
+  const onSearch = () => {
+    setMenuOpen(false);
+    setMoodsOpen(false);
+    onOpenSearch();
+  };
   const moodList = (className: string) => (
     <div role="menu" aria-label="Moods" className={`flex flex-wrap gap-2 ${className}`}>
       {MOODS.map((m) => {
@@ -155,21 +162,39 @@ export function Nav({ route, onNavigate, onOpenFilters }: NavProps) {
             Decades
           </button>
           <button type="button" onClick={onFilters} className={`${item} text-fg-3`}>Filters</button>
+          <button type="button" aria-label="Search" title="Search (/)" onClick={onSearch} className={`-mx-2 flex min-h-10 min-w-10 items-center justify-center ${lit(route.name === "search")} transition-colors hover:text-fg`}>
+            <SearchIcon className="size-[18px]" />
+          </button>
         </div>
-        <button
-          type="button"
-          aria-label="Menu"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="-mr-2 flex min-h-11 items-center px-2 md:hidden"
-        >
-          <span className="rounded-full border border-white/35 px-4 py-2 font-ui text-[11px] uppercase tracking-ui text-fg">
-            {menuOpen ? "Close" : "Menu"}
-          </span>
-        </button>
+        <div className="-mr-2 flex items-center md:hidden">
+          {!menuOpen && (
+            <button type="button" aria-label="Search" onClick={onSearch} className="flex min-h-11 min-w-11 items-center justify-center text-fg-2">
+              <SearchIcon className="size-5" />
+            </button>
+          )}
+          <button
+            type="button"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex min-h-11 items-center px-2"
+          >
+            <span className="rounded-full border border-white/35 px-4 py-2 font-ui text-[11px] uppercase tracking-ui text-fg">
+              {menuOpen ? "Close" : "Menu"}
+            </span>
+          </button>
+        </div>
       </div>
       {menuOpen && (
         <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-10 pt-4 md:hidden">
+          <button
+            type="button"
+            onClick={onSearch}
+            className="mb-7 flex w-full items-center gap-3 rounded-full border border-white/20 px-[18px] py-3 text-left font-ui text-[15px] text-fg-3"
+          >
+            <SearchIcon className="size-4" />
+            Search titles, directors, years
+          </button>
           <div className="flex flex-col items-start">
             <button type="button" onClick={() => go({ name: "home" })} aria-current={onHome ? "page" : undefined} className={`${big} ${lit(onHome)}`}>Home</button>
             <button type="button" onClick={goTiles} className={`${big} ${lit(route.name === "mood")}`}>Moods</button>

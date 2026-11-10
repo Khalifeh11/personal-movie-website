@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from "react";
 import { FiltersDrawer } from "./components/FiltersDrawer";
 import { HeroSection } from "./components/HeroSection";
 import { HomeShelves } from "./components/HomeShelves";
@@ -6,6 +6,8 @@ import { BrowsePage } from "./components/BrowsePage";
 import { DecadesPage } from "./components/DecadesPage";
 import { MoodTiles } from "./components/MoodTiles";
 import { Nav } from "./components/Nav";
+import { SearchPalette } from "./components/SearchPalette";
+import { TitleCard } from "./components/TitleCard";
 import { TrailerOverlay } from "./components/TrailerOverlay";
 import { Label } from "./components/ui/Label";
 import titlesJson from "./data/titles.json";
@@ -38,15 +40,34 @@ function Site() {
   const closeFilters = useCallback(() => setFiltersOpen(false), []);
   const [trailerFor, setTrailerFor] = useState<Title | null>(null);
   const closeTrailer = useCallback(() => setTrailerFor(null), []);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
+  // A card opened from search sits over whatever page you're on.
+  const [cardFor, setCardFor] = useState<Title | null>(null);
   // The deck lives for the whole session so the hero keeps its place across routes.
   const { state, current, dispatch, setFilters } = useDeck(titles, entries);
   const { route, navigate } = useRoute(state.filters, directors);
-  // A route change (incl. browser Back) closes the trailer rather than playing it over another page.
+  // A route change (incl. browser Back) closes the trailer, search and its card rather than leaving them over another page.
   const [trailerRoute, setTrailerRoute] = useState(route);
   if (trailerRoute !== route) {
     setTrailerRoute(route);
     setTrailerFor(null);
+    setSearchOpen(false);
+    setCardFor(null);
   }
+  // "/" (outside a text field) or ⌘K / Ctrl+K opens search from any page.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      const typing = t?.tagName === "INPUT" || t?.tagName === "TEXTAREA" || t?.tagName === "SELECT" || t?.isContentEditable;
+      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey)) {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    addEventListener("keydown", onKey);
+    return () => removeEventListener("keydown", onKey);
+  }, []);
   const tiles = useMemo(() => moodTiles(state.deck, titles), [state.deck]);
   // Fixed for the session: "today" gates multi-year thresholds and the "around this day" shelf.
   const [today] = useState(() => new Date());
@@ -58,15 +79,17 @@ function Site() {
         ? { kind: "director", name: route.director }
         : route.name === "shelf"
           ? { kind: "shelf", shelf: route.shelf, today }
-          : null;
+          : route.name === "search"
+            ? { kind: "search", q: route.q }
+            : null;
 
   return (
     <div className="min-h-dvh bg-bg font-ui text-fg">
-      <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} />
+      <Nav route={route} onNavigate={navigate} onOpenFilters={() => setFiltersOpen(true)} onOpenSearch={() => setSearchOpen(true)} />
       {route.name === "home" && (
         <Home>
           <HeroSection state={state} current={current} why={why} dispatch={dispatch}
-            active={!trailerFor && !filtersOpen}
+            active={!trailerFor && !filtersOpen && !searchOpen && !cardFor}
             onTrailer={setTrailerFor}
           />
           <section id="moods" className="scroll-mt-20 px-5 py-16 md:px-11 md:py-24">
@@ -84,7 +107,7 @@ function Site() {
           onFilters={setFilters}
           onTrailer={setTrailerFor}
           navigate={navigate}
-          active={!trailerFor && !filtersOpen}
+          active={!trailerFor && !filtersOpen && !searchOpen && !cardFor}
           today={today}
         />
       )}
@@ -99,6 +122,8 @@ function Site() {
           onTrailer={setTrailerFor}
         />
       )}
+      <SearchPalette open={searchOpen} onClose={closeSearch} titles={titles} onNavigate={navigate} onOpenTitle={setCardFor} />
+      <TitleCard title={cardFor} onClose={() => setCardFor(null)} onTrailer={setTrailerFor} onWatched={() => {}} />
       <TrailerOverlay title={trailerFor} onClose={closeTrailer} />
       <FiltersDrawer
         open={filtersOpen}

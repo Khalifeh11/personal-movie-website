@@ -107,14 +107,14 @@ export function BrowsePage({ scope, viewKey, titles, filters, onFilters, onTrail
           >
             {dir === "asc" ? "↑" : "↓"}
           </button>
-          <input
+          {scope.kind !== "search" && <input
             type="search"
             aria-label="Search"
             placeholder="Title, director, genre…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className={`${control} w-52`}
-          />
+          />}
           <Pill active={filters.hideWatched} onClick={() => onFilters({ hideWatched: !filters.hideWatched })}>
             Hide watched
           </Pill>

@@ -156,3 +156,12 @@ test("serializeRoute decades", () => {
     serializeRoute({ name: "decades", decade: 2000 }, F({ type: "Movie" })),
   ).toBe("#/decades/2000?type=Movie");
 });
+
+test("search route round-trips the query, blank or malformed ones go home", () => {
+  const route = { name: "search", q: "lost in translation?" } as const;
+  const hash = serializeRoute(route, F());
+  expect(hash).toBe("#/search/lost%20in%20translation%3F");
+  expect(parseRoute(hash).route).toEqual(route);
+  expect(parseRoute("#/search/90s?type=Movie")).toEqual({ route: { name: "search", q: "90s" }, filters: { type: "Movie" }, redirect: false });
+  for (const h of ["#/search/", "#/search/%20", "#/search/%E0%A4%A"]) expect(parseRoute(h).redirect, h).toBe(true);
+});
